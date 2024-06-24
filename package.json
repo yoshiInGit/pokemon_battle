@@ -11,7 +11,11 @@
     "type-check": "vue-tsc --build --force"
   },
   "dependencies": {
+    "@types/animejs": "^3.1.12",
+    "@types/howler": "^2.2.11",
+    "animejs": "^3.2.2",
     "create-vite": "^5.3.0",
+    "howler": "^2.2.4",
     "pinia": "^2.1.7",
     "vue": "^3.4.29"
   },
