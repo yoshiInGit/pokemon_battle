@@ -7,8 +7,7 @@ import startBgmUrl from '../assets/sound/bgm/start_music.mp3'
 import pironUrl from '../assets/sound/effect/piron.mp3'
 import shiiinUrl from '../assets/sound/effect/shiiin.mp3'
 import { useGlobalEvent } from './global_event';
-
-
+import { useBattleEvent } from './battle_event';
 
 
 const snd_bgm    = new Howl({src : startBgmUrl});
@@ -78,6 +77,8 @@ export const useEntryEvent = defineStore('entryEvent', () => {
         await sleep_ms(600);  
         
         useGlobalEvent().changeScene("battle")
+
+        //useBattleEvent().startBattle();
     }
 
     return {onStartTapped, onPokemonSet, onBattle}

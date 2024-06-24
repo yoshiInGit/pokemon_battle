@@ -45,6 +45,7 @@ export const blink = async ({id, duration} : {id : string, duration : number}) =
 
 export const changeImg = ({id, src} : {id: string, src : string}) => {
     const el : any = document.querySelector(`#${id}`)!;
+    console.log(el)
     el.setAttribute('src', src);
 }
 
