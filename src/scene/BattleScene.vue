@@ -1,12 +1,26 @@
 <script setup>
 import {onMounted} from 'vue';
 import {useBattleEvent} from '../event/battle_event'
+import {computed, ref} from 'vue'
 
-const {startBattle} = useBattleEvent();
+
+const battleEventStore = useBattleEvent();
 
 onMounted(()=>{
-  startBattle();
+  battleEventStore.startBattle();
 });
+
+const p1CardImgUrl = computed(()=>battleEventStore.p1CardImgUrl);
+const p2CardImgUrl = computed(()=>battleEventStore.p2CardImgUrl);
+
+const p1Name = computed(()=>battleEventStore.p1Name);
+const p2Name = computed(()=>battleEventStore.p2Name);
+
+const p1Hp   = computed(()=>battleEventStore.p1HpStr);
+const p2Hp   = computed(()=>battleEventStore.p2HpStr);
+
+const p1HpRate   = computed(()=>battleEventStore.p1HpRate);
+const p2HpRate   = computed(()=>battleEventStore.p2HpRate);
 
 </script>
 
@@ -15,24 +29,24 @@ onMounted(()=>{
 
     <div class="player1Inf">
       <div class="player1Inf-hpIndicatorBase">
-        <div class="player1Inf-hpIndicator" id="player1Inf_hpIndicator"></div>
+        <div class="player1Inf-hpIndicator" id="player1Inf_hpIndicator" :style="`width: ${p1HpRate*100}%;`"></div>
       </div>
-      <div class="player1Inf-hp" id="player1Inf_hp">--/--</div>
-      <div class="player1Inf-name" id="player1Inf_name">---</div>
+      <div class="player1Inf-hp" id="player1Inf_hp">{{ p1Hp }}</div>
+      <div class="player1Inf-name" id="player1Inf_name">{{ p1Name }}</div>
     </div>
 
 
     <div class="player2Inf">
       <div class="player2Inf-hpIndicatorBase">
-        <div class="player2Inf-hpIndicator" id="player2Inf_hpIndicator"></div>
+        <div class="player2Inf-hpIndicator" id="player2Inf_hpIndicator" :style="`width: ${p2HpRate*100}%;`"></div>
       </div>
-      <div class="player2Inf-hp" id="player2Inf_hp">--/--</div>
-      <div class="player2Inf-name" id="player2Inf_name">---</div>
+      <div class="player2Inf-hp" id="player2Inf_hp">{{ p2Hp }}</div>
+      <div class="player2Inf-name" id="player2Inf_name">{{ p2Name }}</div>
     </div>
 
 
-    <img src="/img/card/card.png"  alt="" class="player1Card" id="player1Card">
-    <img src="/img/card/card.png" alt="" class="player2Card"  id="player2Card">
+    <img :src="p1CardImgUrl"  alt="" class="player1Card" id="player1Card">
+    <img :src="p2CardImgUrl" alt="" class="player2Card"  id="player2Card">
 
     <div class="veil" id="veil"></div>
 

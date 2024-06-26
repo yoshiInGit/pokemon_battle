@@ -43,17 +43,6 @@ export const blink = async ({id, duration} : {id : string, duration : number}) =
 
 }
 
-export const changeImg = ({id, src} : {id: string, src : string}) => {
-    const el : any = document.querySelector(`#${id}`)!;
-    console.log(el)
-    el.setAttribute('src', src);
-}
-
-export const setValue = ({id, value} : {id: string, value : string}) => {
-    const el : any = document.querySelector(`#${id}`)!;
-    el.textContent = value;
-}
-
 export const sleep_ms = (ms : number) => {
     return new Promise(resolve => setTimeout(resolve, ms));
 };
