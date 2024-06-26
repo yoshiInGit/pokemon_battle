@@ -2,6 +2,7 @@
 import {onMounted} from 'vue';
 import {useBattleEvent} from '../event/battle_event'
 import {computed, ref} from 'vue'
+import AttackMenu from './module/AttackMenu.vue'
 
 
 const battleEventStore = useBattleEvent();
@@ -9,6 +10,8 @@ const battleEventStore = useBattleEvent();
 onMounted(()=>{
   battleEventStore.startBattle();
 });
+
+const isShowAtcMenu = computed(()=>battleEventStore.isShowAtcMenu);
 
 const p1CardImgUrl = computed(()=>battleEventStore.p1CardImgUrl);
 const p2CardImgUrl = computed(()=>battleEventStore.p2CardImgUrl);
@@ -50,14 +53,9 @@ const p2HpRate   = computed(()=>battleEventStore.p2HpRate);
 
     <div class="veil" id="veil"></div>
 
+    <AttackMenu v-show="isShowAtcMenu"/>
     
         <!-- 
-
-    <div class="atkMenu" id="atkMenu">
-      <div class="atkMenu-list" id="atkMenu_list">10万ボルト</div>
-      <div class="atkMenu-list" id="atkMenu_list">10万ボルト</div>
-      <div class="atkMenu-list" id="atkMenu_list">10万ボルト</div>
-    </div>
     
     <img src="./assets/imgs/basic/WIN!.png" alt="" class="win">
     <img src="./assets/imgs/basic/lose.png" alt="" class="lose"> -->

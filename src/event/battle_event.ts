@@ -8,6 +8,9 @@ import sndSunnUrl from '../assets/sound/effect/sunn.mp3'
 import sndZutiinUrl from '../assets/sound/effect/zutiin.mp3'
 import sndStudiamUrl from '../assets/sound/effect/studiam.mp3'
 import sndKyaUrl from '../assets/sound/effect/kya-.mp3'
+import {useGlobalEvent} from './global_event'
+import type { Pokemon } from '@/domain/pokemon';
+
 
 
 const sndBgm = new Howl({src : boltBgmUrl, volume : 0});
@@ -19,6 +22,13 @@ const sndKya = new Howl({src : sndKyaUrl});
 
 
 export const useBattleEvent = defineStore('battleEvent', () => {
+    const globalEventStore = useGlobalEvent();
+    const p1Pokemon = globalEventStore.p1Pokemon;
+    const p2Pokemon = globalEventStore.p2Pokemon;
+    
+    const isBattling = ref(false);
+    const isShowAtcMenu = ref(false);
+
     const p1CardImgUrl = ref("/img/card/card.png");
     const p2CardImgUrl = ref("/img/card/card.png");
 
@@ -27,13 +37,17 @@ export const useBattleEvent = defineStore('battleEvent', () => {
 
     const p1Hp = ref(0);
     const p2Hp = ref(0);
-    const p1HpStr = computed(()=>`${p1Hp.value}/100`);
-    const p2HpStr = computed(()=>`${p2Hp.value}/100`);
-    const p1HpRate = computed(()=>p1Hp.value/100);
-    const p2HpRate = computed(()=>p2Hp.value/100);
+    const p1HpStr = computed(()=> isBattling.value ? `${p1Hp.value}/${p1Pokemon.hp}` : '--/--');
+    const p2HpStr = computed(()=> isBattling.value ? `${p2Hp.value}/${p2Pokemon.hp}` : '--/--');
+    const p1HpRate = computed(()=>p1Hp.value/p1Pokemon.hp);
+    const p2HpRate = computed(()=>p2Hp.value/p2Pokemon.hp);
+
 
     
     const startBattle = async () => {
+
+        const p1Pokemon = globalEventStore.p1Pokemon;
+        const p2Pokemon = globalEventStore.p2Pokemon;
 
         sndBgm.volume(0)
         sndBgm.play();
@@ -58,8 +72,8 @@ export const useBattleEvent = defineStore('battleEvent', () => {
         })
         await sleep_ms(2000);
     
-        p1CardImgUrl.value = "/img/card/myu.png"
-        p2CardImgUrl.value = "/img/card/pika.png"
+        p1CardImgUrl.value = p1Pokemon.cardImgUrl;
+        p2CardImgUrl.value = p2Pokemon.cardImgUrl;
 
         anime({
             targets : "#player1Card,#player2Card",
@@ -77,16 +91,18 @@ export const useBattleEvent = defineStore('battleEvent', () => {
     
         await sleep_ms(300);
     
-        p1Name.value = "ミューツー";
-        p2Name.value = "ピカチュウ";
+        p1Name.value = p1Pokemon.name
+        p2Name.value = p2Pokemon.name
     
+        isBattling.value = true;
+
         //HPアニメーション
         // もっとスマートな書き方ある？
         let hps_tmp = {p1 : 0, p2 : 0}
         anime({
             targets : hps_tmp,
-            p1 : 100,
-            p2 : 100,
+            p1 : p1Pokemon.hp,
+            p2 : p2Pokemon.hp,
             round : 1,
             easing: 'easeOutCirc',
             duration : 4000,
@@ -98,7 +114,9 @@ export const useBattleEvent = defineStore('battleEvent', () => {
         await sleep_ms(4000);
     
         await sleep_ms(500);
+
+        isShowAtcMenu.value = true;
     }
 
-    return {p1CardImgUrl, p2CardImgUrl, p1Name, p2Name, p1HpStr, p2HpStr, p1HpRate, p2HpRate, startBattle}
+    return {p1CardImgUrl, p2CardImgUrl, p1Name, p2Name, p1HpStr, p2HpStr, p1HpRate, p2HpRate, startBattle, isShowAtcMenu}
 })

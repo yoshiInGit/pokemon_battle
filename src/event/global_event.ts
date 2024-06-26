@@ -1,5 +1,9 @@
+import type { Pokemon } from '@/domain/pokemon';
+import { Myutu } from '@/domain/pokemons/myutu';
+import { Pikachu } from '@/domain/pokemons/pikachu';
 import { defineStore } from 'pinia'
 import { ref } from 'vue';
+
 
 export const useGlobalEvent = defineStore('globalEvent', () => {
     const currentScene = ref("entry");
@@ -8,5 +12,15 @@ export const useGlobalEvent = defineStore('globalEvent', () => {
         currentScene.value = sceneName;
     }
 
-    return {currentScene, changeScene}
+    const p1Pokemon = ref<Pokemon>(new Myutu());
+    const setP1Pokemon = (pokemon : Pokemon) => {
+        p1Pokemon.value = pokemon;
+    }
+
+    const p2Pokemon = ref<Pokemon>(new Pikachu());
+    const setP2Pokemon = (pokemon : Pokemon) => {
+        p2Pokemon.value = pokemon;
+    }
+
+    return {currentScene, changeScene, p1Pokemon, setP1Pokemon, p2Pokemon, setP2Pokemon}
 })
