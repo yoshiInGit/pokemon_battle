@@ -1,8 +1,16 @@
+<script setup>
+import {useBattleEvent} from '../../event/battle_event'
+
+const battleEventStore = useBattleEvent();
+
+
+</script>
+
 <template>
     <div class="atkMenu" id="atkMenu">
-      <div class="atkMenu-list" id="atkMenu_list">10万ボルト</div>
-      <div class="atkMenu-list" id="atkMenu_list">10万ボルト</div>
-      <div class="atkMenu-list" id="atkMenu_list">10万ボルト</div>
+      <div class="atkMenu-list" id="atkMenu_list" @click="()=>{battleEventStore.onAtkClicked(0)}">10万ボルト</div>
+      <div class="atkMenu-list" id="atkMenu_list" @click="()=>{battleEventStore.onAtkClicked(1)}">10万ボルト</div>
+      <div class="atkMenu-list" id="atkMenu_list" @click="()=>{battleEventStore.onAtkClicked(2)}">10万ボルト</div>
     </div>
 </template>
 

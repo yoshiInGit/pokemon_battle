@@ -12,6 +12,8 @@ onMounted(()=>{
 });
 
 const isShowAtcMenu = computed(()=>battleEventStore.isShowAtcMenu);
+const isShowP1Cutin = computed(()=>battleEventStore.isShowP1Cutin);
+
 
 const p1CardImgUrl = computed(()=>battleEventStore.p1CardImgUrl);
 const p2CardImgUrl = computed(()=>battleEventStore.p2CardImgUrl);
@@ -24,6 +26,7 @@ const p2Hp   = computed(()=>battleEventStore.p2HpStr);
 
 const p1HpRate   = computed(()=>battleEventStore.p1HpRate);
 const p2HpRate   = computed(()=>battleEventStore.p2HpRate);
+
 
 </script>
 
@@ -50,6 +53,10 @@ const p2HpRate   = computed(()=>battleEventStore.p2HpRate);
 
     <img :src="p1CardImgUrl"  alt="" class="player1Card" id="player1Card">
     <img :src="p2CardImgUrl" alt="" class="player2Card"  id="player2Card">
+
+    <img src="/img/cutin/cutin.png" alt="" class="p1cutIn" id="p1cutIn" v-show="isShowP1Cutin">
+
+    <div class="flash" v-show="false"></div>
 
     <div class="veil" id="veil"></div>
 
@@ -188,4 +195,25 @@ const p2HpRate   = computed(()=>battleEventStore.p2HpRate);
     opacity: 1;
     display:  block;
   }
+
+.p1cutIn{
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    clip-path: polygon(0 7%, 100% 23%, 100% 91%, 0 74%);
+}
+
+.flash{
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: white;
+    mix-blend-mode: hard-light;
+    opacity: 0.7;
+}
 </style>
