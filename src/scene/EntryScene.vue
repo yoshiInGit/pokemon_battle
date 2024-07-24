@@ -2,11 +2,29 @@
 import anime from "animejs";
 import {onMounted} from 'vue';
 import {useEntryEvent} from '../event/entry_event'
+import { useGlobalEvent } from "../event/global_event";
 
 const {onStartTapped, onPokemonSet, onBattle} = useEntryEvent(); 
 
+const {changeScene} = useGlobalEvent();
+
 onMounted(()=>{
-    onPokemonSet();
+    const channel = new BroadcastChannel("pokemon-battle");
+    channel.addEventListener("message",(event)=>{
+        const msg = event.data;
+        console.log(msg)
+        
+        if(msg.order=="pokemon-set"){
+            onPokemonSet(msg.payload);
+            return;
+        }
+
+        if(msg.order=="start-battle"){
+            onBattle();
+            return;
+        }
+
+    })
 });
 
 </script>
@@ -33,6 +51,8 @@ onMounted(()=>{
     <div class="press-start" id="press_start" @click="onStartTapped">
         TAP TO START
     </div>
+
+    <div class="control" @click="()=>{changeScene('entryControl')}"></div>
 </template>
 
 <style scoped>
@@ -129,5 +149,14 @@ onMounted(()=>{
     color: white;
     background-color: rgba(0, 0, 0, 0.421);
     font-size: 600%;
+  }
+
+  .control{
+    width: 10px;
+    height : 10px;
+    background-color: white;
+    position: fixed;
+    top: 10px;
+    left: 10px;
   }
 </style>

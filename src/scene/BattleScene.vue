@@ -3,12 +3,22 @@ import {onMounted} from 'vue';
 import {useBattleEvent} from '../event/battle_event'
 import {computed, ref} from 'vue'
 import AttackMenu from './module/AttackMenu.vue'
+import { mapState } from 'pinia';
 
 
 const battleEventStore = useBattleEvent();
 
 onMounted(()=>{
-  battleEventStore.startBattle();
+    battleEventStore.startBattle();
+
+    const channel = new BroadcastChannel("pokemon-battle");
+    channel.addEventListener("message", (event)=>{
+        const msg = event.data;
+
+        if(msg.order == "attack"){
+            battleEventStore.onAtkClicked(msg.payload);
+        }
+    });
 });
 
 const isShowAtcMenu = computed(()=>battleEventStore.isShowAtcMenu);

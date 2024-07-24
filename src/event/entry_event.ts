@@ -31,9 +31,7 @@ export const useEntryEvent = defineStore('entryEvent', () => {
         hide({id : "press_start"});
     }
 
-    const onPokemonSet = async () => {
-        await sleep_ms(1400);
-    
+    const onPokemonSet = async (pokemon : string) => {    
         await fadeout({targets : "#waiting", time_ms : 200});
         hide({id : "waiting"});
     

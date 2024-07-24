@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import EntryScene from './scene/EntryScene.vue';
 import BattleScene from './scene/BattleScene.vue';
+import EntryControl from './scene/EntryControl.vue'
+import BattleControl from './scene/BattleControl.vue'
 import {useGlobalEvent} from './event/global_event'
 import {computed} from 'vue'
 
@@ -13,7 +15,9 @@ const currentScene = computed(() => globalEventStore.currentScene);
   <div class="wrapper">
     <div class="scene">
       <EntryScene v-if="currentScene === 'entry'"/>
+      <EntryControl v-if="currentScene === 'entryControl'"/>
       <BattleScene v-if="currentScene === 'battle'"/>
+      <BattleControl v-if="currentScene === 'battle-control'"></BattleControl>
     </div>
   </div>
 </template>

@@ -30,13 +30,12 @@ export const useBattleEvent = defineStore('battleEvent', () => {
     
     const isBattling = ref(false);
     const isShowAtcMenu = ref(false);
-    const isShowP1Cutin = ref(false);
+    const isShowCutin = ref(false);
 
     const p1CardImgUrl = ref("/img/card/card.png");
     const p2CardImgUrl = ref("/img/card/card.png");
 
-    const p1CutinImg = ref("");
-    const p2CutinImg = ref("");
+    const cutinImg = ref("");
 
     const p1Name = ref("---");
     const p2Name = ref("---");
@@ -131,68 +130,79 @@ export const useBattleEvent = defineStore('battleEvent', () => {
 
         isShowAtcMenu.value = false;
 
-        if(turnCnt.value % 2 == 0){
-            await sleep_ms(200);
 
-            p1CutinImg.value = p2Pokemon.cutinImgUrl[atkNo];
-            isShowP1Cutin.value = true;
-
-            anime({
-                targets : "#p1cutIn",
-                duration: 180,
-                clipPath: ["clip-path: polygon(0 39%, 100% 62%, 100% 62%, 0 39%)", "polygon(0 7%, 100% 23%, 100% 91%, 0 74%)"],
-                easing: 'easeInQuint'
-            })
-            await sleep_ms(250);
-
-            await sleep_ms(800);
-
-            isShowP1Cutin.value = false;
-
-            await p2Pokemon.onAttack({no : atkNo});
-
-            // ダメージ処理
-            let damagedHp = p1Hp.value - p2Pokemon.atk[atkNo];
-            if(damagedHp < 0){
-                damagedHp = 0;
-            }
-            const animation = anime({
-                targets: "#player1Card",
-                opacity: [0, 0.2, 1],
-                duration: 150, // 点滅にかかる時間（ミリ秒）
-                loop:true,
-                easing: 'steps(3)', // イージング関数
-                iterations: Infinity, // 繰り返し回数（無限回）
-            });
+        const isP2Turn = turnCnt.value % 2 == 0
+        let attackingPokemon = isP2Turn ? p2Pokemon : p1Pokemon;
+        let attackedPokemon  = isP2Turn ? p1Pokemon : p2Pokemon;
+        let attackedCardId   = isP2Turn ? "#player1Card" : "#player2Card";
+        let cutinId          = isP2Turn ?  "#p2cutIn" : "#p1cutIn"
+        let attackedHp       = isP2Turn ? p1Hp : p2Hp;
+        
+        await sleep_ms(200);
+        cutinImg.value = attackingPokemon.cutinImgUrl[atkNo];
+        isShowCutin.value = true;
     
-            let hp = {val : p1Hp.value}
-            anime({
-                targets : hp,
-                val : damagedHp,
-                duration: p2Pokemon.atk[atkNo] / 2.3,
-                easing : "linear",
-                round : 1,
-                update: function(){
-                    p1Hp.value = hp.val
-                }
-            })
-            await sleep_ms(p2Pokemon.atk[atkNo] / 2.3);
-    
-            animation.pause();
-            anime({
-                targets : "#player1Card",
-                duration: 0,
-                opacity : 1,
-            })
-            // ーーーダメージ処理終了ーーー
-
-            await sleep_ms(400);
-
-            await p2Pokemon.onAttacked({no : atkNo});
+        anime({
+            targets : cutinId,
+            duration: 180,
+            clipPath: ["clip-path: polygon(0 39%, 100% 62%, 100% 62%, 0 39%)", "polygon(0 7%, 100% 23%, 100% 91%, 0 74%)"],
+            easing: 'easeInQuint'
+        })
+        await sleep_ms(250);
+        
+        await sleep_ms(800);
+        isShowCutin.value = false;
+        await attackingPokemon.onAttack({no : atkNo});
+        // ダメージ処理
+        let damagedHp = attackedHp.value - attackingPokemon.atk[atkNo];
+        if(damagedHp < 0){
+            damagedHp = 0;
         }
+        const animation = anime({
+            targets: attackedCardId,
+            opacity: [0, 0.2, 1],
+            duration: 150, // 点滅にかかる時間（ミリ秒）
+            loop:true,
+            easing: 'steps(3)', // イージング関数
+            iterations: Infinity, // 繰り返し回数（無限回）
+        });
+
+        let hp = {val : attackedHp.value}
+        anime({
+            targets : hp,
+            val : damagedHp,
+            duration: attackingPokemon.atk[atkNo] / 2.3,
+            easing : "linear",
+            round : 1,
+            update: function(){
+                p1Hp.value = hp.val
+            }
+        })
+        await sleep_ms(attackingPokemon.atk[atkNo] / 2.3);
+
+        animation.pause();
+        anime({
+            targets : attackedCardId,
+            duration: 0,
+            opacity : 1,
+        })
+        // ーーーダメージ処理終了ーーー
+        await sleep_ms(400);
+        
+        await attackingPokemon.onAttacked({no : atkNo});
+        
+        await sleep_ms(400);
+        
+        isShowAtcMenu.value = true;
+    
     }
 
+    const onSupportCardUsed = async (cardName : string) => {
+
+    }
+
+    const onBattleFinished = async (isWin : boolean) => {}
 
 
-    return {p1CardImgUrl, p2CardImgUrl, p1Name, p2Name, p1HpStr, p2HpStr, p1HpRate, p2HpRate, startBattle, isShowAtcMenu, onAtkClicked, isShowP1Cutin}
+    return {p1CardImgUrl, p2CardImgUrl, p1Name, p2Name, p1HpStr, p2HpStr, p1HpRate, p2HpRate, startBattle, isShowAtcMenu, onAtkClicked, isShowP1Cutin: isShowCutin}
 })
