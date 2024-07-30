@@ -31,6 +31,10 @@ const p1HpRate = computed(()=>battleEventStore.p1HpRate);
     height: 12%;
     clip-path: polygon(0 0, 85% 0, 100% 100%, 0% 100%);
     box-shadow: 6px 6px 10px 0px rgba(0, 0, 0, 0.4);
+
+    font-family : "Noto Sans JP", sans-serif;
+    font-optical-sizing: auto;
+    font-style  : normal;
 }
 
 .player1Inf-hpIndicatorBase{

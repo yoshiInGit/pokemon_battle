@@ -4,6 +4,7 @@ import { sleep_ms } from "@/helper";
 
 export class Pikachu implements Pokemon{
     atk = [7000, 7000, 7000]
+    atkName = ["じゅうまんボルト", "じゅうまんボルト", "じゅうまんボルト"];
     cutinImgUrl = ["/img/cutin/cutin.png", "/img/cutin/cutin.png", "/img/cutin/cutin.png"];
     name = "ピカチュウ"
     hp   = 7000

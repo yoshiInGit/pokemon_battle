@@ -25,6 +25,9 @@ const sndPiron  = new Howl({src : pironUrl});
 
 export const useBattleEvent = defineStore('battleEvent', () => {
     const globalEventStore = useGlobalEvent();
+
+    const messageText = ref("");
+
     const p1Pokemon = globalEventStore.p1Pokemon;
     const p2Pokemon = globalEventStore.p2Pokemon;
     
@@ -49,7 +52,6 @@ export const useBattleEvent = defineStore('battleEvent', () => {
 
     const turnCnt = ref(0);
 
-
     
     const startBattle = async () => {
 
@@ -63,7 +65,7 @@ export const useBattleEvent = defineStore('battleEvent', () => {
         await fadeout({targets : "#veil", time_ms : 3000, easing : "easeInCirc"});
         
         hide({id : "veil"});
-    
+
         await sleep_ms(800);
     
         sndSunn.play()
@@ -130,15 +132,19 @@ export const useBattleEvent = defineStore('battleEvent', () => {
 
         isShowAtcMenu.value = false;
 
-
+        // ターン別処理
         const isP2Turn = turnCnt.value % 2 == 0
         let attackingPokemon = isP2Turn ? p2Pokemon : p1Pokemon;
         let attackedPokemon  = isP2Turn ? p1Pokemon : p2Pokemon;
         let attackedCardId   = isP2Turn ? "#player1Card" : "#player2Card";
-        let cutinId          = isP2Turn ?  "#p2cutIn" : "#p1cutIn"
         let attackedHp       = isP2Turn ? p1Hp : p2Hp;
         
         await sleep_ms(200);
+
+        await _openMessageBox();
+        await _typeMessage(attackingPokemon.name+" は、\n"+attackingPokemon.atkName[atkNo]+ "を　はなった！");
+        await sleep_ms(1000);
+        await _closeMessageBog();
 
         //カットイン
         cutinImg.value = attackingPokemon.cutinImgUrl[atkNo];
@@ -157,7 +163,7 @@ export const useBattleEvent = defineStore('battleEvent', () => {
         //カットイン---------------
 
         await attackingPokemon.onAttack({no : atkNo});
-        
+
         // ダメージ処理
         let damagedHp = attackedHp.value - attackingPokemon.atk[atkNo];
         if(damagedHp < 0){
@@ -202,6 +208,35 @@ export const useBattleEvent = defineStore('battleEvent', () => {
     
     }
 
+    const _openMessageBox = async () => {
+        anime({
+            targets  : "#messageBox",
+            width    : "90%",
+            duration : 150,
+            easing   : "easeInQuint"
+        });
+        await sleep_ms(150);
+    }
+
+    const  _closeMessageBog = async () => {
+        messageText.value = ""
+
+        anime({
+            targets  : "#messageBox",
+            width    : "0%",
+            duration : 150,
+            easing   : "easeInQuint"
+        });
+        await sleep_ms(150);
+    } 
+
+    const _typeMessage = async (text : string) => {
+        for(let i=0;i<text.length+1;i++){
+            messageText.value = text.slice(0, i);
+            await sleep_ms(40);
+        }
+    }
+
     const onSupportCardUsed = async (cardName : string) => {
 
     }
@@ -209,5 +244,19 @@ export const useBattleEvent = defineStore('battleEvent', () => {
     const onBattleFinished = async (isWin : boolean) => {}
 
 
-    return {p1CardImgUrl, p2CardImgUrl, p1Name, p2Name, p1HpStr, p2HpStr, p1HpRate, p2HpRate, startBattle, isShowAtcMenu, onAtkClicked, isShowP1Cutin: isShowCutin}
+    return {
+        messageText,
+        p1CardImgUrl, 
+        p2CardImgUrl, 
+        p1Name, 
+        p2Name, 
+        p1HpStr, 
+        p2HpStr, 
+        p1HpRate, 
+        p2HpRate, 
+        isShowAtcMenu, 
+        isShowCutin,
+        startBattle, 
+        onAtkClicked, 
+    }
 })

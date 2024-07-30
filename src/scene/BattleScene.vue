@@ -5,6 +5,7 @@ import {computed, ref} from 'vue'
 import AttackMenu from './module/AttackMenu.vue'
 import Player1Inf from './module/Player1Inf.vue'
 import Player2Inf from './module/Player2Inf.vue'
+import MessageBox from './module/MessageBox.vue'
 import { mapState } from 'pinia';
 
 
@@ -26,19 +27,10 @@ onMounted(()=>{
 const isShowAtcMenu = computed(()=>battleEventStore.isShowAtcMenu);
 const isShowP1Cutin = computed(()=>battleEventStore.isShowP1Cutin);
 
-
 const p1CardImgUrl = computed(()=>battleEventStore.p1CardImgUrl);
 const p2CardImgUrl = computed(()=>battleEventStore.p2CardImgUrl);
 
-const p1Name = computed(()=>battleEventStore.p1Name);
-const p2Name = computed(()=>battleEventStore.p2Name);
-
-const p1Hp   = computed(()=>battleEventStore.p1HpStr);
-const p2Hp   = computed(()=>battleEventStore.p2HpStr);
-
-const p1HpRate   = computed(()=>battleEventStore.p1HpRate);
-const p2HpRate   = computed(()=>battleEventStore.p2HpRate);
-
+const isShowCutin = computed(()=>battleEventStore.isShowCutin);
 
 </script>
 
@@ -52,13 +44,14 @@ const p2HpRate   = computed(()=>battleEventStore.p2HpRate);
     <img :src="p1CardImgUrl"  alt="" class="player1Card" id="player1Card">
     <img :src="p2CardImgUrl" alt="" class="player2Card"  id="player2Card">
 
-    <img src="/img/cutin/cutin.png" alt="" class="p1cutIn" id="p1cutIn" v-show="isShowP1Cutin">
-    <img src="/img/cutin/cutin.png" alt="" class="p2cutIn" id="p2cutIn" v-show="isShowP1Cutin">
+    <img src="/img/cutin/cutin.png" alt="" class="cutIn" id="p1cutIn" v-show="isShowP1Cutin">
+
+    <MessageBox/>
 
     <div class="flash" v-show="false"></div>
 
     <div class="veil" id="veil"></div>
-
+    
     <AttackMenu v-show="isShowAtcMenu"/>
     
         <!-- 
@@ -104,7 +97,7 @@ const p2HpRate   = computed(()=>battleEventStore.p2HpRate);
     display:  block;
   }
 
-.p1cutIn{
+.cutIn{
     display: block;
     position: absolute;
     top: 0;
@@ -112,16 +105,6 @@ const p2HpRate   = computed(()=>battleEventStore.p2HpRate);
     width: 100%;
     height: 100%;
     clip-path: polygon(0 7%, 100% 23%, 100% 91%, 0 74%);
-}
-
-.p2cutIn{
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    clip-path: polygon(0 23%, 100% 7%, 100% 74%, 0 91%);
 }
 
 .flash{
