@@ -139,20 +139,25 @@ export const useBattleEvent = defineStore('battleEvent', () => {
         let attackedHp       = isP2Turn ? p1Hp : p2Hp;
         
         await sleep_ms(200);
+
+        //カットイン
         cutinImg.value = attackingPokemon.cutinImgUrl[atkNo];
         isShowCutin.value = true;
     
         anime({
-            targets : cutinId,
+            targets : "#p1cutIn",
             duration: 180,
             clipPath: ["clip-path: polygon(0 39%, 100% 62%, 100% 62%, 0 39%)", "polygon(0 7%, 100% 23%, 100% 91%, 0 74%)"],
             easing: 'easeInQuint'
         })
-        await sleep_ms(250);
-        
+        await sleep_ms(180);
+
         await sleep_ms(800);
         isShowCutin.value = false;
+        //カットイン---------------
+
         await attackingPokemon.onAttack({no : atkNo});
+        
         // ダメージ処理
         let damagedHp = attackedHp.value - attackingPokemon.atk[atkNo];
         if(damagedHp < 0){

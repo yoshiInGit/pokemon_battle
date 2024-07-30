@@ -12,7 +12,7 @@ export class Pikachu implements Pokemon{
     async onAttack({ no }: { no: number; }): Promise<void> {
         anime({
             targets : "#player2Card",
-            duration: 500,
+            duration: 200,
             rotate : "-10deg",
             scaleX : 1.4,
             scaleY : 1.4,
