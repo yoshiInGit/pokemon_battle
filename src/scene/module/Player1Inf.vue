@@ -7,13 +7,23 @@ const battleEventStore = useBattleEvent();
 const p1Name   = computed(()=>battleEventStore.p1Name);
 const p1Hp     = computed(()=>battleEventStore.p1HpStr);
 const p1HpRate = computed(()=>battleEventStore.p1HpRate);
+const hpColor  = computed(()=>{
+    let hpRate = battleEventStore.p1HpRate;
+    if(hpRate <= 0.3){
+        return "#f6d842"
+    }else if(hpRate <= 0.1){
+        return "#fb2d2d"
+    }else{
+        return "#79DF55"
+    }
+});
 
 </script>
 
 <template>
     <div class="player1Inf">
       <div class="player1Inf-hpIndicatorBase">
-        <div class="player1Inf-hpIndicator" id="player1Inf_hpIndicator" :style="`width: ${p1HpRate*100}%;`"></div>
+        <div class="player1Inf-hpIndicator" id="player1Inf_hpIndicator" :style="`width: ${p1HpRate*100}%; background-color: ${hpColor};`"></div>
       </div>
       <div class="player1Inf-hp" id="player1Inf_hp">{{ p1Hp }}</div>
       <div class="player1Inf-name" id="player1Inf_name">{{ p1Name }}</div>
@@ -50,7 +60,6 @@ const p1HpRate = computed(()=>battleEventStore.p1HpRate);
     position: absolute;
     width: 0%;
     height: 100%;
-    background-color: #79DF55;
     top: 0;
     right: 0;
 }
