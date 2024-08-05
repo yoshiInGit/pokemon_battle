@@ -44,7 +44,7 @@ const isShowCutin = computed(()=>battleEventStore.isShowCutin);
     <img :src="p1CardImgUrl"  alt="" class="player1Card" id="player1Card">
     <img :src="p2CardImgUrl" alt="" class="player2Card"  id="player2Card">
 
-    <img src="/img/cutin/cutin.png" alt="" class="cutIn" id="p1cutIn" v-show="isShowP1Cutin">
+    <img src="/img/cutin/cutin.png" alt="" class="cutIn" id="cutIn" v-show="isShowCutin">
 
     <MessageBox/>
 
@@ -54,10 +54,10 @@ const isShowCutin = computed(()=>battleEventStore.isShowCutin);
     
     <AttackMenu v-show="isShowAtcMenu"/>
     
-        <!-- 
-    
-    <img src="./assets/imgs/basic/WIN!.png" alt="" class="win">
-    <img src="./assets/imgs/basic/lose.png" alt="" class="lose"> -->
+    <div class="winLoseWrapper" id="winLoseWrapper">
+        <!-- <img src="./assets/imgs/basic/WIN!.png" alt="" class="win"> -->
+        <img src="/img/battle/lose.png" id="lose" class="lose">
+    </div>
 </template>
 
 <style scoped>
@@ -116,5 +116,22 @@ const isShowCutin = computed(()=>battleEventStore.isShowCutin);
     background-color: white;
     mix-blend-mode: hard-light;
     opacity: 0.7;
+}
+
+.winLoseWrapper{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0, 0, 0);
+    opacity: 0;
+}
+
+.lose{
+    position: absolute;
+    top: -100%;
+    left: 30%;
+    width: 48%;
 }
 </style>

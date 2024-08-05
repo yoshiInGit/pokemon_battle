@@ -41,5 +41,7 @@ font-style  : normal;
 .message{
     width: 95%;
     height: 93%;
+    white-space: pre-wrap;
+    font-size: 200%;
 }
 </style>

@@ -141,24 +141,37 @@ export const useBattleEvent = defineStore('battleEvent', () => {
         
         await sleep_ms(200);
 
+        //攻撃メッセージ
         await _openMessageBox();
         await _typeMessage(attackingPokemon.name+" は、\n"+attackingPokemon.atkName[atkNo]+ "を　はなった！");
         await sleep_ms(1000);
         await _closeMessageBog();
 
+        await sleep_ms(300);
+
         //カットイン
+        _shakeStage(300);
         cutinImg.value = attackingPokemon.cutinImgUrl[atkNo];
         isShowCutin.value = true;
     
         anime({
-            targets : "#p1cutIn",
-            duration: 180,
+            targets : "#cutIn",
+            duration: 100,
             clipPath: ["clip-path: polygon(0 39%, 100% 62%, 100% 62%, 0 39%)", "polygon(0 7%, 100% 23%, 100% 91%, 0 74%)"],
+            easing: 'easeInQuint'
+        })
+        await sleep_ms(100);
+
+        await sleep_ms(800);
+
+        anime({
+            targets : "#cutIn",
+            duration: 100,
+            clipPath: ["clip-path: polygon(0 7%, 100% 23%, 100% 91%, 0 74%)","polygon(0 39%, 100% 62%, 100% 62%, 0 39%)"],
             easing: 'easeInQuint'
         })
         await sleep_ms(180);
 
-        await sleep_ms(800);
         isShowCutin.value = false;
         //カットイン---------------
 
@@ -186,7 +199,7 @@ export const useBattleEvent = defineStore('battleEvent', () => {
             easing : "linear",
             round : 1,
             update: function(){
-                p1Hp.value = hp.val
+                attackedHp.value = hp.val
             }
         })
         await sleep_ms(attackingPokemon.atk[atkNo] / 2.3);
@@ -201,11 +214,80 @@ export const useBattleEvent = defineStore('battleEvent', () => {
         await sleep_ms(400);
         
         await attackingPokemon.onAttacked({no : atkNo});
+
+        await sleep_ms(300);
+
+        await _openMessageBox();
+        await _typeMessage(attackedPokemon.name + " は、\n"+ attackingPokemon.atk[atkNo] + " ダメージ　うけた！");
+        await sleep_ms(1000);
+        await _closeMessageBog();
         
         await sleep_ms(400);
+
+        if(attackedHp.value == 0){
+            _onGameEnded(isP2Turn);
+            return;
+        }
         
-        isShowAtcMenu.value = true;
-    
+        _onTurnEnded();
+    }
+
+    const _onTurnEnded = () => {
+
+        turnCnt.value = turnCnt.value + 1;
+
+        // プレイヤー同士の対戦ときはここいじる
+        if(turnCnt.value % 2==0){
+            isShowAtcMenu.value = true;
+            return;
+        }else{
+            onAtkClicked(_getRandomInt(3));
+            return;
+        }
+    }
+
+    const _onGameEnded = async (isP2Turn : boolean) => {
+        anime({
+            targets: isP2Turn ? "#player1Card" : "#player2Card",
+            translateY : 9000,
+            rotate  : "33deg",
+            duration: 800, // 点滅にかかる時間（ミリ秒）
+            easing: 'easeInCubic', // イージング関数
+        });
+        await sleep_ms(800)
+
+        await _openMessageBox();
+        await _typeMessage(isP2Turn ? p2Pokemon.name + "　は　ショウリ　した！" : p2Pokemon.name + "　は　ハイボク　した…");
+        await sleep_ms(1000);
+        await _closeMessageBog();
+
+
+        anime({
+            targets: "#winLoseWrapper",
+            opacity : 0.6,
+            duration: 1300, // 点滅にかかる時間（ミリ秒）
+            easing: 'linear', // イージング関数
+        });
+        await sleep_ms(1300);
+        console.log("ok1")
+
+
+        if(isP2Turn){
+
+        }else{
+            console.log("ok2")
+            anime({
+                targets : "#lose",
+                top : "22%",
+                duration : 1400,
+                easing : "easeOutBounce",
+            })
+            console.log("ok3")
+        }
+    }
+
+    const _getRandomInt = (max : number) => {
+        return Math.floor(Math.random() * max);
     }
 
     const _openMessageBox = async () => {
@@ -237,12 +319,23 @@ export const useBattleEvent = defineStore('battleEvent', () => {
         }
     }
 
+    const _shakeStage = async (duration : number) => {
+        const animation = anime({
+            targets : "#scene",
+            duration : 80,
+            loop : true,
+            translateX : [0, 6, 0, 6, 0],
+            translateY : [0, 6, 6, 0, 0],
+        })
+
+        await sleep_ms(duration);
+
+        animation.pause();
+    }
+
     const onSupportCardUsed = async (cardName : string) => {
 
     }
-
-    const onBattleFinished = async (isWin : boolean) => {}
-
 
     return {
         messageText,

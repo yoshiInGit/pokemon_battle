@@ -13,7 +13,7 @@ const currentScene = computed(() => globalEventStore.currentScene);
 
 <template>
   <div class="wrapper">
-    <div class="scene">
+    <div class="scene" id="scene">
       <EntryScene v-if="currentScene === 'entry'"/>
       <EntryControl v-if="currentScene === 'entryControl'"/>
       <BattleScene v-if="currentScene === 'battle'"/>
@@ -24,6 +24,9 @@ const currentScene = computed(() => globalEventStore.currentScene);
 
 <style scoped>
  .wrapper{
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100vh;
   overflow: hidden;

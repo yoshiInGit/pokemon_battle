@@ -1,16 +1,17 @@
 import type { Pokemon } from "../pokemon";
 
 export class Myutu implements Pokemon{
+    atkName = ["サイコカッター ", "サイコブレイク", "シャドーボール"];
     atk = [8500, 8500, 8500];
     cutinImgUrl = ["", "", ""];
     name = "ミューツー";
     hp   = 9000;
     cardImgUrl = "/img/card/myu.png";
     
-    onAttack({ no }: { no: number; }): Promise<void> {
-        throw new Error("Method not implemented.");
+    async onAttack({ no }: { no: number; }): Promise<void>  {
+        
     }
-    onAttacked({ no }: { no: number; }): Promise<void> {
-        throw new Error("Method not implemented.");
+    async onAttacked({ no }: { no: number; }): Promise<void> {
+        
     }
 }
