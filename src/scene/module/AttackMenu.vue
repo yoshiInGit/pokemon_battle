@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import {useBattleEvent} from '../../event/battle_event'
 
 const battleEventStore = useBattleEvent();

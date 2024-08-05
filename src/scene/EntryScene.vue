@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import anime from "animejs";
 import {onMounted} from 'vue';
 import {useEntryEvent} from '../event/entry_event'

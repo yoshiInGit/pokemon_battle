@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import {onMounted} from 'vue';
 import {useBattleEvent} from '../event/battle_event'
 import {computed, ref} from 'vue'
@@ -25,7 +25,7 @@ onMounted(()=>{
 });
 
 const isShowAtcMenu = computed(()=>battleEventStore.isShowAtcMenu);
-const isShowP1Cutin = computed(()=>battleEventStore.isShowP1Cutin);
+const isShowP1Cutin = computed(()=>battleEventStore.isShowCutin);
 
 const p1CardImgUrl = computed(()=>battleEventStore.p1CardImgUrl);
 const p2CardImgUrl = computed(()=>battleEventStore.p2CardImgUrl);
