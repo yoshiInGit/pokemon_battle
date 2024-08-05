@@ -1,7 +1,7 @@
-<script setup>
+<script setup lang="ts">
 const channel = new BroadcastChannel("pokemon-battle");
 
-const attack = (atkNum) => {
+const attack = (atkNum: '1' | '2' | '3') => {
     channel.postMessage({
         order   : "attack",
         payload : atkNum
