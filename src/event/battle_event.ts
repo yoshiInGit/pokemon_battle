@@ -11,7 +11,8 @@ import sndKyaUrl from '../assets/sound/effect/kya-.mp3'
 import {useGlobalEvent} from './global_event'
 import pironUrl from '../assets/sound/effect/piron.mp3'
 import type { Pokemon } from '@/domain/pokemon';
-
+import p1CardImgAsset from "@/assets/img/card/card.png"
+import p2CardImgAsset from "@/assets/img/card/card.png"
 
 
 const sndBgm = new Howl({src : boltBgmUrl, volume : 0});
@@ -35,8 +36,8 @@ export const useBattleEvent = defineStore('battleEvent', () => {
     const isShowAtcMenu = ref(false);
     const isShowCutin = ref(false);
 
-    const p1CardImgUrl = ref("/img/card/card.png");
-    const p2CardImgUrl = ref("/img/card/card.png");
+    const p1CardImgUrl = ref(p1CardImgAsset);
+    const p2CardImgUrl = ref(p2CardImgAsset);
 
     const cutinImg = ref("");
 

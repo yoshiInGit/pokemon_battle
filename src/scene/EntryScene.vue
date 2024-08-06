@@ -3,6 +3,9 @@ import anime from "animejs";
 import {onMounted} from 'vue';
 import {useEntryEvent} from '../event/entry_event'
 import { useGlobalEvent } from "../event/global_event";
+import WaitingBgAsset from "@/assets/img/entry/waiting_bg.jpg"
+import PokemonBallAsset from "@/assets/img/entry/pokemon_ball.png"
+import PikaAsset from "@/assets/img/card/pika.png"
 
 const {onStartTapped, onPokemonSet, onBattle} = useEntryEvent(); 
 
@@ -30,17 +33,17 @@ onMounted(()=>{
 </script>
 
 <template>
-    <img src='/img/entry/waiting_bg.jpg' alt="" class="background">
+    <img :src='WaitingBgAsset' alt="" class="background">
         
     <div class="ball-wrapper">
-        <img src="/img/entry/pokemon_ball.png" alt="" class="ball">
+        <img :src="PokemonBallAsset" alt="" class="ball">
     </div>
 
     <div class="waiting" id="waiting">
         待機中
     </div>
     
-    <img src="/img/card/pika.png" alt="" class="pokemon" id="pokemon">
+    <img :src="PikaAsset" alt="" class="pokemon" id="pokemon">
     
     <div class="battle" id="battleBtn" @click="onBattle">
         Battle!

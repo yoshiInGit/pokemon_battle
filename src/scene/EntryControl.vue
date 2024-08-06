@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useGlobalEvent } from "../event/global_event";
+import MyuAsset from "@/assets/img/card/myu.png"
 
 const {changeScene} = useGlobalEvent();
 
@@ -24,71 +25,71 @@ const startBattle = () => {
     <div class="wrapper">
         <div class="card-selector">
             <div class="card-wrapper" @click="setPokemon">
-                <img  class="card" src="/img/card/myu.png">
+                <img  class="card" :src="MyuAsset">
                 <div class="card-name">ほげほげ</div>
             </div>
             <div class="card-wrapper">
-                <img  class="card" src="/img/card/myu.png">
+                <img  class="card" :src="MyuAsset">
                 <div class="card-name">ほげほげ</div> 
             </div>
             <div class="card-wrapper">
-                <img  class="card" src="/img/card/myu.png">
+                <img  class="card" :src="MyuAsset">
                 <div class="card-name">ほげほげ</div>
             </div>
             <div class="card-wrapper">
-                <img  class="card" src="/img/card/myu.png">
+                <img  class="card" :src="MyuAsset">
                 <div class="card-name">ほげほげ</div>
             </div>
             <div class="card-wrapper">
-                <img  class="card" src="/img/card/myu.png">
+                <img  class="card" :src="MyuAsset">
                 <div class="card-name">ほげほげ</div>
             </div>
             <div class="card-wrapper">
-                <img  class="card" src="/img/card/myu.png">
+                <img  class="card" :src="MyuAsset">
                 <div class="card-name">ほげほげ</div>
             </div>
             <div class="card-wrapper">
-                <img  class="card" src="/img/card/myu.png">
+                <img  class="card" :src="MyuAsset">
                 <div class="card-name">ほげほげ</div>
             </div>
             <div class="card-wrapper">
-                <img  class="card" src="/img/card/myu.png">
+                <img  class="card" :src="MyuAsset">
                 <div class="card-name">ほげほげ</div>
             </div>
             <div class="card-wrapper">
-                <img  class="card" src="/img/card/myu.png">
+                <img  class="card" :src="MyuAsset">
                 <div class="card-name">ほげほげ</div>
             </div>
             <div class="card-wrapper">
-                <img  class="card" src="/img/card/myu.png">
+                <img  class="card" :src="MyuAsset">
                 <div class="card-name">ほげほげ</div>
             </div>
             <div class="card-wrapper">
-                <img  class="card" src="/img/card/myu.png">
+                <img  class="card" :src="MyuAsset">
                 <div class="card-name">ほげほげ</div>
             </div>
             <div class="card-wrapper">
-                <img  class="card" src="/img/card/myu.png">
+                <img  class="card" :src="MyuAsset">
                 <div class="card-name">ほげほげ</div>
             </div>
             <div class="card-wrapper">
-                <img  class="card" src="/img/card/myu.png">
+                <img  class="card" :src="MyuAsset">
                 <div class="card-name">ほげほげ</div>
             </div>
             <div class="card-wrapper">
-                <img  class="card" src="/img/card/myu.png">
+                <img  class="card" :src="MyuAsset">
                 <div class="card-name">ほげほげ</div>
             </div>
             <div class="card-wrapper">
-                <img  class="card" src="/img/card/myu.png">
+                <img  class="card" :src="MyuAsset">
                 <div class="card-name">ほげほげ</div>
             </div>
             <div class="card-wrapper">
-                <img  class="card" src="/img/card/myu.png">
+                <img  class="card" :src="MyuAsset">
                 <div class="card-name">ほげほげ</div>
             </div>
             <div class="card-wrapper">
-                <img  class="card" src="/img/card/myu.png">
+                <img  class="card" :src="MyuAsset">
                 <div class="card-name">ほげほげ</div>
             </div>
         </div>

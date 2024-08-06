@@ -1,14 +1,16 @@
 import anime from "animejs";
 import type { Pokemon } from "../pokemon";
 import { sleep_ms } from "@/helper";
+import CutinImgAsset from "@/assets/img/cutin/cutin.png"
+import cardImgUrlAsset from "@/assets/img/card/pika.png"
 
 export class Pikachu implements Pokemon{
     atk = [7000, 7000, 7000]
     atkName = ["じゅうまんボルト", "じゅうまんボルト", "じゅうまんボルト"];
-    cutinImgUrl = ["/img/cutin/cutin.png", "/img/cutin/cutin.png", "/img/cutin/cutin.png"];
+    cutinImgUrl = [CutinImgAsset, CutinImgAsset, CutinImgAsset];
     name = "ピカチュウ"
     hp   = 7000
-    cardImgUrl = "/img/card/pika.png";
+    cardImgUrl = cardImgUrlAsset;
     
     async onAttack({ no }: { no: number; }): Promise<void> {
         anime({

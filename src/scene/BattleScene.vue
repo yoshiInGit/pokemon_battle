@@ -7,7 +7,9 @@ import Player1Inf from './module/Player1Inf.vue'
 import Player2Inf from './module/Player2Inf.vue'
 import MessageBox from './module/MessageBox.vue'
 import { mapState } from 'pinia';
-
+import BattleBackgroundAsset from "@/assets/img/battle/background.png"
+import CutinAsset from "@/assets/img/cutin/cutin.png"
+import LoseAsset from "@/assets/img/battle/lose.png"
 
 const battleEventStore = useBattleEvent();
 
@@ -35,7 +37,7 @@ const isShowCutin = computed(()=>battleEventStore.isShowCutin);
 </script>
 
 <template>
-    <img src="/img/battle/background.png" alt="" class="background">
+    <img :src="BattleBackgroundAsset" alt="" class="background">
 
     <Player1Inf/>
 
@@ -44,7 +46,7 @@ const isShowCutin = computed(()=>battleEventStore.isShowCutin);
     <img :src="p1CardImgUrl"  alt="" class="player1Card" id="player1Card">
     <img :src="p2CardImgUrl" alt="" class="player2Card"  id="player2Card">
 
-    <img src="/img/cutin/cutin.png" alt="" class="cutIn" id="cutIn" v-show="isShowCutin">
+    <img :src="CutinAsset" alt="" class="cutIn" id="cutIn" v-show="isShowCutin">
 
     <MessageBox/>
 
@@ -56,7 +58,7 @@ const isShowCutin = computed(()=>battleEventStore.isShowCutin);
     
     <div class="winLoseWrapper" id="winLoseWrapper">
         <!-- <img src="./assets/imgs/basic/WIN!.png" alt="" class="win"> -->
-        <img src="/img/battle/lose.png" id="lose" class="lose">
+        <img :src="LoseAsset" id="lose" class="lose">
     </div>
 </template>
 
