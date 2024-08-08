@@ -1,66 +1,63 @@
 <script setup lang="ts">
-import anime from "animejs";
-import {onMounted} from 'vue';
-import {useEntryEvent} from '../event/entry_event'
+import { onMounted } from "vue";
+import { useEntryEvent } from "../event/entry_event";
 import { useGlobalEvent } from "../event/global_event";
-import WaitingBgAsset from "@/assets/img/entry/waiting_bg.jpg"
-import PokemonBallAsset from "@/assets/img/entry/pokemon_ball.png"
-import PikaAsset from "@/assets/img/card/pika.png"
+import WaitingBgAsset from "@/assets/img/entry/waiting_bg.jpg";
+import PokemonBallAsset from "@/assets/img/entry/pokemon_ball.png";
+import PikaAsset from "@/assets/img/card/pika.png";
 
-const {onStartTapped, onPokemonSet, onBattle} = useEntryEvent(); 
+const { onStartTapped, onPokemonSet, onBattle } = useEntryEvent();
 
-const {changeScene} = useGlobalEvent();
+const { changeScene } = useGlobalEvent();
 
-onMounted(()=>{
+onMounted(() => {
     const channel = new BroadcastChannel("pokemon-battle");
-    channel.addEventListener("message",(event)=>{
+    channel.addEventListener("message", (event) => {
         const msg = event.data;
-        console.log(msg)
-        
-        if(msg.order=="pokemon-set"){
+        console.log(msg);
+
+        if (msg.order == "pokemon-set") {
             onPokemonSet(msg.payload);
             return;
         }
 
-        if(msg.order=="start-battle"){
+        if (msg.order == "start-battle") {
             onBattle();
             return;
         }
-
-    })
+    });
 });
-
 </script>
 
 <template>
-    <img :src='WaitingBgAsset' alt="" class="background">
-        
+    <img :src="WaitingBgAsset" alt="" class="background" />
+
     <div class="ball-wrapper">
-        <img :src="PokemonBallAsset" alt="" class="ball">
+        <img :src="PokemonBallAsset" alt="" class="ball" />
     </div>
 
-    <div class="waiting" id="waiting">
-        待機中
-    </div>
-    
-    <img :src="PikaAsset" alt="" class="pokemon" id="pokemon">
-    
-    <div class="battle" id="battleBtn" @click="onBattle">
-        Battle!
-    </div>
-    
+    <div class="waiting" id="waiting">待機中</div>
+
+    <img :src="PikaAsset" alt="" class="pokemon" id="pokemon" />
+
+    <div class="battle" id="battleBtn" @click="onBattle">Battle!</div>
+
     <div class="veil" id="veil"></div>
-    
-    <div class="press-start" id="press_start" @click="onStartTapped">
-        TAP TO START
-    </div>
 
-    <div class="control" @click="()=>{changeScene('entryControl')}"></div>
+    <div class="press-start" id="press_start" @click="onStartTapped">TAP TO START</div>
+
+    <div
+        class="control"
+        @click="
+            () => {
+                changeScene('entryControl');
+            }
+        "
+    ></div>
 </template>
 
 <style scoped>
-
-.background{
+.background {
     position: absolute;
     top: 0;
     left: 0;
@@ -70,7 +67,7 @@ onMounted(()=>{
     filter: contrast(50%) brightness(130%);
 }
 
-.ball-wrapper{
+.ball-wrapper {
     position: fixed;
     top: 0;
     left: 0;
@@ -81,12 +78,11 @@ onMounted(()=>{
     align-items: center;
 }
 
-.ball{
+.ball {
     width: 50%;
 }
 
-
-.waiting{
+.waiting {
     position: fixed;
     top: 37%;
     left: 50%;
@@ -97,7 +93,7 @@ onMounted(()=>{
     -webkit-text-stroke: 3px black;
 }
 
-.pokemon{
+.pokemon {
     position: fixed;
     top: 37%;
     left: 50%;
@@ -107,7 +103,7 @@ onMounted(()=>{
     display: none;
 }
 
-.battle{
+.battle {
     position: fixed;
     top: 80%;
     left: 50%;
@@ -125,10 +121,10 @@ onMounted(()=>{
     border-radius: 5px;
     letter-spacing: -1px;
     cursor: pointer;
-    box-shadow: 2px 2px 4px -2px gray inset
-  }
+    box-shadow: 2px 2px 4px -2px gray inset;
+}
 
-  .veil{
+.veil {
     position: fixed;
     top: 0;
     left: 0;
@@ -136,10 +132,10 @@ onMounted(()=>{
     bottom: 0;
     background-color: rgb(25, 25, 25);
     opacity: 0;
-    display:  none;
-  }
+    display: none;
+}
 
-  .press-start{
+.press-start {
     position: fixed;
     top: 0;
     left: 0;
@@ -152,14 +148,14 @@ onMounted(()=>{
     color: white;
     background-color: rgba(0, 0, 0, 0.421);
     font-size: 600%;
-  }
+}
 
-  .control{
+.control {
     width: 10px;
-    height : 10px;
+    height: 10px;
     background-color: white;
     position: fixed;
     top: 10px;
     left: 10px;
-  }
+}
 </style>

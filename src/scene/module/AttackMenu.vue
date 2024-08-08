@@ -1,23 +1,19 @@
 <script setup lang="ts">
-import {useBattleEvent} from '../../event/battle_event'
+// import {useBattleEvent} from '../../event/battle_event'
 
-const battleEventStore = useBattleEvent();
-
-
-
+// const battleEventStore = useBattleEvent();
 </script>
 
 <template>
     <div class="atkMenu" id="atkMenu">
-      <div class="atkMenu-list" id="atkMenu_list">10万ボルト</div>
-      <div class="atkMenu-list" id="atkMenu_list">10万ボルト</div>
-      <div class="atkMenu-list" id="atkMenu_list">10万ボルト</div>
+        <div class="atkMenu-list" id="atkMenu_list">10万ボルト</div>
+        <div class="atkMenu-list" id="atkMenu_list">10万ボルト</div>
+        <div class="atkMenu-list" id="atkMenu_list">10万ボルト</div>
     </div>
 </template>
 
 <style scoped>
-
-.atkMenu{
+.atkMenu {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -30,7 +26,7 @@ const battleEventStore = useBattleEvent();
     gap: 5%;
 }
 
-.atkMenu-list{
+.atkMenu-list {
     width: 60%;
     height: 15%;
 
@@ -47,5 +43,4 @@ const battleEventStore = useBattleEvent();
 
     cursor: pointer;
 }
-
 </style>
