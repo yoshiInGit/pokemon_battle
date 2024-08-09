@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useGlobalEvent } from "../event/global_event";
+import { useGlobalEvent } from "@/pages/control/event/control_event";
 import MyuAsset from "@/assets/img/card/myu.png";
 
 const { changeScene } = useGlobalEvent();
