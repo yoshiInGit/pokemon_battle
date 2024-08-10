@@ -9,7 +9,7 @@ import sndZutiinUrl from "../assets/sound/effect/zutiin.mp3";
 import sndStudiamUrl from "../assets/sound/effect/studiam.mp3";
 import sndKyaUrl from "../assets/sound/effect/kya-.mp3";
 import { useGlobalEvent } from "./global_event";
-import pironUrl from "../assets/sound/effect/piron.mp3";
+// import pironUrl from "../assets/sound/effect/piron.mp3";
 import p1CardImgAsset from "@/assets/img/card/card.png";
 import p2CardImgAsset from "@/assets/img/card/card.png";
 
@@ -18,7 +18,7 @@ const sndSunn = new Howl({ src: sndSunnUrl });
 const sndZutinn = new Howl({ src: sndZutiinUrl });
 const sndStuidam = new Howl({ src: sndStudiamUrl });
 const sndKya = new Howl({ src: sndKyaUrl });
-const sndPiron = new Howl({ src: pironUrl });
+// const sndPiron = new Howl({ src: pironUrl });
 
 export const useBattleEvent = defineStore("battleEvent", () => {
     const globalEventStore = useGlobalEvent();
@@ -47,8 +47,7 @@ export const useBattleEvent = defineStore("battleEvent", () => {
     const p1HpRate = computed(() => p1Hp.value / p1Pokemon.hp);
     const p2HpRate = computed(() => p2Hp.value / p2Pokemon.hp);
 
-    const turnCnt = ref(0);
-
+    // 初期演出
     const startBattle = async () => {
         const p1Pokemon = globalEventStore.p1Pokemon;
         const p2Pokemon = globalEventStore.p2Pokemon;
@@ -119,34 +118,267 @@ export const useBattleEvent = defineStore("battleEvent", () => {
 
         await sleep_ms(500);
 
+        _preBattle();
+    };
+
+    //HPが一定値以下になるまで攻撃しあう段階
+    const _preBattle = async () => {
+        await sleep_ms(500);
+
+        for (let turnCnt = 0; turnCnt < 2; turnCnt++) {
+            const attackingPokemon = turnCnt % 2 == 0 ? p2Pokemon : p1Pokemon;
+            const attackedPokemon = turnCnt % 2 == 0 ? p1Pokemon : p2Pokemon;
+            const attackingCardId = turnCnt % 2 == 0 ? "#player2Card" : "#player1Card"; // 攻撃する側
+            const attackedCardId = turnCnt % 2 == 0 ? "#player1Card" : "#player2Card"; // 攻撃される側
+            const attackDirection = turnCnt % 2 == 0 ? -1 : 1; // 攻撃アニメーションが左に移動するものか、右に移動するものか
+
+            // 演習開始
+            await _openMessageBox();
+            await _typeMessage(attackingPokemon.name + "　の　こうげき！");
+            await sleep_ms(700);
+            await _closeMessageBog();
+
+            await sleep_ms(400);
+
+            anime({
+                targets: attackingCardId,
+                translateX: 130 * attackDirection + "%",
+                duration: 250,
+                easing: "easeInBack",
+            });
+            await sleep_ms(250);
+
+            const damageAnime = anime({
+                targets: attackedCardId,
+                opacity: [0, 0.2, 1],
+                duration: 150, // 点滅にかかる時間（ミリ秒）
+                loop: true,
+                easing: "steps(3)", // イージング関数
+                iterations: Infinity, // 繰り返し回数（無限回）
+            });
+
+            _shakeStage(600);
+
+            anime({
+                targets: attackingCardId,
+                translateX: "0%",
+                duration: 100,
+                easing: "easeOutExpo",
+            });
+            await sleep_ms(100);
+
+            await sleep_ms(2000);
+
+            damageAnime.pause();
+            anime({
+                targets: attackedCardId,
+                duration: 0,
+                opacity: 1,
+            });
+
+            await sleep_ms(400);
+
+            await _openMessageBox();
+            await _typeMessage(attackedPokemon.name + "　は\nxxxx ダメージ　を　うけた！");
+            await sleep_ms(1000);
+            await _closeMessageBog();
+
+            await sleep_ms(300);
+        }
+
+        await _openMessageBox();
+        await _typeMessage(p2Pokemon.name + "　ピンチ！！");
+        await sleep_ms(700);
+
         isShowAtcMenu.value = true;
     };
 
     const onAtkClicked = async (atkNo: number) => {
-        sndPiron.play();
+        // atkNo:0 ⇒ 強技(成功率20%)
+        // atkNo:1 ⇒ 中技(成功率50%)
+        // atkNo:2 ⇒ 弱技(成功率100%)
 
+        let attackSuccessRate = 0.2;
+        if (atkNo == 1) {
+            attackSuccessRate = 0.5;
+        }
+        if (atkNo == 2) {
+            attackSuccessRate = 1;
+        }
+
+        const isAttackSuccess = _getRandomBinary(attackSuccessRate);
+
+        //演出開始
         isShowAtcMenu.value = false;
-
-        // ターン別処理
-        const isP2Turn = turnCnt.value % 2 == 0;
-        const attackingPokemon = isP2Turn ? p2Pokemon : p1Pokemon;
-        const attackedPokemon = isP2Turn ? p1Pokemon : p2Pokemon;
-        const attackedCardId = isP2Turn ? "#player1Card" : "#player2Card";
-        const attackedHp = isP2Turn ? p1Hp : p2Hp;
-
-        await sleep_ms(200);
-
-        //攻撃メッセージ
-        await _openMessageBox();
-        await _typeMessage(attackingPokemon.name + " は、\n" + attackingPokemon.atkName[atkNo] + "を　はなった！");
-        await sleep_ms(1000);
         await _closeMessageBog();
 
         await sleep_ms(300);
 
-        //カットイン
+        //攻撃メッセージ
+        await _openMessageBox();
+        await _typeMessage(p2Pokemon.name + " は、\n" + p2Pokemon.atkName[atkNo] + "　を　はなった！");
+        await sleep_ms(1000);
+        await _closeMessageBog();
+
+        await _showCutIn(p2Pokemon.cutinImgUrl[atkNo]);
+
+        anime({
+            targets: "#player2Card",
+            translateX: -130 + "%",
+            duration: 250,
+            easing: "easeInBack",
+        });
+        await sleep_ms(250);
+
+        if (isAttackSuccess) {
+            const damageAnime = anime({
+                targets: "#player1Card",
+                opacity: [0, 0.2, 1],
+                duration: 150, // 点滅にかかる時間（ミリ秒）
+                loop: true,
+                easing: "steps(3)", // イージング関数
+                iterations: Infinity, // 繰り返し回数（無限回）
+            });
+
+            _shakeStage(400);
+
+            anime({
+                targets: "#player2Card",
+                translateX: "0%",
+                duration: 100,
+                easing: "easeOutExpo",
+            });
+            await sleep_ms(100);
+
+            await sleep_ms(500);
+
+            await _openMessageBox();
+            await _typeMessage("こうか　は　ばつぐん　だ！！！");
+            await sleep_ms(1000);
+            await _closeMessageBog();
+
+            await sleep_ms(1000);
+            damageAnime.pause();
+            anime({
+                targets: "#player1Card",
+                duration: 0,
+                opacity: 1,
+            });
+
+            await sleep_ms(400);
+
+            _onWin();
+        } else {
+            await sleep_ms(400);
+
+            // 味方の攻撃！（失敗する）
+            anime({
+                targets: "#player2Card",
+                translateX: "0%",
+                duration: 400,
+                easing: "easeOutExpo",
+            });
+            await sleep_ms(400);
+
+            await sleep_ms(1200);
+
+            await _openMessageBox();
+            await _typeMessage("こうげき　は　しっぱい　した．．．");
+            await sleep_ms(1000);
+            await _closeMessageBog();
+
+            await sleep_ms(500);
+
+            // 敵の攻撃！
+            await _openMessageBox();
+            await _typeMessage(p1Pokemon.name + " は、\n" + p1Pokemon.atkName[1] + "　を　はなった！");
+            await sleep_ms(1000);
+            await _closeMessageBog();
+
+            await sleep_ms(300);
+
+            await _showCutIn(p1Pokemon.cutinImgUrl[1]);
+
+            anime({
+                targets: "#player1Card",
+                translateX: 130 + "%",
+                duration: 250,
+                easing: "easeInBack",
+            });
+            await sleep_ms(250);
+
+            const damageAnime = anime({
+                targets: "#player2Card",
+                opacity: [0, 0.2, 1],
+                duration: 150, // 点滅にかかる時間（ミリ秒）
+                loop: true,
+                easing: "steps(3)", // イージング関数
+                iterations: Infinity, // 繰り返し回数（無限回）
+            });
+
+            _shakeStage(600);
+
+            anime({
+                targets: "#player1Card",
+                translateX: "0%",
+                duration: 100,
+                easing: "easeOutExpo",
+            });
+            await sleep_ms(100);
+
+            await sleep_ms(2000);
+
+            damageAnime.pause();
+            anime({
+                targets: "#player2Card",
+                duration: 0,
+                opacity: 1,
+            });
+
+            await sleep_ms(400);
+
+            _onLose();
+        }
+    };
+
+    const _onWin = async () => {
+        anime({
+            targets: "#player1Card",
+            translateY: "300%",
+            rotate: "33deg",
+            duration: 800, // 点滅にかかる時間（ミリ秒）
+            easing: "easeInCubic", // イージング関数
+        });
+        await sleep_ms(800);
+
+        await _openMessageBox();
+        await _typeMessage(p2Pokemon.name + "　は　ショウリ　した！");
+        await sleep_ms(1000);
+    };
+
+    const _onLose = async () => {
+        anime({
+            targets: "#player2Card",
+            translateY: "300%",
+            rotate: "33deg",
+            duration: 800, // 点滅にかかる時間（ミリ秒）
+            easing: "easeInCubic", // イージング関数
+        });
+        await sleep_ms(800);
+
+        await _openMessageBox();
+        await _typeMessage(p2Pokemon.name + "　は　ハイボク　した．．．");
+        await sleep_ms(1000);
+    };
+
+    // helpers
+    const _getRandomBinary = (probability: number) => {
+        return Math.random() < probability ? 1 : 0;
+    };
+
+    const _showCutIn = async (cutinImgName: string) => {
         _shakeStage(300);
-        cutinImg.value = attackingPokemon.cutinImgUrl[atkNo];
+        cutinImg.value = cutinImgName;
         isShowCutin.value = true;
 
         anime({
@@ -174,121 +406,47 @@ export const useBattleEvent = defineStore("battleEvent", () => {
         await sleep_ms(180);
 
         isShowCutin.value = false;
-        //カットイン---------------
-
-        await attackingPokemon.onAttack({ no: atkNo });
-
-        // ダメージ処理
-        let damagedHp = attackedHp.value - attackingPokemon.atk[atkNo];
-        if (damagedHp < 0) {
-            damagedHp = 0;
-        }
-        const animation = anime({
-            targets: attackedCardId,
-            opacity: [0, 0.2, 1],
-            duration: 150, // 点滅にかかる時間（ミリ秒）
-            loop: true,
-            easing: "steps(3)", // イージング関数
-            iterations: Infinity, // 繰り返し回数（無限回）
-        });
-
-        const hp = { val: attackedHp.value };
-        anime({
-            targets: hp,
-            val: damagedHp,
-            duration: attackingPokemon.atk[atkNo] / 2.3,
-            easing: "linear",
-            round: 1,
-            update: function () {
-                attackedHp.value = hp.val;
-            },
-        });
-        await sleep_ms(attackingPokemon.atk[atkNo] / 2.3);
-
-        animation.pause();
-        anime({
-            targets: attackedCardId,
-            duration: 0,
-            opacity: 1,
-        });
-        // ーーーダメージ処理終了ーーー
-        await sleep_ms(400);
-
-        await attackingPokemon.onAttacked({ no: atkNo });
-
-        await sleep_ms(300);
-
-        await _openMessageBox();
-        await _typeMessage(attackedPokemon.name + " は、\n" + attackingPokemon.atk[atkNo] + " ダメージ　うけた！");
-        await sleep_ms(1000);
-        await _closeMessageBog();
-
-        await sleep_ms(400);
-
-        if (attackedHp.value == 0) {
-            _onGameEnded(isP2Turn);
-            return;
-        }
-
-        _onTurnEnded();
     };
 
-    const _onTurnEnded = () => {
-        turnCnt.value = turnCnt.value + 1;
+    // const _onGameEnded = async (isP2Turn: boolean) => {
+    //     anime({
+    //         targets: isP2Turn ? "#player1Card" : "#player2Card",
+    //         translateY: 9000,
+    //         rotate: "33deg",
+    //         duration: 800, // 点滅にかかる時間（ミリ秒）
+    //         easing: "easeInCubic", // イージング関数
+    //     });
+    //     await sleep_ms(800);
 
-        // プレイヤー同士の対戦ときはここいじる
-        if (turnCnt.value % 2 == 0) {
-            isShowAtcMenu.value = true;
-            return;
-        } else {
-            onAtkClicked(_getRandomInt(3));
-            return;
-        }
-    };
+    //     await _openMessageBox();
+    //     await _typeMessage(
+    //         isP2Turn ? p2Pokemon.name + "はショウリした！" : p2Pokemon.name + "はハイボクした…",
+    //     );
+    //     await sleep_ms(1000);
+    //     await _closeMessageBog();
 
-    const _onGameEnded = async (isP2Turn: boolean) => {
-        anime({
-            targets: isP2Turn ? "#player1Card" : "#player2Card",
-            translateY: 9000,
-            rotate: "33deg",
-            duration: 800, // 点滅にかかる時間（ミリ秒）
-            easing: "easeInCubic", // イージング関数
-        });
-        await sleep_ms(800);
+    //     anime({
+    //         targets: "#winLoseWrapper",
+    //         opacity: 0.6,
+    //         duration: 1300, // 点滅にかかる時間（ミリ秒）
+    //         easing: "linear", // イージング関数
+    //     });
+    //     await sleep_ms(1300);
+    //     console.log("ok1");
 
-        await _openMessageBox();
-        await _typeMessage(
-            isP2Turn ? p2Pokemon.name + "　は　ショウリ　した！" : p2Pokemon.name + "　は　ハイボク　した…",
-        );
-        await sleep_ms(1000);
-        await _closeMessageBog();
-
-        anime({
-            targets: "#winLoseWrapper",
-            opacity: 0.6,
-            duration: 1300, // 点滅にかかる時間（ミリ秒）
-            easing: "linear", // イージング関数
-        });
-        await sleep_ms(1300);
-        console.log("ok1");
-
-        if (isP2Turn) {
-            //
-        } else {
-            console.log("ok2");
-            anime({
-                targets: "#lose",
-                top: "22%",
-                duration: 1400,
-                easing: "easeOutBounce",
-            });
-            console.log("ok3");
-        }
-    };
-
-    const _getRandomInt = (max: number) => {
-        return Math.floor(Math.random() * max);
-    };
+    //     if (isP2Turn) {
+    //         //
+    //     } else {
+    //         console.log("ok2");
+    //         anime({
+    //             targets: "#lose",
+    //             top: "22%",
+    //             duration: 1400,
+    //             easing: "easeOutBounce",
+    //         });
+    //         console.log("ok3");
+    //     }
+    // };
 
     const _openMessageBox = async () => {
         anime({
@@ -332,9 +490,6 @@ export const useBattleEvent = defineStore("battleEvent", () => {
 
         animation.pause();
     };
-
-    // const onSupportCardUsed = async (cardName : string) => {
-    // }
 
     return {
         messageText,
