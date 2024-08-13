@@ -2,9 +2,9 @@ import { defineStore } from "pinia";
 import anime from "animejs";
 import { fadein, fadeout, hide, show, sleep_ms } from "@/helper";
 import { Howl } from "howler";
-import startBgmUrl from "../assets/sound/bgm/start_music.mp3";
-import pironUrl from "../assets/sound/effect/piron.mp3";
-import shiiinUrl from "../assets/sound/effect/shiiin.mp3";
+import startBgmUrl from "@/assets/sound/bgm/start_music.mp3";
+import pironUrl from "@/assets/sound/effect/piron.mp3";
+import shiiinUrl from "@/assets/sound/effect/shiiin.mp3";
 import { useGlobalEvent } from "./global_event";
 // import { useBattleEvent } from './battle_event';
 
