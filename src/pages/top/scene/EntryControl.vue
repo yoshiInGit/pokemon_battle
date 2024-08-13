@@ -1,95 +1,95 @@
 <script setup lang="ts">
 import { useGlobalEvent } from "../event/global_event";
-import MyuAsset from "@/assets/img/card/myu.png"
+import MyuAsset from "@/assets/img/card/myu.png";
 
-const {changeScene} = useGlobalEvent();
+const { changeScene } = useGlobalEvent();
 
 const channel = new BroadcastChannel("pokemon-battle");
 
 const setPokemon = () => {
     channel.postMessage({
-        order   : "pokemon-set",
-        payload : ""
+        order: "pokemon-set",
+        payload: "",
     });
-}
+};
 
 const startBattle = () => {
     channel.postMessage({
-        order   : "start-battle",
-        payload : ""
+        order: "start-battle",
+        payload: "",
     });
-}
+};
 </script>
 
 <template>
     <div class="wrapper">
         <div class="card-selector">
             <div class="card-wrapper" @click="setPokemon">
-                <img  class="card" :src="MyuAsset">
+                <img class="card" :src="MyuAsset" />
                 <div class="card-name">ほげほげ</div>
             </div>
             <div class="card-wrapper">
-                <img  class="card" :src="MyuAsset">
-                <div class="card-name">ほげほげ</div> 
-            </div>
-            <div class="card-wrapper">
-                <img  class="card" :src="MyuAsset">
+                <img class="card" :src="MyuAsset" />
                 <div class="card-name">ほげほげ</div>
             </div>
             <div class="card-wrapper">
-                <img  class="card" :src="MyuAsset">
+                <img class="card" :src="MyuAsset" />
                 <div class="card-name">ほげほげ</div>
             </div>
             <div class="card-wrapper">
-                <img  class="card" :src="MyuAsset">
+                <img class="card" :src="MyuAsset" />
                 <div class="card-name">ほげほげ</div>
             </div>
             <div class="card-wrapper">
-                <img  class="card" :src="MyuAsset">
+                <img class="card" :src="MyuAsset" />
                 <div class="card-name">ほげほげ</div>
             </div>
             <div class="card-wrapper">
-                <img  class="card" :src="MyuAsset">
+                <img class="card" :src="MyuAsset" />
                 <div class="card-name">ほげほげ</div>
             </div>
             <div class="card-wrapper">
-                <img  class="card" :src="MyuAsset">
+                <img class="card" :src="MyuAsset" />
                 <div class="card-name">ほげほげ</div>
             </div>
             <div class="card-wrapper">
-                <img  class="card" :src="MyuAsset">
+                <img class="card" :src="MyuAsset" />
                 <div class="card-name">ほげほげ</div>
             </div>
             <div class="card-wrapper">
-                <img  class="card" :src="MyuAsset">
+                <img class="card" :src="MyuAsset" />
                 <div class="card-name">ほげほげ</div>
             </div>
             <div class="card-wrapper">
-                <img  class="card" :src="MyuAsset">
+                <img class="card" :src="MyuAsset" />
                 <div class="card-name">ほげほげ</div>
             </div>
             <div class="card-wrapper">
-                <img  class="card" :src="MyuAsset">
+                <img class="card" :src="MyuAsset" />
                 <div class="card-name">ほげほげ</div>
             </div>
             <div class="card-wrapper">
-                <img  class="card" :src="MyuAsset">
+                <img class="card" :src="MyuAsset" />
                 <div class="card-name">ほげほげ</div>
             </div>
             <div class="card-wrapper">
-                <img  class="card" :src="MyuAsset">
+                <img class="card" :src="MyuAsset" />
                 <div class="card-name">ほげほげ</div>
             </div>
             <div class="card-wrapper">
-                <img  class="card" :src="MyuAsset">
+                <img class="card" :src="MyuAsset" />
                 <div class="card-name">ほげほげ</div>
             </div>
             <div class="card-wrapper">
-                <img  class="card" :src="MyuAsset">
+                <img class="card" :src="MyuAsset" />
                 <div class="card-name">ほげほげ</div>
             </div>
             <div class="card-wrapper">
-                <img  class="card" :src="MyuAsset">
+                <img class="card" :src="MyuAsset" />
+                <div class="card-name">ほげほげ</div>
+            </div>
+            <div class="card-wrapper">
+                <img class="card" :src="MyuAsset" />
                 <div class="card-name">ほげほげ</div>
             </div>
         </div>
@@ -110,7 +110,7 @@ const startBattle = () => {
 </template>
 
 <style>
-.wrapper{
+.wrapper {
     position: fixed;
     top: 0;
     left: 0;
@@ -121,7 +121,7 @@ const startBattle = () => {
     display: flex;
 }
 
-.card-selector{
+.card-selector {
     height: 100%;
     overflow: scroll;
     overflow-x: hidden;
@@ -132,10 +132,9 @@ const startBattle = () => {
     align-items: center;
     gap: 28px;
     flex-wrap: wrap;
-
 }
 
-.controller{
+.controller {
     height: 100%;
     width: 20%;
 
@@ -148,7 +147,7 @@ const startBattle = () => {
     gap: 40px;
 }
 
-.card-wrapper{
+.card-wrapper {
     width: 15%;
     aspect-ratio: 31/37;
     display: flex;
@@ -157,25 +156,25 @@ const startBattle = () => {
     flex-direction: column;
 }
 
-.card{
+.card {
     display: block;
     width: 100%;
     cursor: pointer;
 }
 
-.card-name{
-    font-family : "Noto Sans JP", sans-serif;
+.card-name {
+    font-family: "Noto Sans JP", sans-serif;
     font-optical-sizing: auto;
-    font-style  : normal;
+    font-style: normal;
 }
 
-.enemy-selector{
+.enemy-selector {
     width: 80%;
     font-size: 20px;
 }
 
-.battle-btn{
-    width:  80%;
+.battle-btn {
+    width: 80%;
     height: 60px;
     background-color: #ff109f;
     color: white;
@@ -186,11 +185,11 @@ const startBattle = () => {
     border-radius: 5px;
     letter-spacing: -1px;
     cursor: pointer;
-    box-shadow: 2px 2px 4px -2px gray inset
+    box-shadow: 2px 2px 4px -2px gray inset;
 }
 
-.change-ctr-btn{
-    width:  80%;
+.change-ctr-btn {
+    width: 80%;
     height: 60px;
     background-color: #103b91;
     color: white;
@@ -201,7 +200,6 @@ const startBattle = () => {
     border-radius: 5px;
     letter-spacing: -1px;
     cursor: pointer;
-    box-shadow: 2px 2px 4px -2px gray inset
+    box-shadow: 2px 2px 4px -2px gray inset;
 }
-
 </style>
