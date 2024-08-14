@@ -212,6 +212,8 @@ export const useBattleEvent = defineStore("battleEvent", () => {
         // atkNo:1 ⇒ 中技(成功率50%)
         // atkNo:2 ⇒ 弱技(成功率99%)
 
+        console.log("ark no : " + atkNo);
+
         let attackSuccessRate = 1;
         if (atkNo == 0) {
             attackSuccessRate = Config.strongAttackSuccessRate;
@@ -419,6 +421,8 @@ export const useBattleEvent = defineStore("battleEvent", () => {
         await _openMessageBox();
         await _typeMessage(p2Pokemon.name + "　は　ショウリ　した！");
         await sleep_ms(1000);
+
+        _onGameEnded("win");
     };
 
     const _onLose = async () => {
@@ -434,6 +438,36 @@ export const useBattleEvent = defineStore("battleEvent", () => {
         await _openMessageBox();
         await _typeMessage(p2Pokemon.name + "　は　ハイボク　した．．．");
         await sleep_ms(1000);
+
+        _onGameEnded("lose");
+    };
+
+    const _onGameEnded = async (result: "win" | "lose") => {
+        await sleep_ms(800);
+
+        anime({
+            targets: "#winLoseWrapper",
+            opacity: 1,
+            duration: 1300, // 点滅にかかる時間（ミリ秒）
+            easing: "linear", // イージング関数
+        });
+        await sleep_ms(1300);
+
+        if (result == "win") {
+            anime({
+                targets: "#win",
+                top: "22%",
+                duration: 1400,
+                easing: "easeOutBounce",
+            });
+        } else {
+            anime({
+                targets: "#lose",
+                top: "22%",
+                duration: 1400,
+                easing: "easeOutBounce",
+            });
+        }
     };
 
     // helpers

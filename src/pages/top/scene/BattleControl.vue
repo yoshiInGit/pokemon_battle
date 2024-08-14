@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const channel = new BroadcastChannel("pokemon-battle");
 
-const attack = (atkNum: "1" | "2" | "3") => {
+const attack = (atkNum: "0" | "1" | "2") => {
     channel.postMessage({
         order: "attack",
         payload: atkNum,
@@ -13,7 +13,7 @@ const attack = (atkNum: "1" | "2" | "3") => {
     <div
         @click="
             () => {
-                attack('1');
+                attack('0');
             }
         "
     >
@@ -22,7 +22,7 @@ const attack = (atkNum: "1" | "2" | "3") => {
     <div
         @click="
             () => {
-                attack('2');
+                attack('1');
             }
         "
     >
@@ -31,7 +31,7 @@ const attack = (atkNum: "1" | "2" | "3") => {
     <div
         @click="
             () => {
-                attack('3');
+                attack('2');
             }
         "
     >

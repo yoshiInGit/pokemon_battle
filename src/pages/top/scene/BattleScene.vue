@@ -9,6 +9,7 @@ import MessageBox from "./module/MessageBox.vue";
 import BattleBackgroundAsset from "@/assets/img/battle/background.png";
 import CutinAsset from "@/assets/img/cutin/cutin.png";
 import LoseAsset from "@/assets/img/battle/lose.png";
+import WinAsset from "@/assets/img/battle/win.png";
 
 const battleEventStore = useBattleEvent();
 
@@ -55,7 +56,7 @@ const isShowCutin = computed(() => battleEventStore.isShowCutin);
     <AttackMenu v-show="isShowAtcMenu" />
 
     <div class="winLoseWrapper" id="winLoseWrapper">
-        <!-- <img src="./assets/imgs/basic/WIN!.png" alt="" class="win"> -->
+        <img :src="WinAsset" id="win" class="win" />
         <img :src="LoseAsset" id="lose" class="lose" />
     </div>
 </template>
@@ -124,11 +125,20 @@ const isShowCutin = computed(() => battleEventStore.isShowCutin);
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.656);
     opacity: 0;
 }
 
 .lose {
+    opacity: 1;
+    position: absolute;
+    top: -100%;
+    left: 30%;
+    width: 48%;
+}
+
+.win {
+    opacity: 1;
     position: absolute;
     top: -100%;
     left: 30%;
