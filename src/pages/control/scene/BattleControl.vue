@@ -1,7 +1,8 @@
 <script setup lang="ts">
-const channel = new BroadcastChannel("pokemon-battle");
+import type { AttackOptionsType } from "@/domain/attack";
 
-const attack = (atkNum: "0" | "1" | "2") => {
+const channel = new BroadcastChannel("pokemon-battle");
+const attack = (atkNum: AttackOptionsType) => {
     channel.postMessage({
         order: "attack",
         payload: atkNum,
