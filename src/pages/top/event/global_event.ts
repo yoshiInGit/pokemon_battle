@@ -5,9 +5,10 @@ import { defineStore } from "pinia";
 import { ref } from "vue";
 
 export const useGlobalEvent = defineStore("globalEvent", () => {
-    const currentScene = ref("entry");
+    type Scenes = "entry" | "battle";
+    const currentScene = ref<Scenes>("entry");
 
-    const changeScene = (sceneName: string) => {
+    const changeScene = (sceneName: Scenes) => {
         currentScene.value = sceneName;
     };
 
