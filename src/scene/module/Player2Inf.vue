@@ -10,7 +10,7 @@ const p2HpRate = computed(() => battleEventStore.p2HpRate);
 const hpColor = computed(() => {
     let hpRate = battleEventStore.p2HpRate;
     if (hpRate <= 0.3) {
-        return "#f6d842";
+        return "#fb2d2d";
     } else if (hpRate <= 0.1) {
         return "#fb2d2d";
     } else {
