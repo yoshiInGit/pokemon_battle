@@ -1,11 +1,13 @@
-export interface Pokemon{
-    name       : string;
-    hp         : number;
-    atk : number[];
-    atkName : string[];
-    cardImgUrl : string;
-    cutinImgUrl : string[];
+import type { PokemonType } from "./pokemonType";
 
-    onAttack({no} : {no : number}) : Promise<void>;
-    onAttacked({no} : {no : number}) : Promise<void>;
+export interface Pokemon {
+    name: string;
+
+    hp: number;
+    typeName: PokemonType;
+    rank: number;
+
+    atkName: string[];
+    cutinImgUrl: string[];
+    cardImgUrl: string;
 }
