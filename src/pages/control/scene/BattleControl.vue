@@ -10,31 +10,7 @@ const attack = (atkNum: "0" | "1" | "2") => {
 </script>
 
 <template>
-    <div
-        @click="
-            () => {
-                attack('0');
-            }
-        "
-    >
-        ATK1
-    </div>
-    <div
-        @click="
-            () => {
-                attack('1');
-            }
-        "
-    >
-        ATK2
-    </div>
-    <div
-        @click="
-            () => {
-                attack('2');
-            }
-        "
-    >
-        ATK3
-    </div>
+    <div @click="attack(0)">ATK1</div>
+    <div @click="attack(1)">ATK2</div>
+    <div @click="attack(2)">ATK3</div>
 </template>
