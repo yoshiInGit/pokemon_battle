@@ -5,8 +5,8 @@ import { defineStore } from "pinia";
 import { ref } from "vue";
 
 export const useGlobalEvent = defineStore("globalEvent", () => {
-    type Scenes = "entry" | "battle";
-    const currentScene = ref<Scenes>("entry");
+    type Scenes = "entry-control" | "battle-control";
+    const currentScene = ref<Scenes>("entry-control");
 
     const changeScene = (sceneName: Scenes) => {
         currentScene.value = sceneName;
@@ -22,5 +22,12 @@ export const useGlobalEvent = defineStore("globalEvent", () => {
         p2Pokemon.value = pokemon;
     };
 
-    return { currentScene, changeScene, p1Pokemon, setP1Pokemon, p2Pokemon, setP2Pokemon };
+    return {
+        currentScene,
+        changeScene,
+        // p1Pokemon,
+        setP1Pokemon,
+        // p2Pokemon,
+        setP2Pokemon,
+    };
 });

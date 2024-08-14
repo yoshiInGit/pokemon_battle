@@ -16,6 +16,7 @@ import type { Pokemon } from "@/domain/pokemon";
 import { getTypeCompatibility, TypeCompatibility } from "@/domain/pokemonType";
 import { PinchSituation } from "@/domain/pinchSituation";
 import { Config } from "@/domain/config";
+import type { AttackOptionsType } from "@/domain/attack";
 
 const sndBgm = new Howl({ src: boltBgmUrl, volume: 0 });
 const sndSunn = new Howl({ src: sndSunnUrl });
@@ -207,7 +208,7 @@ export const useBattleEvent = defineStore("battleEvent", () => {
         isShowAtcMenu.value = true;
     };
 
-    const onAtkClicked = async (atkNo: number) => {
+    const onAtkClicked = async (atkNo: AttackOptionsType) => {
         // atkNo:0 ⇒ 強技(成功率20%)
         // atkNo:1 ⇒ 中技(成功率50%)
         // atkNo:2 ⇒ 弱技(成功率99%)
