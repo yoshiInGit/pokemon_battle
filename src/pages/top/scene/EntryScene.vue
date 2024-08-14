@@ -1,30 +1,20 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
 import { useEntryEvent } from "../event/entry_event";
-import { useGlobalEvent } from "../event/global_event";
 import WaitingBgAsset from "@/assets/img/entry/waiting_bg.jpg";
 import PokemonBallAsset from "@/assets/img/entry/pokemon_ball.png";
 import PikaAsset from "@/assets/img/card/pika.png";
+import { receiveMessage } from "@/service/message_listener";
 
 const { onStartTapped, onPokemonSet, onBattle } = useEntryEvent();
 
-const { changeScene } = useGlobalEvent();
-
 onMounted(() => {
-    const channel = new BroadcastChannel("pokemon-battle");
-    channel.addEventListener("message", (event) => {
-        const msg = event.data;
-        console.log(msg);
+    receiveMessage("pokemon-set").then((payload) => {
+        onPokemonSet(payload);
+    });
 
-        if (msg.order == "pokemon-set") {
-            onPokemonSet(msg.payload);
-            return;
-        }
-
-        if (msg.order == "start-battle") {
-            onBattle();
-            return;
-        }
+    receiveMessage("start-battle").then(() => {
+        onBattle();
     });
 });
 </script>
@@ -45,15 +35,6 @@ onMounted(() => {
     <div class="veil" id="veil"></div>
 
     <div class="press-start" id="press_start" @click="onStartTapped">TAP TO START</div>
-
-    <div
-        class="control"
-        @click="
-            () => {
-                changeScene('entryControl');
-            }
-        "
-    ></div>
 </template>
 
 <style scoped>

@@ -1,23 +1,16 @@
 <script setup lang="ts">
 import { useGlobalEvent } from "@/pages/control/event/control_event";
 import MyuAsset from "@/assets/img/card/myu.png";
+import { postMessage } from "@/service/message_listener";
 
 const { changeScene } = useGlobalEvent();
 
-const channel = new BroadcastChannel("pokemon-battle");
-
 const setPokemon = () => {
-    channel.postMessage({
-        order: "pokemon-set",
-        payload: "",
-    });
+    postMessage("pokemon-set", "");
 };
 
 const startBattle = () => {
-    channel.postMessage({
-        order: "start-battle",
-        payload: "",
-    });
+    postMessage("start-battle", "");
 };
 </script>
 
@@ -105,8 +98,6 @@ const startBattle = () => {
             <div class="change-ctr-btn" @click="changeScene('battle-control')">バトル操作画面</div>
         </div>
     </div>
-
-    <div class="" @click="changeScene('battle-control')">Battle control</div>
 </template>
 
 <style>
@@ -122,14 +113,16 @@ const startBattle = () => {
 }
 
 .card-selector {
+    padding: 2em 3em;
     height: 100%;
     overflow: scroll;
     overflow-x: hidden;
     width: 80%;
+    box-sizing: border-box;
 
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: start;
+    align-items: start;
     gap: 28px;
     flex-wrap: wrap;
 }

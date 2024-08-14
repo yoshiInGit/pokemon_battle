@@ -10,19 +10,15 @@ import BattleBackgroundAsset from "@/assets/img/battle/background.png";
 import CutinAsset from "@/assets/img/cutin/cutin.png";
 import LoseAsset from "@/assets/img/battle/lose.png";
 import WinAsset from "@/assets/img/battle/win.png";
+import { receiveMessage } from "@/service/message_listener";
 
 const battleEventStore = useBattleEvent();
 
 onMounted(() => {
     battleEventStore.startBattle();
 
-    const channel = new BroadcastChannel("pokemon-battle");
-    channel.addEventListener("message", (event) => {
-        const msg = event.data;
-
-        if (msg.order == "attack") {
-            battleEventStore.onAtkClicked(msg.payload);
-        }
+    receiveMessage("attack").then((atkNum) => {
+        battleEventStore.onAtkClicked(atkNum);
     });
 });
 
