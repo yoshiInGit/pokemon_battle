@@ -59,9 +59,9 @@ export const useBattleEvent = defineStore("battleEvent", () => {
 
         sndBgm.volume(0);
         sndBgm.play();
-        sndBgm.fade(0, 0.2, 3000);
+        sndBgm.fade(0, 0.2, 2000);
 
-        await fadeout({ targets: "#veil", time_ms: 3000, easing: "easeInCirc" });
+        await fadeout({ targets: "#veil", time_ms: 2000, easing: "easeInCirc" });
 
         hide({ id: "veil" });
 
@@ -74,22 +74,22 @@ export const useBattleEvent = defineStore("battleEvent", () => {
 
         anime({
             targets: "#player1Card,#player2Card",
-            duration: 2000,
-            rotateY: "990deg",
-            easing: "easeOutCirc",
+            duration: 300,
+            rotateY: "90deg",
+            easing: "easeOutQuad",
         });
-        await sleep_ms(2000);
+        await sleep_ms(300);
 
         p1CardImgUrl.value = p1Pokemon.cardImgUrl;
         p2CardImgUrl.value = p2Pokemon.cardImgUrl;
 
         anime({
             targets: "#player1Card,#player2Card",
-            duration: 1500,
-            rotateY: "1080deg",
+            duration: 300,
+            rotateY: "0deg",
             easing: "easeInQuad",
         });
-        await sleep_ms(1500);
+        await sleep_ms(300);
         sndZutinn.play();
 
         await sleep_ms(400);
@@ -113,15 +113,13 @@ export const useBattleEvent = defineStore("battleEvent", () => {
             p2: p2Pokemon.hp,
             round: 1,
             easing: "easeOutCirc",
-            duration: 4000,
+            duration: 1500,
             update: function () {
                 p1Hp.value = hps_tmp.p1;
                 p2Hp.value = hps_tmp.p2;
             },
         });
-        await sleep_ms(4000);
-
-        await sleep_ms(500);
+        await sleep_ms(1500);
 
         _preBattle();
     };
@@ -168,7 +166,7 @@ export const useBattleEvent = defineStore("battleEvent", () => {
             anime({
                 targets: targetHp,
                 value: targetHp.value - damage,
-                duration: 2100,
+                duration: 600,
                 round: 1,
                 easing: "linear",
                 update: function () {
@@ -180,7 +178,7 @@ export const useBattleEvent = defineStore("battleEvent", () => {
                 },
             });
 
-            _shakeStage(600);
+            _shakeStage(200);
 
             anime({
                 targets: attackingCardId,
@@ -190,7 +188,7 @@ export const useBattleEvent = defineStore("battleEvent", () => {
             });
             await sleep_ms(100);
 
-            await sleep_ms(2000);
+            await sleep_ms(500);
 
             damageAnime.pause();
             anime({
