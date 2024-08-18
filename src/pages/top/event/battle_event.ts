@@ -1,4 +1,4 @@
-import { fadein, fadeout, hide, sleep_ms } from "@/helper";
+import { fadein, sleep_ms } from "@/helper";
 import anime from "animejs";
 import { defineStore } from "pinia";
 import { Howl } from "howler";
@@ -60,10 +60,6 @@ export const useBattleEvent = defineStore("battleEvent", () => {
         sndBgm.volume(0);
         sndBgm.play();
         sndBgm.fade(0, 0.2, 2000);
-
-        await fadeout({ targets: "#veil", time_ms: 2000, easing: "easeInCirc" });
-
-        hide({ id: "veil" });
 
         await sleep_ms(800);
 

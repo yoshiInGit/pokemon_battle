@@ -1,12 +1,49 @@
 <script setup lang="ts">
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import { useEntryEvent } from "../event/entry_event";
-import WaitingBgAsset from "@/assets/img/entry/waiting_bg.jpg";
-import PokemonBallAsset from "@/assets/img/entry/pokemon_ball.png";
+import WaitingBgWaveAsset from "@/assets/img/entry/wave.png";
 import PikaAsset from "@/assets/img/card/pika.png";
+import ReshiramAsset from "@/assets/img/entry/01.png";
+import ReshiramInfoAsset from "@/assets/img/entry/01-info.png";
+import KapuKokekoAsset from "@/assets/img/entry/02.png";
+import KapuKokekoInfoAsset from "@/assets/img/entry/02-info.png";
+import DeoxysAsset from "@/assets/img/entry/03.png";
+import DeoxysInfoAsset from "@/assets/img/entry/03-info.png";
+import GabrielusAsset from "@/assets/img/entry/04.png";
+import GabrielusInfoAsset from "@/assets/img/entry/04-info.png";
+import GreninjakoAsset from "@/assets/img/entry/05.png";
+import GreninjakoInfoAsset from "@/assets/img/entry/05-info.png";
+
 import { receiveMessage } from "@/service/message_listener";
 
-const { onStartTapped, onPokemonSet, onBattle } = useEntryEvent();
+const StageAssets: Record<Gym, { gymReader: string; status: string }> = {
+    "01": {
+        gymReader: ReshiramAsset,
+        status: ReshiramInfoAsset,
+    },
+    "02": {
+        gymReader: KapuKokekoAsset,
+        status: KapuKokekoInfoAsset,
+    },
+    "03": {
+        gymReader: DeoxysAsset,
+        status: DeoxysInfoAsset,
+    },
+    "04": {
+        gymReader: GabrielusAsset,
+        status: GabrielusInfoAsset,
+    },
+    "05": {
+        gymReader: GreninjakoAsset,
+        status: GreninjakoInfoAsset,
+    },
+};
+
+type Gym = "01" | "02" | "03" | "04" | "05";
+
+const gymSelection = ref<Gym>("05");
+
+const { onPokemonSet, onBattle } = useEntryEvent();
 
 onMounted(() => {
     receiveMessage("pokemon-set").then((payload) => {
@@ -20,21 +57,16 @@ onMounted(() => {
 </script>
 
 <template>
-    <img :src="WaitingBgAsset" alt="" class="background" />
+    <div class="background"></div>
 
-    <div class="ball-wrapper">
-        <img :src="PokemonBallAsset" alt="" class="ball" />
-    </div>
-
-    <div class="waiting" id="waiting">待機中</div>
+    <img :src="WaitingBgWaveAsset" alt="" class="background-wave" />
 
     <img :src="PikaAsset" alt="" class="pokemon" id="pokemon" />
 
-    <div class="battle" id="battleBtn" @click="onBattle">Battle!</div>
+    <img :src="StageAssets[gymSelection].gymReader" class="gymReader" />
+    <img :src="StageAssets[gymSelection].status" class="gymReaderInfo" />
 
     <div class="veil" id="veil"></div>
-
-    <div class="press-start" id="press_start" @click="onStartTapped">TAP TO START</div>
 </template>
 
 <style scoped>
@@ -44,34 +76,32 @@ onMounted(() => {
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    filter: contrast(50%) brightness(130%);
+    background-image: url("@/assets/img/entry/background.png");
+    background-position: 0% 0%;
+    background-size: 200% 200%;
+    background-repeat: repeat;
+    animation-name: bg-animation;
+    animation-duration: 180s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
 }
 
-.ball-wrapper {
-    position: fixed;
-    top: 0;
+@keyframes bg-animation {
+    from {
+        background-position: 0% 0%;
+    }
+    to {
+        background-position: -1000% 1000%;
+    }
+}
+
+.background-wave {
+    position: absolute;
     left: 0;
+    right: 0;
+    bottom: 10%;
+    margin: auto;
     width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.ball {
-    width: 50%;
-}
-
-.waiting {
-    position: fixed;
-    top: 37%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 1200%;
-
-    -webkit-text-fill-color: white; /* （順序に関係なく）色を上書きする */
-    -webkit-text-stroke: 3px black;
 }
 
 .pokemon {
@@ -84,25 +114,21 @@ onMounted(() => {
     display: none;
 }
 
-.battle {
-    position: fixed;
-    top: 80%;
-    left: 50%;
-    width: 60%;
-    transform: translate(-50%, -50%);
+.gymReader {
+    position: absolute;
+    /* inset: 0; */
+    top: 0;
+    bottom: 0;
+    right: 5%;
+    height: 100%;
+    margin: auto;
+}
 
-    width: 300px;
-    height: 60px;
-    background-color: #ff109f;
-    color: white;
-    font-size: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 5px;
-    letter-spacing: -1px;
-    cursor: pointer;
-    box-shadow: 2px 2px 4px -2px gray inset;
+.gymReaderInfo {
+    position: absolute;
+    margin: auto;
+    bottom: 5%;
+    left: 10%;
 }
 
 .veil {
@@ -114,21 +140,6 @@ onMounted(() => {
     background-color: rgb(25, 25, 25);
     opacity: 0;
     display: none;
-}
-
-.press-start {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    background-color: rgba(0, 0, 0, 0.421);
-    font-size: 600%;
 }
 
 .control {

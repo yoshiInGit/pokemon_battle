@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import anime from "animejs";
-import { fadein, fadeout, hide, show, sleep_ms } from "@/helper";
+import { fadein, hide, show, sleep_ms } from "@/helper";
 import { Howl } from "howler";
 import startBgmUrl from "@/assets/sound/bgm/start_music.mp3";
 import pironUrl from "@/assets/sound/effect/piron.mp3";
@@ -14,14 +14,14 @@ const snd_shiiin = new Howl({ src: shiiinUrl });
 
 export const useEntryEvent = defineStore("entryEvent", () => {
     const onStartTapped = () => {
-        anime({
-            targets: ".ball",
-            rotateY: 90,
-            duration: 1000,
-            direction: "alternate",
-            loop: true,
-            easing: "easeInOutSine",
-        });
+        // anime({
+        //     targets: ".ball",
+        //     rotateY: 90,
+        //     duration: 1000,
+        //     direction: "alternate",
+        //     loop: true,
+        //     easing: "easeInOutSine",
+        // });
 
         snd_bgm.play();
 
@@ -30,9 +30,6 @@ export const useEntryEvent = defineStore("entryEvent", () => {
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const onPokemonSet = async (pokemon: string) => {
-        await fadeout({ targets: "#waiting", time_ms: 200 });
-        hide({ id: "waiting" });
-
         await sleep_ms(100);
 
         show({ id: "pokemon" });
@@ -41,16 +38,6 @@ export const useEntryEvent = defineStore("entryEvent", () => {
 
     const onBattle = async () => {
         snd_piron.play();
-
-        anime({
-            targets: "#battleBtn",
-            opacity: 0,
-            scale: 1.5,
-            translateX: ["-50%", "-36%"],
-            translateY: ["-50%", "-36%"],
-            duration: 500,
-            easing: "easeOutCirc",
-        });
 
         await sleep_ms(400);
 
