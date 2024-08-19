@@ -15,11 +15,11 @@ import { receiveMessage } from "@/service/message_listener";
 const battleEventStore = useBattleEvent();
 
 onMounted(() => {
-    battleEventStore.startBattle();
+  battleEventStore.startBattle();
 
-    receiveMessage("attack").then((atkNum) => {
-        battleEventStore.onAtkClicked(atkNum);
-    });
+  receiveMessage("attack").then((atkNum) => {
+    battleEventStore.onAtkClicked(atkNum);
+  });
 });
 
 const isShowAtcMenu = computed(() => battleEventStore.isShowAtcMenu);
@@ -32,112 +32,149 @@ const isShowCutin = computed(() => battleEventStore.isShowCutin);
 </script>
 
 <template>
-    <img :src="BattleBackgroundAsset" alt="" class="background" />
+  <img
+    :src="BattleBackgroundAsset"
+    alt=""
+    class="background"
+  />
 
-    <Player1Inf />
+  <Player1Inf />
 
-    <Player2Inf />
+  <Player2Inf />
 
-    <img :src="p1CardImgUrl" alt="" class="player1Card" id="player1Card" />
-    <img :src="p2CardImgUrl" alt="" class="player2Card" id="player2Card" />
+  <img
+    :src="p1CardImgUrl"
+    alt=""
+    class="player1Card"
+    id="player1Card"
+  />
+  <img
+    :src="p2CardImgUrl"
+    alt=""
+    class="player2Card"
+    id="player2Card"
+  />
 
-    <img :src="CutinAsset" alt="" class="cutIn" id="cutIn" v-show="isShowCutin" />
+  <img
+    :src="CutinAsset"
+    alt=""
+    class="cutIn"
+    id="cutIn"
+    v-show="isShowCutin"
+  />
 
-    <MessageBox />
+  <MessageBox />
 
-    <div class="flash" v-show="false"></div>
+  <div
+    class="flash"
+    v-show="false"
+  ></div>
 
-    <div class="veil" id="veil"></div>
+  <div
+    class="veil"
+    id="veil"
+  ></div>
 
-    <AttackMenu v-show="isShowAtcMenu" />
+  <AttackMenu v-show="isShowAtcMenu" />
 
-    <div class="winLoseWrapper" id="winLoseWrapper">
-        <img :src="WinAsset" id="win" class="win" />
-        <img :src="LoseAsset" id="lose" class="lose" />
-    </div>
+  <div
+    class="winLoseWrapper"
+    id="winLoseWrapper"
+  >
+    <img
+      :src="WinAsset"
+      id="win"
+      class="win"
+    />
+    <img
+      :src="LoseAsset"
+      id="lose"
+      class="lose"
+    />
+  </div>
 </template>
 
 <style scoped>
 .background {
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
 }
 
 .player1Card {
-    display: block;
-    position: absolute;
-    top: 35%;
-    left: 12%;
-    width: 24%;
-    opacity: 0;
+  display: block;
+  position: absolute;
+  top: 35%;
+  left: 12%;
+  width: 24%;
+  opacity: 0;
 }
 
 .player2Card {
-    display: block;
-    position: absolute;
-    top: 35%;
-    right: 12%;
-    width: 24%;
-    opacity: 0;
+  display: block;
+  position: absolute;
+  top: 35%;
+  right: 12%;
+  width: 24%;
+  opacity: 0;
 }
 .veil {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgb(25, 25, 25);
-    opacity: 1;
-    display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgb(25, 25, 25);
+  opacity: 1;
+  display: block;
 }
 
 .cutIn {
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    clip-path: polygon(0 7%, 100% 23%, 100% 91%, 0 74%);
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  clip-path: polygon(0 7%, 100% 23%, 100% 91%, 0 74%);
 }
 
 .flash {
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    background-color: white;
-    mix-blend-mode: hard-light;
-    opacity: 0.7;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: white;
+  mix-blend-mode: hard-light;
+  opacity: 0.7;
 }
 
 .winLoseWrapper {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.656);
-    opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.656);
+  opacity: 0;
 }
 
 .lose {
-    opacity: 1;
-    position: absolute;
-    top: -100%;
-    left: 30%;
-    width: 48%;
+  opacity: 1;
+  position: absolute;
+  top: -100%;
+  left: 30%;
+  width: 48%;
 }
 
 .win {
-    opacity: 1;
-    position: absolute;
-    top: -100%;
-    left: 30%;
-    width: 48%;
+  opacity: 1;
+  position: absolute;
+  top: -100%;
+  left: 30%;
+  width: 48%;
 }
 </style>

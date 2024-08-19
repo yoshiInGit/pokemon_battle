@@ -13,56 +13,56 @@ const snd_piron = new Howl({ src: pironUrl });
 const snd_shiiin = new Howl({ src: shiiinUrl });
 
 export const useEntryEvent = defineStore("entryEvent", () => {
-    const onStartTapped = () => {
-        // anime({
-        //     targets: ".ball",
-        //     rotateY: 90,
-        //     duration: 1000,
-        //     direction: "alternate",
-        //     loop: true,
-        //     easing: "easeInOutSine",
-        // });
+  const onStartTapped = () => {
+    // anime({
+    //     targets: ".ball",
+    //     rotateY: 90,
+    //     duration: 1000,
+    //     direction: "alternate",
+    //     loop: true,
+    //     easing: "easeInOutSine",
+    // });
 
-        snd_bgm.play();
+    snd_bgm.play();
 
-        hide({ id: "press_start" });
-    };
+    hide({ id: "press_start" });
+  };
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const onPokemonSet = async (pokemon: string) => {
-        await sleep_ms(100);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const onPokemonSet = async (pokemon: string) => {
+    await sleep_ms(100);
 
-        show({ id: "pokemon" });
-        await fadein({ targets: "#pokemon", time_ms: 180 });
-    };
+    show({ id: "pokemon" });
+    await fadein({ targets: "#pokemon", time_ms: 180 });
+  };
 
-    const onBattle = async () => {
-        snd_piron.play();
+  const onBattle = async () => {
+    snd_piron.play();
 
-        await sleep_ms(400);
+    await sleep_ms(400);
 
-        anime({
-            targets: "#pokemon",
-            translateX: ["-50%", "-50%"],
-            translateY: ["-50%", "-1000%"],
-            duration: 1000,
-            easing: "easeInBack",
-        });
-        await sleep_ms(500);
-        snd_shiiin.play();
-        await sleep_ms(700);
+    anime({
+      targets: "#pokemon",
+      translateX: ["-50%", "-50%"],
+      translateY: ["-50%", "-1000%"],
+      duration: 1000,
+      easing: "easeInBack",
+    });
+    await sleep_ms(500);
+    snd_shiiin.play();
+    await sleep_ms(700);
 
-        show({ id: "veil" });
-        fadein({ targets: "#veil", time_ms: 500 });
+    show({ id: "veil" });
+    fadein({ targets: "#veil", time_ms: 500 });
 
-        snd_bgm.fade(1, 0, 300);
+    snd_bgm.fade(1, 0, 300);
 
-        await sleep_ms(600);
+    await sleep_ms(600);
 
-        useGlobalEvent().changeScene("battle");
+    useGlobalEvent().changeScene("battle");
 
-        //useBattleEvent().startBattle();
-    };
+    //useBattleEvent().startBattle();
+  };
 
-    return { onStartTapped, onPokemonSet, onBattle };
+  return { onStartTapped, onPokemonSet, onBattle };
 });

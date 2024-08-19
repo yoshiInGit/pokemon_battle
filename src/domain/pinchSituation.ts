@@ -1,5 +1,5 @@
 export enum PinchSituation {
-    Pinch,
-    ALittlePinch,
-    VeryPinch,
+  Pinch,
+  ALittlePinch,
+  VeryPinch,
 }

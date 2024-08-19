@@ -17,26 +17,26 @@ import GreninjakoInfoAsset from "@/assets/img/entry/05-info.png";
 import { receiveMessage } from "@/service/message_listener";
 
 const StageAssets: Record<Gym, { gymReader: string; status: string }> = {
-    "01": {
-        gymReader: ReshiramAsset,
-        status: ReshiramInfoAsset,
-    },
-    "02": {
-        gymReader: KapuKokekoAsset,
-        status: KapuKokekoInfoAsset,
-    },
-    "03": {
-        gymReader: DeoxysAsset,
-        status: DeoxysInfoAsset,
-    },
-    "04": {
-        gymReader: GabrielusAsset,
-        status: GabrielusInfoAsset,
-    },
-    "05": {
-        gymReader: GreninjakoAsset,
-        status: GreninjakoInfoAsset,
-    },
+  "01": {
+    gymReader: ReshiramAsset,
+    status: ReshiramInfoAsset,
+  },
+  "02": {
+    gymReader: KapuKokekoAsset,
+    status: KapuKokekoInfoAsset,
+  },
+  "03": {
+    gymReader: DeoxysAsset,
+    status: DeoxysInfoAsset,
+  },
+  "04": {
+    gymReader: GabrielusAsset,
+    status: GabrielusInfoAsset,
+  },
+  "05": {
+    gymReader: GreninjakoAsset,
+    status: GreninjakoInfoAsset,
+  },
 };
 
 type Gym = "01" | "02" | "03" | "04" | "05";
@@ -46,108 +46,126 @@ const gymSelection = ref<Gym>("05");
 const { onPokemonSet, onBattle } = useEntryEvent();
 
 onMounted(() => {
-    receiveMessage("pokemon-set").then((payload) => {
-        onPokemonSet(payload);
-    });
+  receiveMessage("pokemon-set").then((payload) => {
+    onPokemonSet(payload);
+  });
 
-    receiveMessage("start-battle").then(() => {
-        onBattle();
-    });
+  receiveMessage("start-battle").then(() => {
+    onBattle();
+  });
 });
 </script>
 
 <template>
-    <div class="background"></div>
+  <div class="background"></div>
 
-    <img :src="WaitingBgWaveAsset" alt="" class="background-wave" />
+  <img
+    :src="WaitingBgWaveAsset"
+    alt=""
+    class="background-wave"
+  />
 
-    <img :src="PikaAsset" alt="" class="pokemon" id="pokemon" />
+  <img
+    :src="PikaAsset"
+    alt=""
+    class="pokemon"
+    id="pokemon"
+  />
 
-    <img :src="StageAssets[gymSelection].gymReader" class="gymReader" />
-    <img :src="StageAssets[gymSelection].status" class="gymReaderInfo" />
+  <img
+    :src="StageAssets[gymSelection].gymReader"
+    class="gymReader"
+  />
+  <img
+    :src="StageAssets[gymSelection].status"
+    class="gymReaderInfo"
+  />
 
-    <div class="veil" id="veil"></div>
+  <div
+    class="veil"
+    id="veil"
+  ></div>
 </template>
 
 <style scoped>
 .background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url("@/assets/img/entry/background.png");
-    background-position: 0% 0%;
-    background-size: 200% 200%;
-    background-repeat: repeat;
-    animation-name: bg-animation;
-    animation-duration: 180s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("@/assets/img/entry/background.png");
+  background-position: 0% 0%;
+  background-size: 200% 200%;
+  background-repeat: repeat;
+  animation-name: bg-animation;
+  animation-duration: 180s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
 }
 
 @keyframes bg-animation {
-    from {
-        background-position: 0% 0%;
-    }
-    to {
-        background-position: -1000% 1000%;
-    }
+  from {
+    background-position: 0% 0%;
+  }
+  to {
+    background-position: -1000% 1000%;
+  }
 }
 
 .background-wave {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 10%;
-    margin: auto;
-    width: 100%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 10%;
+  margin: auto;
+  width: 100%;
 }
 
 .pokemon {
-    position: fixed;
-    top: 37%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 20%;
-    opacity: 0;
-    display: none;
+  position: fixed;
+  top: 37%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20%;
+  opacity: 0;
+  display: none;
 }
 
 .gymReader {
-    position: absolute;
-    /* inset: 0; */
-    top: 0;
-    bottom: 0;
-    right: 5%;
-    height: 100%;
-    margin: auto;
+  position: absolute;
+  /* inset: 0; */
+  top: 0;
+  bottom: 0;
+  right: 5%;
+  height: 100%;
+  margin: auto;
 }
 
 .gymReaderInfo {
-    position: absolute;
-    margin: auto;
-    bottom: 5%;
-    left: 10%;
+  position: absolute;
+  margin: auto;
+  bottom: 5%;
+  left: 10%;
 }
 
 .veil {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgb(25, 25, 25);
-    opacity: 0;
-    display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgb(25, 25, 25);
+  opacity: 0;
+  display: none;
 }
 
 .control {
-    width: 10px;
-    height: 10px;
-    background-color: white;
-    position: fixed;
-    top: 10px;
-    left: 10px;
+  width: 10px;
+  height: 10px;
+  background-color: white;
+  position: fixed;
+  top: 10px;
+  left: 10px;
 }
 </style>

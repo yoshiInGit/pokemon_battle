@@ -6,12 +6,15 @@ const store = useGlobalEvent();
 </script>
 
 <template>
-    <div class="wrapper">
-        <div class="scene" id="scene">
-            <EntryControl v-if="store.currentScene === 'entry-control'" />
-            <BattleControl v-else-if="store.currentScene === 'battle-control'" />
-        </div>
+  <div class="wrapper">
+    <div
+      class="scene"
+      id="scene"
+    >
+      <EntryControl v-if="store.currentScene === 'entry-control'" />
+      <BattleControl v-else-if="store.currentScene === 'battle-control'" />
     </div>
+  </div>
 </template>
 
 <style scoped></style>
