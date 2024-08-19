@@ -10,8 +10,16 @@ import Player07CardAsset from "@/assets/img/card/player-07.png";
 import Player08CardAsset from "@/assets/img/card/player-08.png";
 
 import { postMessage } from "@/service/message_listener";
+import { StageAssets, type Gym } from "@/domain/gym_pokemon";
+import { useGymSelection } from "../service/gym_selection";
 
 const { changeScene } = useGlobalEvent();
+
+const { selection: gymSelection } = useGymSelection();
+
+const setGymSelection = (key: Gym) => {
+  gymSelection.value = key;
+};
 
 const setPokemon = () => {
   postMessage("pokemon-set", "");
@@ -77,11 +85,33 @@ const PlayerOptions = [
       </div>
     </div>
     <div class="controller">
-      <select class="enemy-selector">
-        <option>敵ポケモン１</option>
-        <option>敵ポケモン２</option>
-        <option>敵ポケモン３</option>
-      </select>
+      <label
+        v-for="(gym, key) in StageAssets"
+        :key="`gym_pokemons_${gym.location}`"
+        class="gymReaderLabel"
+      >
+        <input
+          class="gymReaderInput"
+          type="radio"
+          @change="setGymSelection(key)"
+          :value="key"
+          name="gym_selection"
+        />
+        <div class="gymReaderWrapper">
+          <div class="gymReaderImgWrapper">
+            <img
+              class="gymReaderImg"
+              :src="gym.src"
+            />
+          </div>
+          <div class="locationWrapper">
+            <div
+              class="locationText"
+              v-text="gym.location"
+            ></div>
+          </div>
+        </div>
+      </label>
 
       <div
         class="battle-btn"
@@ -129,15 +159,9 @@ const PlayerOptions = [
 
 .controller {
   height: 100%;
-  width: 20%;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  flex-direction: column;
-
-  gap: 40px;
+  width: 30%;
+  overflow-y: scroll;
+  padding: 1em;
 }
 
 .card-wrapper {
@@ -200,5 +224,54 @@ const PlayerOptions = [
   letter-spacing: -1px;
   cursor: pointer;
   box-shadow: 2px 2px 4px -2px gray inset;
+}
+
+.gymReaderLabel {
+  display: inline-block;
+  border-radius: 3em;
+  cursor: pointer;
+  padding: 1em;
+  cursor: pointer;
+}
+
+.gymReaderLabel:hover,
+.gymReaderLabel:has([type="radio"]:checked) {
+  background-color: #c9c9c9;
+}
+
+.gymReaderWrapper {
+  background-color: white;
+  border: solid gray 0.5em;
+  border-radius: 2em;
+  width: 17em;
+}
+
+.gymReaderInput {
+  display: none;
+}
+
+.gymReaderImgWrapper {
+  width: 100%;
+  height: 7em;
+}
+
+.gymReaderImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
+}
+
+.locationWrapper {
+  background-color: gray;
+  padding: 0.5em 0 0;
+}
+
+.locationText {
+  width: 50%;
+  background-color: white;
+  padding: 0.3em 1em;
+  border-radius: 0 1.5em 0 1.5em;
+  font-weight: bold;
 }
 </style>
