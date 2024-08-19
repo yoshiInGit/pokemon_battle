@@ -14,26 +14,36 @@ export const StageAssets = {
     src: ReshiramAsset,
     status: ReshiramInfoAsset,
     location: "体育館",
+    leaderName: "N",
+    pokemonName: "レシラム",
   },
   "02": {
     src: KapuKokekoAsset,
     status: KapuKokekoInfoAsset,
     location: "講堂",
+    leaderName: "ククイ博士",
+    pokemonName: "カプ・コケコ",
   },
   "03": {
     src: DeoxysAsset,
     status: DeoxysInfoAsset,
     location: "第一キャンプ場",
+    leaderName: "ダイゴ",
+    pokemonName: "デオキシス",
   },
   "04": {
     src: GabrielusAsset,
     status: GabrielusInfoAsset,
     location: "宿舎前広場",
+    leaderName: "シロナ",
+    pokemonName: "ガブリアス",
   },
   "05": {
     src: GreninjakoAsset,
     status: GreninjakoInfoAsset,
     location: "冒険の小川",
+    leaderName: "サトシ",
+    pokemonName: "ゲッコウガ",
   },
 } as const;
 

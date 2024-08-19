@@ -1,13 +1,9 @@
 <script setup lang="ts">
-import { useGlobalEvent } from "@/pages/control/event/control_event";
-
 import { postMessage } from "@/service/message_listener";
 import { StageAssets } from "@/domain/gym_pokemon";
 import { useGymSelection } from "../service/gym_selection";
 import { PlayerOptions, type PlayerKeys } from "@/domain/player_pokemon";
 import { ref } from "vue";
-
-const { changeScene } = useGlobalEvent();
 
 const { selection: gymSelection, setSelection: setGymSelection } = useGymSelection();
 
@@ -47,20 +43,32 @@ const startBattle = () => {
         ></div>
       </label>
 
-      <div class="controllers">
-        <button
-          class="battle-btn"
-          @click="startBattle"
-        >
-          バトル開始
-        </button>
-
-        <button
-          class="change-ctr-btn"
-          @click="changeScene('battle-control')"
-        >
-          バトル操作画面
-        </button>
+      <div
+        class="controllers"
+        :class="{ show: playerSelection !== null && gymSelection !== null }"
+      >
+        <div class="battleInfo">
+          <div
+            v-if="playerSelection !== null"
+            class="playerInfo"
+          >
+            <span v-text="PlayerOptions[playerSelection].name"></span>
+          </div>
+          <div>VS</div>
+          <div class="gymNames">
+            <span v-text="`${StageAssets[gymSelection].leaderName}&${StageAssets[gymSelection].pokemonName}`"></span
+            ><br />
+            <span v-text="`${StageAssets[gymSelection].location}`"></span>
+          </div>
+        </div>
+        <div class="actions">
+          <button
+            class="battle-btn"
+            @click="startBattle"
+          >
+            バトル開始
+          </button>
+        </div>
       </div>
     </div>
     <div class="rightPanel">
@@ -124,10 +132,10 @@ const startBattle = () => {
 }
 
 .rightPanel {
-  height: 100%;
   width: 30%;
   overflow-y: scroll;
   padding: 1em;
+  padding-bottom: 20em;
 }
 
 .playerCardLabel {
@@ -163,9 +171,49 @@ const startBattle = () => {
 }
 
 .controllers {
+  position: fixed;
+  right: 0;
+  background-color: white;
+  width: 25em;
+  height: 9em;
+  padding: 1em;
+  box-sizing: border-box;
+  border-radius: 2em 2em 0 0;
+  filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.2));
+  transition: all 0.5s;
+  bottom: -9em;
+}
+.controllers.show {
+  bottom: 0;
+}
+
+.battleInfo {
   display: flex;
-  height: 15em;
-  width: 100%;
+  justify-content: center;
+  align-items: center;
+  line-height: 1;
+  gap: 0.2em;
+  margin-bottom: 1em;
+}
+
+.gymNames {
+  padding: 0.3em 0.3em;
+  background-color: gray;
+  border-radius: 0.3em;
+  color: white;
+}
+
+.playerInfo {
+  padding: 0.3em 0.3em;
+  background-color: gray;
+  border-radius: 0.3em;
+  color: white;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .enemy-selector {
@@ -174,17 +222,13 @@ const startBattle = () => {
 }
 
 .battle-btn {
-  /* width: 80%; */
   height: 60px;
   background-color: #ff109f;
   color: white;
   font-size: 40px;
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
   border-radius: 5px;
-  /* letter-spacing: -1px; */
   box-shadow: 2px 2px 4px -2px gray inset;
+  cursor: pointer;
 }
 
 .change-ctr-btn {
