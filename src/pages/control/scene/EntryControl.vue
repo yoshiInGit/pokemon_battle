@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { postMessage } from "@/service/message_listener";
+import { postMessage, receiveMessage } from "@/service/message_listener";
 import { StageAssets } from "@/domain/gym_pokemon";
 import { useGymSelection } from "../service/gym_selection";
 import { PlayerOptions, type PlayerKeys } from "@/domain/player_pokemon";
 import { ref } from "vue";
+import AttackSelectionModal from "@/pages/control/scene/module/AttackSelectionModal.vue";
 
 const { selection: gymSelection, setSelection: setGymSelection } = useGymSelection();
 
@@ -16,6 +17,18 @@ const setPokemon = (key: PlayerKeys) => {
 const startBattle = () => {
   postMessage("start-battle", "");
 };
+
+const showAttackSelection = ref<boolean>(false);
+const attackSelections = ref<[string, string, string]>(["", "", ""]);
+const onSelect = (index: 0 | 1 | 2) => {
+  postMessage("attack", index);
+  showAttackSelection.value = false;
+};
+
+receiveMessage("show-attack-selections").then((attacks) => {
+  showAttackSelection.value = true;
+  attackSelections.value = [attacks[0], attacks[1], attacks[2]];
+});
 </script>
 
 <template>
@@ -101,6 +114,11 @@ const startBattle = () => {
         </div>
       </label>
     </div>
+    <AttackSelectionModal
+      v-if="showAttackSelection"
+      :attacks="attackSelections"
+      @select="onSelect"
+    />
   </div>
 </template>
 

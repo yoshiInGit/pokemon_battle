@@ -7,6 +7,8 @@ interface Props {
   "pokemon-set": PlayerKeys;
   "start-battle": "";
   "gym-selection": { key: Gym };
+  "show-attack-selections": { 0: string; 1: string; 2: string };
+  "select-attack": 0 | 1 | 2;
 }
 
 const channel = new BroadcastChannel("pokemon-battle");

@@ -17,6 +17,7 @@ import { getTypeCompatibility, TypeCompatibility } from "@/domain/pokemonType";
 import { PinchSituation } from "@/domain/pinchSituation";
 import { Config } from "@/domain/config";
 import type { AttackOptionsType } from "@/domain/attack";
+import { postMessage } from "@/service/message_listener";
 
 const sndBgm = new Howl({ src: boltBgmUrl, volume: 0 });
 const sndSunn = new Howl({ src: sndSunnUrl });
@@ -204,6 +205,11 @@ export const useBattleEvent = defineStore("battleEvent", () => {
     await sleep_ms(700);
 
     isShowAtcMenu.value = true;
+    postMessage("show-attack-selections", {
+      0: p2Pokemon.atkName[0],
+      1: p2Pokemon.atkName[1],
+      2: p2Pokemon.atkName[2],
+    });
   };
 
   const onAtkClicked = async (atkNo: AttackOptionsType) => {

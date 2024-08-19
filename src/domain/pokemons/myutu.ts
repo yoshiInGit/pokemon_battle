@@ -8,7 +8,7 @@ export class Myutu implements Pokemon {
   typeName = PokemonType.Espa;
   rank = 1;
 
-  atkName = ["サイコカッター ", "サイコブレイク", "シャドーボール"];
+  atkName: [string, string, string] = ["サイコカッター ", "サイコブレイク", "シャドーボール"];
   cutinImgUrl = ["", "", ""];
   cardImgUrl = cardImgUrlAsset;
 }
