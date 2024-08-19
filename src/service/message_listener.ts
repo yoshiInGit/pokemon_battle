@@ -1,9 +1,11 @@
 import type { AttackOptionsType } from "@/domain/attack";
+import type { Gym } from "@/domain/gym_pokemon";
 
 interface Props {
   attack: AttackOptionsType;
   "pokemon-set": "";
   "start-battle": "";
+  "gym-selection": { key: Gym };
 }
 
 const channel = new BroadcastChannel("pokemon-battle");

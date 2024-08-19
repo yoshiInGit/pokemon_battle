@@ -6,10 +6,19 @@ import PikaAsset from "@/assets/img/card/pika.png";
 
 import { receiveMessage } from "@/service/message_listener";
 import { StageAssets, type Gym } from "@/domain/gym_pokemon";
+import { getLocalStorageItem } from "@/service/localstorage_repository";
 
-const gymSelection = ref<Gym>("01");
+const gymSelection = ref<Gym>(getLocalStorageItem("gym-selection") ?? "01");
 
 const { onPokemonSet, onBattle } = useEntryEvent();
+
+const checkGymSelection = () => {
+  receiveMessage("gym-selection").then((payload) => {
+    gymSelection.value = payload.key;
+    checkGymSelection();
+  });
+};
+checkGymSelection();
 
 onMounted(() => {
   receiveMessage("pokemon-set").then((payload) => {

@@ -1,4 +1,6 @@
 import { isGym, type Gym } from "@/domain/gym_pokemon";
+import { setLocalStorageItem } from "@/service/localstorage_repository";
+import { postMessage } from "@/service/message_listener";
 import { ref } from "vue";
 
 export const useGymSelection = () => {
@@ -8,10 +10,17 @@ export const useGymSelection = () => {
   if (savedSelection !== null && isGym(savedSelection)) {
     selection.value = savedSelection;
   } else {
-    localStorage.setItem("gym-selection", "01");
+    setLocalStorageItem("gym-selection", "01");
   }
+
+  const setSelection = (key: Gym) => {
+    selection.value = key;
+    setLocalStorageItem("gym-selection", key);
+    postMessage("gym-selection", { key });
+  };
 
   return {
     selection,
+    setSelection,
   };
 };

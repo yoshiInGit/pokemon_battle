@@ -10,16 +10,12 @@ import Player07CardAsset from "@/assets/img/card/player-07.png";
 import Player08CardAsset from "@/assets/img/card/player-08.png";
 
 import { postMessage } from "@/service/message_listener";
-import { StageAssets, type Gym } from "@/domain/gym_pokemon";
+import { StageAssets } from "@/domain/gym_pokemon";
 import { useGymSelection } from "../service/gym_selection";
 
 const { changeScene } = useGlobalEvent();
 
-const { selection: gymSelection } = useGymSelection();
-
-const setGymSelection = (key: Gym) => {
-  gymSelection.value = key;
-};
+const { selection: gymSelection, setSelection: setGymSelection } = useGymSelection();
 
 const setPokemon = () => {
   postMessage("pokemon-set", "");
@@ -95,6 +91,7 @@ const PlayerOptions = [
           type="radio"
           @change="setGymSelection(key)"
           :value="key"
+          :checked="gymSelection === key"
           name="gym_selection"
         />
         <div class="gymReaderWrapper">
