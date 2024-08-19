@@ -1,6 +1,14 @@
 <script setup lang="ts">
 import { useGlobalEvent } from "@/pages/control/event/control_event";
-import MyuAsset from "@/assets/img/card/myu.png";
+import Player01CardAsset from "@/assets/img/card/player-01.png";
+import Player02CardAsset from "@/assets/img/card/player-02.png";
+import Player03CardAsset from "@/assets/img/card/player-03.png";
+import Player04CardAsset from "@/assets/img/card/player-04.png";
+import Player05CardAsset from "@/assets/img/card/player-05.png";
+import Player06CardAsset from "@/assets/img/card/player-06.png";
+import Player07CardAsset from "@/assets/img/card/player-07.png";
+import Player08CardAsset from "@/assets/img/card/player-08.png";
+
 import { postMessage } from "@/service/message_listener";
 
 const { changeScene } = useGlobalEvent();
@@ -12,6 +20,41 @@ const setPokemon = () => {
 const startBattle = () => {
   postMessage("start-battle", "");
 };
+
+const PlayerOptions = [
+  {
+    src: Player01CardAsset,
+    name: "ミロカロス",
+  },
+  {
+    src: Player02CardAsset,
+    name: "シャリタツ",
+  },
+  {
+    src: Player03CardAsset,
+    name: "マニューラ",
+  },
+  {
+    src: Player04CardAsset,
+    name: "オノノクス",
+  },
+  {
+    src: Player05CardAsset,
+    name: "ルガルガン",
+  },
+  {
+    src: Player06CardAsset,
+    name: "イワーク",
+  },
+  {
+    src: Player07CardAsset,
+    name: "リーフィア",
+  },
+  {
+    src: Player08CardAsset,
+    name: "デデンネ",
+  },
+];
 </script>
 
 <template>
@@ -20,124 +63,17 @@ const startBattle = () => {
       <div
         class="card-wrapper"
         @click="setPokemon"
+        v-for="card of PlayerOptions"
+        :key="`player_card_options_${card.name}`"
       >
         <img
           class="card"
-          :src="MyuAsset"
+          :src="card.src"
         />
-        <div class="card-name">ほげほげ</div>
-      </div>
-      <div class="card-wrapper">
-        <img
-          class="card"
-          :src="MyuAsset"
-        />
-        <div class="card-name">ほげほげ</div>
-      </div>
-      <div class="card-wrapper">
-        <img
-          class="card"
-          :src="MyuAsset"
-        />
-        <div class="card-name">ほげほげ</div>
-      </div>
-      <div class="card-wrapper">
-        <img
-          class="card"
-          :src="MyuAsset"
-        />
-        <div class="card-name">ほげほげ</div>
-      </div>
-      <div class="card-wrapper">
-        <img
-          class="card"
-          :src="MyuAsset"
-        />
-        <div class="card-name">ほげほげ</div>
-      </div>
-      <div class="card-wrapper">
-        <img
-          class="card"
-          :src="MyuAsset"
-        />
-        <div class="card-name">ほげほげ</div>
-      </div>
-      <div class="card-wrapper">
-        <img
-          class="card"
-          :src="MyuAsset"
-        />
-        <div class="card-name">ほげほげ</div>
-      </div>
-      <div class="card-wrapper">
-        <img
-          class="card"
-          :src="MyuAsset"
-        />
-        <div class="card-name">ほげほげ</div>
-      </div>
-      <div class="card-wrapper">
-        <img
-          class="card"
-          :src="MyuAsset"
-        />
-        <div class="card-name">ほげほげ</div>
-      </div>
-      <div class="card-wrapper">
-        <img
-          class="card"
-          :src="MyuAsset"
-        />
-        <div class="card-name">ほげほげ</div>
-      </div>
-      <div class="card-wrapper">
-        <img
-          class="card"
-          :src="MyuAsset"
-        />
-        <div class="card-name">ほげほげ</div>
-      </div>
-      <div class="card-wrapper">
-        <img
-          class="card"
-          :src="MyuAsset"
-        />
-        <div class="card-name">ほげほげ</div>
-      </div>
-      <div class="card-wrapper">
-        <img
-          class="card"
-          :src="MyuAsset"
-        />
-        <div class="card-name">ほげほげ</div>
-      </div>
-      <div class="card-wrapper">
-        <img
-          class="card"
-          :src="MyuAsset"
-        />
-        <div class="card-name">ほげほげ</div>
-      </div>
-      <div class="card-wrapper">
-        <img
-          class="card"
-          :src="MyuAsset"
-        />
-        <div class="card-name">ほげほげ</div>
-      </div>
-      <div class="card-wrapper">
-        <img
-          class="card"
-          :src="MyuAsset"
-        />
-        <div class="card-name">ほげほげ</div>
-      </div>
-      <div class="card-wrapper">
-        <img
-          class="card"
-          :src="MyuAsset"
-        />
-        <div class="card-name">ほげほげ</div>
+        <div
+          class="card-name"
+          v-text="card.name"
+        ></div>
       </div>
     </div>
     <div class="controller">
@@ -187,7 +123,7 @@ const startBattle = () => {
   display: flex;
   justify-content: start;
   align-items: start;
-  gap: 28px;
+  gap: 14px;
   flex-wrap: wrap;
 }
 
@@ -211,6 +147,12 @@ const startBattle = () => {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  padding: 14px 28px;
+  border-radius: 16px;
+}
+
+.card-wrapper:hover {
+  background-color: #c9c9c9;
 }
 
 .card {
