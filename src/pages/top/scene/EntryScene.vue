@@ -3,45 +3,11 @@ import { onMounted, ref } from "vue";
 import { useEntryEvent } from "../event/entry_event";
 import WaitingBgWaveAsset from "@/assets/img/entry/wave.png";
 import PikaAsset from "@/assets/img/card/pika.png";
-import ReshiramAsset from "@/assets/img/entry/01.png";
-import ReshiramInfoAsset from "@/assets/img/entry/01-info.png";
-import KapuKokekoAsset from "@/assets/img/entry/02.png";
-import KapuKokekoInfoAsset from "@/assets/img/entry/02-info.png";
-import DeoxysAsset from "@/assets/img/entry/03.png";
-import DeoxysInfoAsset from "@/assets/img/entry/03-info.png";
-import GabrielusAsset from "@/assets/img/entry/04.png";
-import GabrielusInfoAsset from "@/assets/img/entry/04-info.png";
-import GreninjakoAsset from "@/assets/img/entry/05.png";
-import GreninjakoInfoAsset from "@/assets/img/entry/05-info.png";
 
 import { receiveMessage } from "@/service/message_listener";
+import { StageAssets, type Gym } from "@/domain/gym_pokemon";
 
-const StageAssets: Record<Gym, { gymReader: string; status: string }> = {
-  "01": {
-    gymReader: ReshiramAsset,
-    status: ReshiramInfoAsset,
-  },
-  "02": {
-    gymReader: KapuKokekoAsset,
-    status: KapuKokekoInfoAsset,
-  },
-  "03": {
-    gymReader: DeoxysAsset,
-    status: DeoxysInfoAsset,
-  },
-  "04": {
-    gymReader: GabrielusAsset,
-    status: GabrielusInfoAsset,
-  },
-  "05": {
-    gymReader: GreninjakoAsset,
-    status: GreninjakoInfoAsset,
-  },
-};
-
-type Gym = "01" | "02" | "03" | "04" | "05";
-
-const gymSelection = ref<Gym>("05");
+const gymSelection = ref<Gym>("01");
 
 const { onPokemonSet, onBattle } = useEntryEvent();
 
@@ -73,7 +39,7 @@ onMounted(() => {
   />
 
   <img
-    :src="StageAssets[gymSelection].gymReader"
+    :src="StageAssets[gymSelection].src"
     class="gymReader"
   />
   <img
