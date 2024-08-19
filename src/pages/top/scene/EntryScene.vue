@@ -2,15 +2,16 @@
 import { onMounted, ref } from "vue";
 import { useEntryEvent } from "../event/entry_event";
 import WaitingBgWaveAsset from "@/assets/img/entry/wave.png";
-import PikaAsset from "@/assets/img/card/pika.png";
+// import PikaAsset from "@/assets/img/card/pika.png";
 
 import { receiveMessage } from "@/service/message_listener";
 import { StageAssets, type Gym } from "@/domain/gym_pokemon";
 import { getLocalStorageItem } from "@/service/localstorage_repository";
+import { PlayerOptions } from "@/domain/player_pokemon";
 
 const gymSelection = ref<Gym>(getLocalStorageItem("gym-selection") ?? "01");
 
-const { onPokemonSet, onBattle } = useEntryEvent();
+const store = useEntryEvent();
 
 const checkGymSelection = () => {
   receiveMessage("gym-selection").then((payload) => {
@@ -20,13 +21,18 @@ const checkGymSelection = () => {
 };
 checkGymSelection();
 
-onMounted(() => {
-  receiveMessage("pokemon-set").then((payload) => {
-    onPokemonSet(payload);
+const listenPokemonSet = () => {
+  receiveMessage("pokemon-set").then((key) => {
+    store.setPlayerKey(key);
+    listenPokemonSet();
   });
+};
+
+onMounted(() => {
+  listenPokemonSet();
 
   receiveMessage("start-battle").then(() => {
-    onBattle();
+    store.onBattle();
   });
 });
 </script>
@@ -40,21 +46,30 @@ onMounted(() => {
     class="background-wave"
   />
 
-  <img
-    :src="PikaAsset"
-    alt=""
-    class="pokemon"
-    id="pokemon"
-  />
+  <Transition name="playerCard">
+    <img
+      v-if="store.playerKey !== null"
+      :src="PlayerOptions[store.playerKey].src"
+      alt=""
+      class="pokemon"
+      id="pokemon"
+    />
+  </Transition>
 
-  <img
-    :src="StageAssets[gymSelection].src"
-    class="gymReader"
-  />
-  <img
-    :src="StageAssets[gymSelection].status"
-    class="gymReaderInfo"
-  />
+  <div
+    class="gymLeaderWrapper"
+    :class="{ playerSelected: store.playerKey !== null }"
+  >
+    <img
+      :src="StageAssets[gymSelection].src"
+      class="gymLeader"
+    />
+    <img
+      v-if="store.playerKey === null"
+      :src="StageAssets[gymSelection].status"
+      class="gymLeaderInfo"
+    />
+  </div>
 
   <div
     class="veil"
@@ -98,16 +113,39 @@ onMounted(() => {
 }
 
 .pokemon {
-  position: fixed;
-  top: 37%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  right: 10%;
   width: 20%;
-  opacity: 0;
-  display: none;
 }
 
-.gymReader {
+.playerCard-enter-active,
+.playerCard-leave-active {
+  transition: all 1s;
+}
+.playerCard-enter-from,
+.playerCard-leave-to {
+  opacity: 0;
+  transform: translate(10%, 0);
+}
+.playerCard-enter-to,
+.playerCard-leave-from {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+.gymLeaderWrapper {
+  position: absolute;
+  inset: 0;
+  transition: all 1s;
+}
+.gymLeaderWrapper.playerSelected {
+  transform: translate(-45%, 0);
+}
+
+.gymLeader {
   position: absolute;
   /* inset: 0; */
   top: 0;
@@ -117,7 +155,7 @@ onMounted(() => {
   margin: auto;
 }
 
-.gymReaderInfo {
+.gymLeaderInfo {
   position: absolute;
   margin: auto;
   bottom: 5%;

@@ -1,9 +1,10 @@
 import type { AttackOptionsType } from "@/domain/attack";
 import type { Gym } from "@/domain/gym_pokemon";
+import type { PlayerKeys } from "@/domain/player_pokemon";
 
 interface Props {
   attack: AttackOptionsType;
-  "pokemon-set": "";
+  "pokemon-set": PlayerKeys;
   "start-battle": "";
   "gym-selection": { key: Gym };
 }

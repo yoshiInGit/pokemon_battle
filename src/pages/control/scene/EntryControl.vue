@@ -1,75 +1,42 @@
 <script setup lang="ts">
 import { useGlobalEvent } from "@/pages/control/event/control_event";
-import Player01CardAsset from "@/assets/img/card/player-01.png";
-import Player02CardAsset from "@/assets/img/card/player-02.png";
-import Player03CardAsset from "@/assets/img/card/player-03.png";
-import Player04CardAsset from "@/assets/img/card/player-04.png";
-import Player05CardAsset from "@/assets/img/card/player-05.png";
-import Player06CardAsset from "@/assets/img/card/player-06.png";
-import Player07CardAsset from "@/assets/img/card/player-07.png";
-import Player08CardAsset from "@/assets/img/card/player-08.png";
 
 import { postMessage } from "@/service/message_listener";
 import { StageAssets } from "@/domain/gym_pokemon";
 import { useGymSelection } from "../service/gym_selection";
+import { PlayerOptions, type PlayerKeys } from "@/domain/player_pokemon";
+import { ref } from "vue";
 
 const { changeScene } = useGlobalEvent();
 
 const { selection: gymSelection, setSelection: setGymSelection } = useGymSelection();
 
-const setPokemon = () => {
-  postMessage("pokemon-set", "");
+const playerSelection = ref<PlayerKeys | null>(null);
+const setPokemon = (key: PlayerKeys) => {
+  playerSelection.value = key;
+  postMessage("pokemon-set", key);
 };
 
 const startBattle = () => {
   postMessage("start-battle", "");
 };
-
-const PlayerOptions = [
-  {
-    src: Player01CardAsset,
-    name: "ミロカロス",
-  },
-  {
-    src: Player02CardAsset,
-    name: "シャリタツ",
-  },
-  {
-    src: Player03CardAsset,
-    name: "マニューラ",
-  },
-  {
-    src: Player04CardAsset,
-    name: "オノノクス",
-  },
-  {
-    src: Player05CardAsset,
-    name: "ルガルガン",
-  },
-  {
-    src: Player06CardAsset,
-    name: "イワーク",
-  },
-  {
-    src: Player07CardAsset,
-    name: "リーフィア",
-  },
-  {
-    src: Player08CardAsset,
-    name: "デデンネ",
-  },
-];
 </script>
 
 <template>
   <div class="wrapper">
-    <div class="card-selector">
-      <div
-        class="card-wrapper"
-        @click="setPokemon"
-        v-for="card of PlayerOptions"
+    <div class="leftPanel">
+      <label
+        class="playerCardLabel"
+        v-for="(card, key) in PlayerOptions"
         :key="`player_card_options_${card.name}`"
       >
+        <input
+          type="radio"
+          name="player_selection"
+          class="playerCardLabelInput"
+          @change="setPokemon(key)"
+          :checked="playerSelection === key"
+        />
         <img
           class="card"
           :src="card.src"
@@ -78,9 +45,25 @@ const PlayerOptions = [
           class="card-name"
           v-text="card.name"
         ></div>
+      </label>
+
+      <div class="controllers">
+        <button
+          class="battle-btn"
+          @click="startBattle"
+        >
+          バトル開始
+        </button>
+
+        <button
+          class="change-ctr-btn"
+          @click="changeScene('battle-control')"
+        >
+          バトル操作画面
+        </button>
       </div>
     </div>
-    <div class="controller">
+    <div class="rightPanel">
       <label
         v-for="(gym, key) in StageAssets"
         :key="`gym_pokemons_${gym.location}`"
@@ -109,20 +92,6 @@ const PlayerOptions = [
           </div>
         </div>
       </label>
-
-      <div
-        class="battle-btn"
-        @click="startBattle"
-      >
-        バトル開始
-      </div>
-
-      <div
-        class="change-ctr-btn"
-        @click="changeScene('battle-control')"
-      >
-        バトル操作画面
-      </div>
     </div>
   </div>
 </template>
@@ -139,7 +108,7 @@ const PlayerOptions = [
   display: flex;
 }
 
-.card-selector {
+.leftPanel {
   padding: 2em 3em;
   height: 100%;
   overflow: scroll;
@@ -154,14 +123,14 @@ const PlayerOptions = [
   flex-wrap: wrap;
 }
 
-.controller {
+.rightPanel {
   height: 100%;
   width: 30%;
   overflow-y: scroll;
   padding: 1em;
 }
 
-.card-wrapper {
+.playerCardLabel {
   width: 15%;
   aspect-ratio: 31/37;
   display: flex;
@@ -172,8 +141,13 @@ const PlayerOptions = [
   border-radius: 16px;
 }
 
-.card-wrapper:hover {
+.playerCardLabel:hover,
+.playerCardLabel:has([type="radio"]:checked) {
   background-color: #c9c9c9;
+}
+
+.playerCardLabelInput {
+  display: none;
 }
 
 .card {
@@ -188,28 +162,33 @@ const PlayerOptions = [
   font-style: normal;
 }
 
+.controllers {
+  display: flex;
+  height: 15em;
+  width: 100%;
+}
+
 .enemy-selector {
   width: 80%;
   font-size: 20px;
 }
 
 .battle-btn {
-  width: 80%;
+  /* width: 80%; */
   height: 60px;
   background-color: #ff109f;
   color: white;
   font-size: 40px;
-  display: flex;
+  /* display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
   border-radius: 5px;
-  letter-spacing: -1px;
-  cursor: pointer;
+  /* letter-spacing: -1px; */
   box-shadow: 2px 2px 4px -2px gray inset;
 }
 
 .change-ctr-btn {
-  width: 80%;
+  /* width: 80%; */
   height: 60px;
   background-color: #103b91;
   color: white;

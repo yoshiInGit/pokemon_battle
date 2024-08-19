@@ -6,6 +6,8 @@ import startBgmUrl from "@/assets/sound/bgm/start_music.mp3";
 import pironUrl from "@/assets/sound/effect/piron.mp3";
 import shiiinUrl from "@/assets/sound/effect/shiiin.mp3";
 import { useGlobalEvent } from "./global_event";
+import { ref } from "vue";
+import type { PlayerKeys } from "@/domain/player_pokemon";
 // import { useBattleEvent } from './battle_event';
 
 const snd_bgm = new Howl({ src: startBgmUrl });
@@ -13,6 +15,11 @@ const snd_piron = new Howl({ src: pironUrl });
 const snd_shiiin = new Howl({ src: shiiinUrl });
 
 export const useEntryEvent = defineStore("entryEvent", () => {
+  const playerKey = ref<PlayerKeys | null>(null);
+  const setPlayerKey = (key: PlayerKeys) => {
+    playerKey.value = key;
+  };
+
   const onStartTapped = () => {
     // anime({
     //     targets: ".ball",
@@ -26,14 +33,6 @@ export const useEntryEvent = defineStore("entryEvent", () => {
     snd_bgm.play();
 
     hide({ id: "press_start" });
-  };
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const onPokemonSet = async (pokemon: string) => {
-    await sleep_ms(100);
-
-    show({ id: "pokemon" });
-    await fadein({ targets: "#pokemon", time_ms: 180 });
   };
 
   const onBattle = async () => {
@@ -64,5 +63,5 @@ export const useEntryEvent = defineStore("entryEvent", () => {
     //useBattleEvent().startBattle();
   };
 
-  return { onStartTapped, onPokemonSet, onBattle };
+  return { playerKey, setPlayerKey, onStartTapped, onBattle };
 });
