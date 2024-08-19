@@ -18,10 +18,10 @@ export default defineConfig({
     }
   },
   build: {
+    emptyOutDir: false,
     rollupOptions: {
       input: {
         main: "index.html",
-        control: "control.html",
       },
     }
   },
