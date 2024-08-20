@@ -25,10 +25,14 @@ const onSelect = (index: 0 | 1 | 2) => {
   showAttackSelection.value = false;
 };
 
-receiveMessage("show-attack-selections").then((attacks) => {
-  showAttackSelection.value = true;
-  attackSelections.value = [attacks[0], attacks[1], attacks[2]];
-});
+const listenPokemonSet = () => {
+  receiveMessage("show-attack-selections").then((attacks) => {
+    showAttackSelection.value = true;
+    attackSelections.value = [attacks[0], attacks[1], attacks[2]];
+    listenPokemonSet();
+  });
+};
+listenPokemonSet();
 </script>
 
 <template>
