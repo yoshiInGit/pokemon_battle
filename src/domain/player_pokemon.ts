@@ -19,7 +19,6 @@ export const PlayerOptions = {
     rank: 1,
     atkNames: ["atk01", "atk02", "atk03"] as Pokemon["atkNames"],
     cutinImgUrl: [CutinImgAsset, CutinImgAsset] as Pokemon["cutinImgUrl"],
-    cardImgUrl: "",
   },
   "02": {
     src: Player02CardAsset,
@@ -29,7 +28,6 @@ export const PlayerOptions = {
     rank: 1,
     atkNames: ["atk01", "atk02", "atk03"] as Pokemon["atkNames"],
     cutinImgUrl: [CutinImgAsset, CutinImgAsset] as Pokemon["cutinImgUrl"],
-    cardImgUrl: "",
   },
   "03": {
     src: Player03CardAsset,
@@ -39,7 +37,6 @@ export const PlayerOptions = {
     rank: 1,
     atkNames: ["atk01", "atk02", "atk03"] as Pokemon["atkNames"],
     cutinImgUrl: [CutinImgAsset, CutinImgAsset] as Pokemon["cutinImgUrl"],
-    cardImgUrl: "",
   },
   "04": {
     src: Player04CardAsset,
@@ -49,7 +46,6 @@ export const PlayerOptions = {
     rank: 1,
     atkNames: ["atk01", "atk02", "atk03"] as Pokemon["atkNames"],
     cutinImgUrl: [CutinImgAsset, CutinImgAsset] as Pokemon["cutinImgUrl"],
-    cardImgUrl: "",
   },
   "05": {
     src: Player05CardAsset,
@@ -59,7 +55,6 @@ export const PlayerOptions = {
     rank: 1,
     atkNames: ["atk01", "atk02", "atk03"] as Pokemon["atkNames"],
     cutinImgUrl: [CutinImgAsset, CutinImgAsset] as Pokemon["cutinImgUrl"],
-    cardImgUrl: "",
   },
   "06": {
     src: Player06CardAsset,
@@ -69,7 +64,6 @@ export const PlayerOptions = {
     rank: 1,
     atkNames: ["atk01", "atk02", "atk03"] as Pokemon["atkNames"],
     cutinImgUrl: [CutinImgAsset, CutinImgAsset] as Pokemon["cutinImgUrl"],
-    cardImgUrl: "",
   },
   "07": {
     src: Player07CardAsset,
@@ -79,7 +73,6 @@ export const PlayerOptions = {
     rank: 1,
     atkNames: ["atk01", "atk02", "atk03"] as Pokemon["atkNames"],
     cutinImgUrl: [CutinImgAsset, CutinImgAsset] as Pokemon["cutinImgUrl"],
-    cardImgUrl: "",
   },
   "08": {
     src: Player08CardAsset,
@@ -89,7 +82,6 @@ export const PlayerOptions = {
     rank: 1,
     atkNames: ["atk01", "atk02", "atk03"] as Pokemon["atkNames"],
     cutinImgUrl: [CutinImgAsset, CutinImgAsset] as Pokemon["cutinImgUrl"],
-    cardImgUrl: "",
   },
 };
 
