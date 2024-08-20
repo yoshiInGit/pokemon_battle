@@ -8,6 +8,13 @@ import GabrielusAsset from "@/assets/img/entry/04.png";
 import GabrielusInfoAsset from "@/assets/img/entry/04-info.png";
 import GreninjakoAsset from "@/assets/img/entry/05.png";
 import GreninjakoInfoAsset from "@/assets/img/entry/05-info.png";
+import ReshiramCardAsset from "@/assets/img/card/gym-01.png";
+import KapuKokekoCardAsset from "@/assets/img/card/gym-02.png";
+import DeoxysCardAsset from "@/assets/img/card/gym-03.png";
+import GabrielusCardAsset from "@/assets/img/card/gym-04.png";
+import GreninjakoCardAsset from "@/assets/img/card/gym-05.png";
+import { PokemonType } from "./pokemonType";
+import type { Pokemon } from "./pokemon";
 
 export const StageAssets = {
   "01": {
@@ -16,6 +23,11 @@ export const StageAssets = {
     location: "体育館",
     leaderName: "N",
     pokemonName: "レシラム",
+    hp: 300,
+    type: PokemonType.Hono,
+    rank: 1,
+    atkNames: ["", "", ""] as Pokemon["atkNames"],
+    cardSrc: ReshiramCardAsset,
   },
   "02": {
     src: KapuKokekoAsset,
@@ -23,6 +35,11 @@ export const StageAssets = {
     location: "講堂",
     leaderName: "ククイ博士",
     pokemonName: "カプ・コケコ",
+    hp: 300,
+    type: PokemonType.Hono,
+    rank: 1,
+    atkNames: ["", "", ""] as Pokemon["atkNames"],
+    cardSrc: KapuKokekoCardAsset,
   },
   "03": {
     src: DeoxysAsset,
@@ -30,6 +47,11 @@ export const StageAssets = {
     location: "第一キャンプ場",
     leaderName: "ダイゴ",
     pokemonName: "デオキシス",
+    hp: 300,
+    type: PokemonType.Hono,
+    rank: 1,
+    atkNames: ["", "", ""] as Pokemon["atkNames"],
+    cardSrc: DeoxysCardAsset,
   },
   "04": {
     src: GabrielusAsset,
@@ -37,6 +59,11 @@ export const StageAssets = {
     location: "宿舎前広場",
     leaderName: "シロナ",
     pokemonName: "ガブリアス",
+    hp: 300,
+    type: PokemonType.Hono,
+    rank: 1,
+    atkNames: ["", "", ""] as Pokemon["atkNames"],
+    cardSrc: GabrielusCardAsset,
   },
   "05": {
     src: GreninjakoAsset,
@@ -44,11 +71,16 @@ export const StageAssets = {
     location: "冒険の小川",
     leaderName: "サトシ",
     pokemonName: "ゲッコウガ",
+    hp: 300,
+    type: PokemonType.Hono,
+    rank: 1,
+    atkNames: ["", "", ""] as Pokemon["atkNames"],
+    cardSrc: GreninjakoCardAsset,
   },
 } as const;
 
-export type Gym = keyof typeof StageAssets;
+export type GymKeys = keyof typeof StageAssets;
 
-export const isGym = (data: unknown): data is Gym => {
+export const isGym = (data: unknown): data is GymKeys => {
   return typeof data === "string" && Object.prototype.hasOwnProperty.call(StageAssets, data);
 };

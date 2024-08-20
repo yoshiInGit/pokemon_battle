@@ -8,6 +8,7 @@ import shiiinUrl from "@/assets/sound/effect/shiiin.mp3";
 import { useGlobalEvent } from "./global_event";
 import { ref } from "vue";
 import type { PlayerKeys } from "@/domain/player_pokemon";
+import type { GymKeys } from "@/domain/gym_pokemon";
 // import { useBattleEvent } from './battle_event';
 
 const snd_bgm = new Howl({ src: startBgmUrl });
@@ -35,7 +36,11 @@ export const useEntryEvent = defineStore("entryEvent", () => {
     hide({ id: "press_start" });
   };
 
-  const onBattle = async () => {
+  const onBattle = async ({ gymLeaderKey, playerKey }: { gymLeaderKey: GymKeys; playerKey: PlayerKeys }) => {
+    const globalStore = useGlobalEvent();
+    globalStore.setP1Pokemon(playerKey);
+    globalStore.setP2Pokemon(gymLeaderKey);
+
     snd_piron.play();
 
     await sleep_ms(400);
@@ -58,7 +63,7 @@ export const useEntryEvent = defineStore("entryEvent", () => {
 
     await sleep_ms(600);
 
-    useGlobalEvent().changeScene("battle");
+    globalStore.changeScene("battle");
 
     //useBattleEvent().startBattle();
   };

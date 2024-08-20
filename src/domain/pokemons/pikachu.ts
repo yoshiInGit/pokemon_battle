@@ -9,7 +9,7 @@ export class Pikachu implements Pokemon {
   typeName = PokemonType.Denki;
   rank = 1;
 
-  atkName: [string, string, string] = ["じゅうまんボルト", "じゅうまんボルト", "じゅうまんボルト"];
-  cutinImgUrl = [CutinImgAsset, CutinImgAsset, CutinImgAsset];
+  atkNames: [string, string, string] = ["じゅうまんボルト", "じゅうまんボルト", "じゅうまんボルト"];
+  cutinImgUrl: [string, string] = [CutinImgAsset, CutinImgAsset];
   cardImgUrl = cardImgUrlAsset;
 }

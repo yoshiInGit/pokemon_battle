@@ -1,12 +1,12 @@
 import type { AttackOptionsType } from "@/domain/attack";
-import type { Gym } from "@/domain/gym_pokemon";
+import type { GymKeys } from "@/domain/gym_pokemon";
 import type { PlayerKeys } from "@/domain/player_pokemon";
 
 interface Props {
   attack: AttackOptionsType;
   "pokemon-set": PlayerKeys;
-  "start-battle": "";
-  "gym-selection": { key: Gym };
+  "start-battle": { gymLeaderKey: GymKeys; playerKey: PlayerKeys };
+  "gym-selection": { key: GymKeys };
   "show-attack-selections": { 0: string; 1: string; 2: string };
   "select-attack": 0 | 1 | 2;
 }

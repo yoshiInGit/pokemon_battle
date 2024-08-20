@@ -5,11 +5,11 @@ import WaitingBgWaveAsset from "@/assets/img/entry/wave.png";
 // import PikaAsset from "@/assets/img/card/pika.png";
 
 import { receiveMessage } from "@/service/message_listener";
-import { StageAssets, type Gym } from "@/domain/gym_pokemon";
+import { StageAssets, type GymKeys } from "@/domain/gym_pokemon";
 import { getLocalStorageItem } from "@/service/localstorage_repository";
 import { PlayerOptions } from "@/domain/player_pokemon";
 
-const gymSelection = ref<Gym>(getLocalStorageItem("gym-selection") ?? "01");
+const gymSelection = ref<GymKeys>(getLocalStorageItem("gym-selection") ?? "01");
 
 const store = useEntryEvent();
 
@@ -31,8 +31,8 @@ const listenPokemonSet = () => {
 onMounted(() => {
   listenPokemonSet();
 
-  receiveMessage("start-battle").then(() => {
-    store.onBattle();
+  receiveMessage("start-battle").then((battleInfo) => {
+    store.onBattle(battleInfo);
   });
 });
 </script>

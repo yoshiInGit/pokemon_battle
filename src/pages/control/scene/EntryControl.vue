@@ -15,7 +15,7 @@ const setPokemon = (key: PlayerKeys) => {
 };
 
 const startBattle = () => {
-  postMessage("start-battle", "");
+  postMessage("start-battle", { gymLeaderKey: gymSelection.value, playerKey: playerSelection?.value ?? "01" });
 };
 
 const showAttackSelection = ref<boolean>(false);

@@ -206,9 +206,9 @@ export const useBattleEvent = defineStore("battleEvent", () => {
 
     isShowAtcMenu.value = true;
     postMessage("show-attack-selections", {
-      0: p2Pokemon.atkName[0],
-      1: p2Pokemon.atkName[1],
-      2: p2Pokemon.atkName[2],
+      0: p2Pokemon.atkNames[0],
+      1: p2Pokemon.atkNames[1],
+      2: p2Pokemon.atkNames[2],
     });
   };
 
@@ -242,11 +242,11 @@ export const useBattleEvent = defineStore("battleEvent", () => {
 
     //攻撃メッセージ
     await _openMessageBox();
-    await _typeMessage(p2Pokemon.name + " は、\n" + p2Pokemon.atkName[atkNo] + "　を　はなった！");
+    await _typeMessage(p2Pokemon.name + " は、\n" + p2Pokemon.atkNames[atkNo] + "　を　はなった！");
     await sleep_ms(1000);
     await _closeMessageBog();
 
-    await _showCutIn(p2Pokemon.cutinImgUrl[atkNo]);
+    await _showCutIn(p2Pokemon.cutinImgUrl[0]);
 
     //攻撃モーション
     anime({
@@ -351,7 +351,7 @@ export const useBattleEvent = defineStore("battleEvent", () => {
 
     // 敵の攻撃！
     await _openMessageBox();
-    await _typeMessage(p1Pokemon.name + " は、\n" + p1Pokemon.atkName[1] + "　を　はなった！");
+    await _typeMessage(p1Pokemon.name + " は、\n" + p1Pokemon.atkNames[1] + "　を　はなった！");
     await sleep_ms(1000);
     await _closeMessageBog();
 

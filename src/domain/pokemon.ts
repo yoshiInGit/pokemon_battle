@@ -7,7 +7,7 @@ export interface Pokemon {
   typeName: PokemonType;
   rank: number;
 
-  atkName: [string, string, string];
-  cutinImgUrl: string[];
+  atkNames: [string, string, string];
+  cutinImgUrl: [string, string];
   cardImgUrl: string;
 }

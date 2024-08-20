@@ -106,18 +106,18 @@ const isShowCutin = computed(() => battleEventStore.isShowCutin);
 .player1Card {
   display: block;
   position: absolute;
-  top: 35%;
+  top: 32%;
   left: 12%;
-  width: 24%;
+  width: 20%;
   opacity: 0;
 }
 
 .player2Card {
   display: block;
   position: absolute;
-  top: 35%;
+  top: 32%;
   right: 12%;
-  width: 24%;
+  width: 20%;
   opacity: 0;
 }
 .veil {
