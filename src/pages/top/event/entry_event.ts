@@ -38,8 +38,8 @@ export const useEntryEvent = defineStore("entryEvent", () => {
 
   const onBattle = async ({ gymLeaderKey, playerKey }: { gymLeaderKey: GymKeys; playerKey: PlayerKeys }) => {
     const globalStore = useGlobalEvent();
-    globalStore.setP1Pokemon(playerKey);
-    globalStore.setP2Pokemon(gymLeaderKey);
+    globalStore.setP1Pokemon(gymLeaderKey);
+    globalStore.setP2Pokemon(playerKey);
 
     snd_piron.play();
 

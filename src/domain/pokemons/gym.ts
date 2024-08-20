@@ -3,12 +3,12 @@ import { PokemonType } from "../pokemonType";
 
 export class GymPokemon implements Pokemon {
   constructor(
-    public name: string,
-    public hp: number,
-    public typeName: PokemonType,
-    public rank: number,
-    public atkNames: [string, string, string],
-    public cutinImgUrl: [string, string],
-    public cardImgUrl: string,
+    public name: string = "",
+    public hp: number = 0,
+    public typeName: PokemonType = PokemonType.Hono,
+    public rank: number = 0,
+    public atkName: string = "",
+    public cutinImgUrl: string = "",
+    public cardImgUrl: string = "",
   ) {}
 }

@@ -13,8 +13,9 @@ import KapuKokekoCardAsset from "@/assets/img/card/gym-02.png";
 import DeoxysCardAsset from "@/assets/img/card/gym-03.png";
 import GabrielusCardAsset from "@/assets/img/card/gym-04.png";
 import GreninjakoCardAsset from "@/assets/img/card/gym-05.png";
+import CutinImgAsset from "@/assets/img/cutin/cutin.png";
 import { PokemonType } from "./pokemonType";
-import type { Pokemon } from "./pokemon";
+import type { GymPokemon } from "./pokemons/gym";
 
 export const StageAssets = {
   "01": {
@@ -26,8 +27,9 @@ export const StageAssets = {
     hp: 300,
     type: PokemonType.Hono,
     rank: 1,
-    atkNames: ["", "", ""] as Pokemon["atkNames"],
+    atkName: "" as GymPokemon["atkName"],
     cardSrc: ReshiramCardAsset,
+    cutinImgSrc: CutinImgAsset,
   },
   "02": {
     src: KapuKokekoAsset,
@@ -38,8 +40,9 @@ export const StageAssets = {
     hp: 300,
     type: PokemonType.Hono,
     rank: 1,
-    atkNames: ["", "", ""] as Pokemon["atkNames"],
+    atkName: "" as GymPokemon["atkName"],
     cardSrc: KapuKokekoCardAsset,
+    cutinImgSrc: CutinImgAsset,
   },
   "03": {
     src: DeoxysAsset,
@@ -50,8 +53,9 @@ export const StageAssets = {
     hp: 300,
     type: PokemonType.Hono,
     rank: 1,
-    atkNames: ["", "", ""] as Pokemon["atkNames"],
+    atkName: "" as GymPokemon["atkName"],
     cardSrc: DeoxysCardAsset,
+    cutinImgSrc: CutinImgAsset,
   },
   "04": {
     src: GabrielusAsset,
@@ -62,8 +66,9 @@ export const StageAssets = {
     hp: 300,
     type: PokemonType.Hono,
     rank: 1,
-    atkNames: ["", "", ""] as Pokemon["atkNames"],
+    atkName: "" as GymPokemon["atkName"],
     cardSrc: GabrielusCardAsset,
+    cutinImgSrc: CutinImgAsset,
   },
   "05": {
     src: GreninjakoAsset,
@@ -74,8 +79,9 @@ export const StageAssets = {
     hp: 300,
     type: PokemonType.Hono,
     rank: 1,
-    atkNames: ["", "", ""] as Pokemon["atkNames"],
+    atkName: "" as GymPokemon["atkName"],
     cardSrc: GreninjakoCardAsset,
+    cutinImgSrc: CutinImgAsset,
   },
 } as const;
 

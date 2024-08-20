@@ -6,9 +6,10 @@ import Player05CardAsset from "@/assets/img/card/player-05.png";
 import Player06CardAsset from "@/assets/img/card/player-06.png";
 import Player07CardAsset from "@/assets/img/card/player-07.png";
 import Player08CardAsset from "@/assets/img/card/player-08.png";
+import Player08CutinVideoAsset from "@/assets/cutin-video/08.mp4";
 import CutinImgAsset from "@/assets/img/cutin/cutin.png";
 import { PokemonType } from "./pokemonType";
-import type { Pokemon } from "./pokemon";
+import type { Player } from "./pokemons/player";
 
 export const PlayerOptions = {
   "01": {
@@ -17,8 +18,9 @@ export const PlayerOptions = {
     hp: 700,
     type: PokemonType.Hono,
     rank: 1,
-    atkNames: ["atk01", "atk02", "atk03"] as Pokemon["atkNames"],
-    cutinImgUrl: [CutinImgAsset, CutinImgAsset] as Pokemon["cutinImgUrl"],
+    atkNames: ["atk01", "atk02", "atk03"] as Player["atkNames"],
+    cutinImgUrl: [CutinImgAsset, CutinImgAsset] as Player["cutinImgUrl"],
+    cutinVideoAsset: Player08CutinVideoAsset,
   },
   "02": {
     src: Player02CardAsset,
@@ -26,8 +28,9 @@ export const PlayerOptions = {
     hp: 700,
     type: PokemonType.Hono,
     rank: 1,
-    atkNames: ["atk01", "atk02", "atk03"] as Pokemon["atkNames"],
-    cutinImgUrl: [CutinImgAsset, CutinImgAsset] as Pokemon["cutinImgUrl"],
+    atkNames: ["atk01", "atk02", "atk03"] as Player["atkNames"],
+    cutinImgUrl: [CutinImgAsset, CutinImgAsset] as Player["cutinImgUrl"],
+    cutinVideoAsset: Player08CutinVideoAsset,
   },
   "03": {
     src: Player03CardAsset,
@@ -35,8 +38,9 @@ export const PlayerOptions = {
     hp: 700,
     type: PokemonType.Hono,
     rank: 1,
-    atkNames: ["atk01", "atk02", "atk03"] as Pokemon["atkNames"],
-    cutinImgUrl: [CutinImgAsset, CutinImgAsset] as Pokemon["cutinImgUrl"],
+    atkNames: ["atk01", "atk02", "atk03"] as Player["atkNames"],
+    cutinImgUrl: [CutinImgAsset, CutinImgAsset] as Player["cutinImgUrl"],
+    cutinVideoAsset: Player08CutinVideoAsset,
   },
   "04": {
     src: Player04CardAsset,
@@ -44,8 +48,9 @@ export const PlayerOptions = {
     hp: 700,
     type: PokemonType.Hono,
     rank: 1,
-    atkNames: ["atk01", "atk02", "atk03"] as Pokemon["atkNames"],
-    cutinImgUrl: [CutinImgAsset, CutinImgAsset] as Pokemon["cutinImgUrl"],
+    atkNames: ["atk01", "atk02", "atk03"] as Player["atkNames"],
+    cutinImgUrl: [CutinImgAsset, CutinImgAsset] as Player["cutinImgUrl"],
+    cutinVideoAsset: Player08CutinVideoAsset,
   },
   "05": {
     src: Player05CardAsset,
@@ -53,8 +58,9 @@ export const PlayerOptions = {
     hp: 700,
     type: PokemonType.Hono,
     rank: 1,
-    atkNames: ["atk01", "atk02", "atk03"] as Pokemon["atkNames"],
-    cutinImgUrl: [CutinImgAsset, CutinImgAsset] as Pokemon["cutinImgUrl"],
+    atkNames: ["atk01", "atk02", "atk03"] as Player["atkNames"],
+    cutinImgUrl: [CutinImgAsset, CutinImgAsset] as Player["cutinImgUrl"],
+    cutinVideoAsset: Player08CutinVideoAsset,
   },
   "06": {
     src: Player06CardAsset,
@@ -62,8 +68,9 @@ export const PlayerOptions = {
     hp: 700,
     type: PokemonType.Hono,
     rank: 1,
-    atkNames: ["atk01", "atk02", "atk03"] as Pokemon["atkNames"],
-    cutinImgUrl: [CutinImgAsset, CutinImgAsset] as Pokemon["cutinImgUrl"],
+    atkNames: ["atk01", "atk02", "atk03"] as Player["atkNames"],
+    cutinImgUrl: [CutinImgAsset, CutinImgAsset] as Player["cutinImgUrl"],
+    cutinVideoAsset: Player08CutinVideoAsset,
   },
   "07": {
     src: Player07CardAsset,
@@ -71,8 +78,9 @@ export const PlayerOptions = {
     hp: 700,
     type: PokemonType.Hono,
     rank: 1,
-    atkNames: ["atk01", "atk02", "atk03"] as Pokemon["atkNames"],
-    cutinImgUrl: [CutinImgAsset, CutinImgAsset] as Pokemon["cutinImgUrl"],
+    atkNames: ["atk01", "atk02", "atk03"] as Player["atkNames"],
+    cutinImgUrl: [CutinImgAsset, CutinImgAsset] as Player["cutinImgUrl"],
+    cutinVideoAsset: Player08CutinVideoAsset,
   },
   "08": {
     src: Player08CardAsset,
@@ -80,8 +88,9 @@ export const PlayerOptions = {
     hp: 700,
     type: PokemonType.Hono,
     rank: 1,
-    atkNames: ["atk01", "atk02", "atk03"] as Pokemon["atkNames"],
-    cutinImgUrl: [CutinImgAsset, CutinImgAsset] as Pokemon["cutinImgUrl"],
+    atkNames: ["atk01", "atk02", "atk03"] as Player["atkNames"],
+    cutinImgUrl: [CutinImgAsset, CutinImgAsset] as Player["cutinImgUrl"],
+    cutinVideoAsset: Player08CutinVideoAsset,
   },
 };
 

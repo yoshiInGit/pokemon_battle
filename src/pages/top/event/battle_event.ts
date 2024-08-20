@@ -246,7 +246,11 @@ export const useBattleEvent = defineStore("battleEvent", () => {
     await sleep_ms(1000);
     await _closeMessageBog();
 
-    await _showCutIn(p2Pokemon.cutinImgUrl[0]);
+    if (atkNo === 0) {
+      await _showCutinMovie(p2Pokemon.cutinVideoUrl);
+    } else {
+      await _showCutInImg(p2Pokemon.cutinImgUrl[atkNo === 1 ? 0 : 1]);
+    }
 
     //攻撃モーション
     anime({
@@ -351,13 +355,13 @@ export const useBattleEvent = defineStore("battleEvent", () => {
 
     // 敵の攻撃！
     await _openMessageBox();
-    await _typeMessage(p1Pokemon.name + " は、\n" + p1Pokemon.atkNames[1] + "　を　はなった！");
+    await _typeMessage(p1Pokemon.name + " は、\n" + p1Pokemon.atkName + "　を　はなった！");
     await sleep_ms(1000);
     await _closeMessageBog();
 
     await sleep_ms(300);
 
-    await _showCutIn(p1Pokemon.cutinImgUrl[1]);
+    await _showCutInImg(p1Pokemon.cutinImgUrl[1]);
 
     anime({
       targets: "#player1Card",
@@ -536,7 +540,7 @@ export const useBattleEvent = defineStore("battleEvent", () => {
     return Math.random() < probability ? 1 : 0;
   };
 
-  const _showCutIn = async (cutinImgName: string) => {
+  const _showCutInImg = async (cutinImgName: string) => {
     _shakeStage(300);
     cutinImg.value = cutinImgName;
     isShowCutin.value = true;
@@ -560,6 +564,10 @@ export const useBattleEvent = defineStore("battleEvent", () => {
     await sleep_ms(180);
 
     isShowCutin.value = false;
+  };
+
+  const _showCutinMovie = (movieSrc: string) => {
+    console.log("movieSrc", movieSrc);
   };
 
   // const _onGameEnded = async (isP2Turn: boolean) => {

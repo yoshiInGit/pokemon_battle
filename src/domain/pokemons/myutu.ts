@@ -1,14 +1,15 @@
-import type { Pokemon } from "../pokemon";
+import CutinImgAsset from "@/assets/img/cutin/cutin.png";
 import cardImgUrlAsset from "@/assets/img/card/myu.png";
 import { PokemonType } from "../pokemonType";
+import { GymPokemon } from "./gym";
 
-export class Myutu implements Pokemon {
+export class Myutu extends GymPokemon {
   name = "ミューツー";
   hp = 900;
   typeName = PokemonType.Espa;
   rank = 1;
 
-  atkNames: [string, string, string] = ["サイコカッター ", "サイコブレイク", "シャドーボール"];
-  cutinImgUrl: [string, string] = ["", ""];
+  atkNames = "サイコカッター";
+  cutinImgUrl = CutinImgAsset;
   cardImgUrl = cardImgUrlAsset;
 }

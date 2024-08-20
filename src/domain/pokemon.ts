@@ -6,8 +6,4 @@ export interface Pokemon {
   hp: number;
   typeName: PokemonType;
   rank: number;
-
-  atkNames: [string, string, string];
-  cutinImgUrl: [string, string];
-  cardImgUrl: string;
 }
