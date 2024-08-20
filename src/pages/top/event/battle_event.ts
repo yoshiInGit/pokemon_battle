@@ -37,6 +37,7 @@ export const useBattleEvent = defineStore("battleEvent", () => {
   const isBattling = ref(false);
   const isShowAtcMenu = ref(false);
   const isShowCutin = ref(false);
+  const showCutinVideo = ref<boolean>(false);
 
   const p1CardImgUrl = ref(p1CardImgAsset);
   const p2CardImgUrl = ref(p2CardImgAsset);
@@ -246,22 +247,24 @@ export const useBattleEvent = defineStore("battleEvent", () => {
     await sleep_ms(1000);
     await _closeMessageBog();
 
-    if (atkNo === 0) {
-      await _showCutinMovie(p2Pokemon.cutinVideoUrl);
-    } else {
+    if (atkNo !== 0) {
       await _showCutInImg(p2Pokemon.cutinImgUrl[atkNo === 1 ? 0 : 1]);
     }
 
-    //攻撃モーション
-    anime({
-      targets: "#player2Card",
-      translateX: -130 + "%",
-      duration: 250,
-      easing: "easeInBack",
-    });
-    await sleep_ms(250);
-
     if (isAttackSuccess) {
+      if (atkNo === 0) {
+        await _showCutinMovie();
+      }
+
+      //攻撃モーション
+      anime({
+        targets: "#player2Card",
+        translateX: -130 + "%",
+        duration: 250,
+        easing: "easeInBack",
+      });
+      await sleep_ms(250);
+
       const damageAnime = anime({
         targets: "#player1Card",
         opacity: [0, 0.2, 1],
@@ -566,8 +569,16 @@ export const useBattleEvent = defineStore("battleEvent", () => {
     isShowCutin.value = false;
   };
 
-  const _showCutinMovie = (movieSrc: string) => {
-    console.log("movieSrc", movieSrc);
+  const _showCutinMovie = async () => {
+    showCutinVideo.value = true;
+    const videoElm = document.getElementById("cutin-video") as HTMLVideoElement;
+    await new Promise<void>((resolve) => {
+      videoElm.onended = () => {
+        showCutinVideo.value = false;
+        resolve();
+      };
+      videoElm.play();
+    });
   };
 
   // const _onGameEnded = async (isP2Turn: boolean) => {
@@ -663,8 +674,10 @@ export const useBattleEvent = defineStore("battleEvent", () => {
     p2HpStr,
     p1HpRate,
     p2HpRate,
+    p2CutinVideoSrc: computed(() => globalEventStore.p2Pokemon.cutinVideoUrl),
     isShowAtcMenu,
     isShowCutin,
+    showCutinVideo: computed(() => showCutinVideo.value),
     startBattle,
     onAtkClicked,
   };

@@ -29,6 +29,8 @@ const p1CardImgUrl = computed(() => battleEventStore.p1CardImgUrl);
 const p2CardImgUrl = computed(() => battleEventStore.p2CardImgUrl);
 
 const isShowCutin = computed(() => battleEventStore.isShowCutin);
+
+const showCutinVideo = computed(() => battleEventStore.showCutinVideo);
 </script>
 
 <template>
@@ -62,6 +64,12 @@ const isShowCutin = computed(() => battleEventStore.isShowCutin);
     id="cutIn"
     v-show="isShowCutin"
   />
+  <video
+    v-show="showCutinVideo"
+    class="cutinVideo"
+    id="cutin-video"
+    :src="battleEventStore.p2CutinVideoSrc"
+  ></video>
 
   <MessageBox />
 
@@ -139,6 +147,14 @@ const isShowCutin = computed(() => battleEventStore.isShowCutin);
   width: 100%;
   height: 100%;
   clip-path: polygon(0 7%, 100% 23%, 100% 91%, 0 74%);
+}
+
+.cutinVideo {
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .flash {
