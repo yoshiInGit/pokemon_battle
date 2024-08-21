@@ -5,3 +5,5 @@ public/
 package-lock.json
 *.config.js
 *.config.ts
+index.html
+control.html
