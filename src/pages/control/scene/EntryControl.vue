@@ -5,6 +5,7 @@ import { useGymSelection } from "../service/gym_selection";
 import { PlayerOptions, type PlayerKeys } from "@/domain/player_pokemon";
 import { ref } from "vue";
 import AttackSelectionModal from "@/pages/control/scene/module/AttackSelectionModal.vue";
+import { supportCards, type SupportKeys } from "@/domain/support_card";
 
 const { selection: gymSelection, setSelection: setGymSelection } = useGymSelection();
 
@@ -15,7 +16,16 @@ const setPokemon = (key: PlayerKeys) => {
 };
 
 const startBattle = () => {
-  postMessage("start-battle", { gymLeaderKey: gymSelection.value, playerKey: playerSelection?.value ?? "01" });
+  const selectedSupportKeysObj: Record<SupportKeys, boolean> = {
+    "01": false,
+  };
+  selectedSupportKeys.value.forEach((key) => (selectedSupportKeysObj[key] = true));
+
+  postMessage("start-battle", {
+    gymLeaderKey: gymSelection.value,
+    playerKey: playerSelection?.value ?? "01",
+    supportCards: selectedSupportKeysObj,
+  });
 };
 
 const showAttackSelection = ref<boolean>(false);
@@ -33,6 +43,8 @@ const listenPokemonSet = () => {
   });
 };
 listenPokemonSet();
+
+const selectedSupportKeys = ref<Array<SupportKeys>>([]);
 </script>
 
 <template>
@@ -59,6 +71,33 @@ listenPokemonSet();
           v-text="card.name"
         ></div>
       </label>
+
+      <div class="supportCards">
+        <label
+          v-for="(card, key) in supportCards"
+          :key="`support_card_selection_${key}`"
+          class="supportCardLabel"
+        >
+          <input
+            class="supportCardInput"
+            type="checkbox"
+            name="support_cards"
+            :value="key"
+            v-model="selectedSupportKeys"
+          />
+          <div class="supportHeader">
+            <span class="supportCardCheckbox"></span>
+            <div
+              class="supportCardText"
+              v-text="card.name"
+            ></div>
+          </div>
+          <img
+            class="supportCardImg"
+            :src="card.cardSrc"
+          />
+        </label>
+      </div>
 
       <div
         class="controllers"
@@ -190,6 +229,76 @@ listenPokemonSet();
   font-family: "Noto Sans JP", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
+}
+
+.supportCards {
+  width: 100%;
+  border: solid 4px gray;
+  display: flex;
+  justify-content: start;
+  padding: 1.5em 1em;
+}
+
+.supportCardLabel {
+  padding: 0.5em;
+  border-radius: 1em;
+  cursor: pointer;
+  border: solid 3px white;
+  background-color: gray;
+}
+.supportCardLabel:hover {
+  border-color: gray;
+}
+
+.supportCardInput {
+  display: none;
+}
+
+.supportCardImg {
+  width: 10em;
+  height: 10em;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.supportHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.2em;
+}
+
+.supportCardCheckbox {
+  position: relative;
+  display: block;
+  background-color: white;
+  border-radius: 0.2em;
+  width: 1em;
+  height: 1em;
+}
+
+.supportCardCheckbox::after {
+  content: "";
+  position: absolute;
+  display: block;
+  inset: 0;
+  margin: auto;
+  border: solid white 3px;
+  border-width: 0 0 3px 3px;
+  width: 50%;
+  height: 40%;
+  rotate: -45deg;
+  box-sizing: border-box;
+}
+
+.supportCardLabel:has([type="checkbox"]:checked) {
+  border-color: #107cff;
+}
+.supportCardLabel:has([type="checkbox"]:checked) .supportCardCheckbox {
+  background-color: #107cff;
+}
+
+.supportCardText {
+  color: white;
 }
 
 .controllers {

@@ -3,6 +3,7 @@ import { PlayerOptions, type PlayerKeys } from "@/domain/player_pokemon";
 import { GymPokemon } from "@/domain/pokemons/gym";
 import { Myutu } from "@/domain/pokemons/myutu";
 import { Player } from "@/domain/pokemons/player";
+import type { SupportKeys } from "@/domain/support_card";
 import { defineStore } from "pinia";
 import { ref } from "vue";
 
@@ -28,6 +29,14 @@ export const useGlobalEvent = defineStore("globalEvent", () => {
     );
   };
 
+  const useSupportXXX = ref<boolean>(false);
+
+  const setSupportUsage = (supportKey: SupportKeys) => {
+    if (supportKey === "01") {
+      useSupportXXX.value = true;
+    }
+  };
+
   const p2Pokemon = ref<Player>(new Player());
   const setP2Pokemon = (playerKey: PlayerKeys) => {
     const pokemon = PlayerOptions[playerKey];
@@ -45,5 +54,14 @@ export const useGlobalEvent = defineStore("globalEvent", () => {
     p2Pokemon.value = newPlayer;
   };
 
-  return { currentScene, changeScene, p1Pokemon, setP1Pokemon, p2Pokemon, setP2Pokemon };
+  return {
+    currentScene,
+    changeScene,
+    p1Pokemon,
+    setP1Pokemon,
+    p2Pokemon,
+    setP2Pokemon,
+    setSupportUsage,
+    useSupportXXX,
+  };
 });

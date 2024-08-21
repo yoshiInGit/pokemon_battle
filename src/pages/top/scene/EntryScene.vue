@@ -8,6 +8,7 @@ import { receiveMessage } from "@/service/message_listener";
 import { StageAssets, type GymKeys } from "@/domain/gym_pokemon";
 import { getLocalStorageItem } from "@/service/localstorage_repository";
 import { PlayerOptions } from "@/domain/player_pokemon";
+import type { SupportKeys } from "@/domain/support_card";
 
 const gymSelection = ref<GymKeys>(getLocalStorageItem("gym-selection") ?? "01");
 
@@ -32,7 +33,13 @@ onMounted(() => {
   listenPokemonSet();
 
   receiveMessage("start-battle").then((battleInfo) => {
-    store.onBattle(battleInfo);
+    const supportCards: Array<SupportKeys> = [];
+    Object.keys(battleInfo).forEach((key) => supportCards.push(key as SupportKeys));
+    store.onBattle({
+      gymLeaderKey: battleInfo.gymLeaderKey,
+      playerKey: battleInfo.playerKey,
+      supportCards: supportCards,
+    });
   });
 });
 </script>

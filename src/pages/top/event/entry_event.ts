@@ -9,6 +9,7 @@ import { useGlobalEvent } from "./global_event";
 import { ref } from "vue";
 import type { PlayerKeys } from "@/domain/player_pokemon";
 import type { GymKeys } from "@/domain/gym_pokemon";
+import type { SupportKeys } from "@/domain/support_card";
 // import { useBattleEvent } from './battle_event';
 
 const snd_bgm = new Howl({ src: startBgmUrl });
@@ -36,10 +37,22 @@ export const useEntryEvent = defineStore("entryEvent", () => {
     hide({ id: "press_start" });
   };
 
-  const onBattle = async ({ gymLeaderKey, playerKey }: { gymLeaderKey: GymKeys; playerKey: PlayerKeys }) => {
+  const onBattle = async ({
+    gymLeaderKey,
+    playerKey,
+    supportCards,
+  }: {
+    gymLeaderKey: GymKeys;
+    playerKey: PlayerKeys;
+    supportCards: Array<SupportKeys>;
+  }) => {
     const globalStore = useGlobalEvent();
     globalStore.setP1Pokemon(gymLeaderKey);
     globalStore.setP2Pokemon(playerKey);
+
+    supportCards.forEach((key) => {
+      globalStore.setSupportUsage(key);
+    });
 
     snd_piron.play();
 
