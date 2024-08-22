@@ -11,10 +11,15 @@ defineProps({
 
 const emits = defineEmits<{
   (e: "select", index: AttackOptionsType): void;
+  (e: "close"): void;
 }>();
 
 const onClickSelection = (index: number) => {
   emits("select", index as AttackOptionsType);
+};
+
+const onClickCloseBtn = () => {
+  emits("close");
 };
 </script>
 
@@ -33,6 +38,15 @@ const onClickSelection = (index: number) => {
           v-text="atk"
           @click="onClickSelection(index)"
         ></button>
+      </div>
+
+      <div class="actions">
+        <button
+          class="closeBtn"
+          @click="onClickCloseBtn"
+        >
+          閉じる
+        </button>
       </div>
     </div>
   </div>
@@ -81,5 +95,24 @@ const onClickSelection = (index: number) => {
 }
 .selectionBtn:hover {
   background-color: rgb(184, 184, 184);
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.closeBtn {
+  font-size: 1.5rem;
+  padding: 0.5em 0.7em;
+  border: solid gray 4px;
+  border-radius: 0.7em;
+  background-color: white;
+  cursor: pointer;
+}
+.closeBtn:hover {
+  background-color: #bdbdbd;
 }
 </style>

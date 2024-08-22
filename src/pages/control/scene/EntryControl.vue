@@ -28,10 +28,14 @@ const startBattle = () => {
   });
 };
 
-const showAttackSelection = ref<boolean>(false);
+const showAttackSelection = ref<boolean>(true);
 const attackSelections = ref<[string, string, string]>(["", "", ""]);
 const onSelect = (index: 0 | 1 | 2) => {
   postMessage("attack", index);
+  showAttackSelection.value = false;
+};
+
+const onClose = () => {
   showAttackSelection.value = false;
 };
 
@@ -161,6 +165,7 @@ const selectedSupportKeys = ref<Array<SupportKeys>>([]);
       v-if="showAttackSelection"
       :attacks="attackSelections"
       @select="onSelect"
+      @close="onClose"
     />
   </div>
 </template>
