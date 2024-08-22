@@ -10,6 +10,7 @@ interface Props {
   "gym-selection": { key: GymKeys };
   "show-attack-selections": { 0: string; 1: string; 2: string };
   "select-attack": 0 | 1 | 2;
+  "reset-battle": unknown;
 }
 
 const channel = new BroadcastChannel("pokemon-battle");

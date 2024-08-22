@@ -10,9 +10,9 @@ import { supportCards, type SupportKeys } from "@/domain/support_card";
 const { selection: gymSelection, setSelection: setGymSelection } = useGymSelection();
 
 const playerSelection = ref<PlayerKeys | null>(null);
-const setPokemon = (key: PlayerKeys) => {
+const setPokemon = async (key: PlayerKeys) => {
+  await postMessage("pokemon-set", key);
   playerSelection.value = key;
-  postMessage("pokemon-set", key);
 };
 
 const startBattle = () => {
@@ -26,6 +26,11 @@ const startBattle = () => {
     playerKey: playerSelection?.value ?? "01",
     supportCards: selectedSupportKeysObj,
   });
+};
+
+const resetBattle = async () => {
+  await postMessage("reset-battle", {});
+  playerSelection.value = null;
 };
 
 const showAttackSelection = ref<boolean>(false);
@@ -127,6 +132,12 @@ const selectedSupportKeys = ref<Array<SupportKeys>>([]);
             @click="startBattle"
           >
             バトル開始
+          </button>
+          <button
+            class="resetBtn"
+            @click="resetBattle"
+          >
+            リセット
           </button>
         </div>
       </div>
@@ -310,7 +321,7 @@ const selectedSupportKeys = ref<Array<SupportKeys>>([]);
   position: fixed;
   right: 0;
   background-color: white;
-  width: 25em;
+  width: 30em;
   height: 9em;
   padding: 1em;
   box-sizing: border-box;
@@ -350,6 +361,7 @@ const selectedSupportKeys = ref<Array<SupportKeys>>([]);
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 20px;
 }
 
 .enemy-selector {
@@ -361,10 +373,22 @@ const selectedSupportKeys = ref<Array<SupportKeys>>([]);
   height: 60px;
   background-color: #ff109f;
   color: white;
-  font-size: 40px;
+  font-size: 2rem;
   border-radius: 5px;
-  box-shadow: 2px 2px 4px -2px gray inset;
   cursor: pointer;
+}
+
+.resetBtn {
+  height: 60px;
+  columns: white;
+  font-size: 2rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.battle-btn:hover,
+.resetBtn:hover {
+  filter: drop-shadow(0px 0px 7px rgb(0, 0, 0));
 }
 
 .change-ctr-btn {

@@ -18,6 +18,11 @@ const snd_shiiin = new Howl({ src: shiiinUrl });
 
 export const useEntryEvent = defineStore("entryEvent", () => {
   const playerKey = ref<PlayerKeys | null>(null);
+
+  const $reset = () => {
+    playerKey.value = null;
+  };
+
   const setPlayerKey = (key: PlayerKeys) => {
     playerKey.value = key;
   };
@@ -81,5 +86,11 @@ export const useEntryEvent = defineStore("entryEvent", () => {
     //useBattleEvent().startBattle();
   };
 
-  return { playerKey, setPlayerKey, onStartTapped, onBattle };
+  return {
+    playerKey,
+    setPlayerKey,
+    onStartTapped,
+    onBattle,
+    $reset,
+  };
 });

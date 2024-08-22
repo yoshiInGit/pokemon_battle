@@ -56,6 +56,20 @@ export const useBattleEvent = defineStore("battleEvent", () => {
   const p1HpRate = computed(() => p1Hp.value / p1Pokemon.hp);
   const p2HpRate = computed(() => p2Hp.value / p2Pokemon.hp);
 
+  const $reset = () => {
+    messageText.value = "";
+    isBattling.value = false;
+    isShowAtcMenu.value = false;
+    isShowCutin.value = false;
+    showCutinVideo.value = false;
+    p2CutinImgUrl.value = "";
+    cutinImg.value = "";
+    p1Name.value = "---";
+    p2Name.value = "---";
+    p1Hp.value = 0;
+    p2Hp.value = 0;
+  };
+
   // 初期演出
   const startBattle = async () => {
     const p1Pokemon = globalEventStore.p1Pokemon;
@@ -685,5 +699,6 @@ export const useBattleEvent = defineStore("battleEvent", () => {
     showCutinVideo: computed(() => showCutinVideo.value),
     startBattle,
     onAtkClicked,
+    $reset,
   };
 });

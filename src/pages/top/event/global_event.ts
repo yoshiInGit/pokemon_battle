@@ -10,12 +10,21 @@ import { computed, ref } from "vue";
 export const useGlobalEvent = defineStore("globalEvent", () => {
   type Scenes = "entry" | "battle";
   const currentScene = ref<Scenes>("entry");
+  const p1Pokemon = ref<GymPokemon>(new Myutu());
+  const useSupportBoostEnergy = ref<boolean>(false);
+  const p2Pokemon = ref<Player>(new Player());
+
+  const $reset = () => {
+    currentScene.value = "entry";
+    p1Pokemon.value = new Myutu();
+    useSupportBoostEnergy.value = false;
+    p2Pokemon.value = new Player();
+  };
 
   const changeScene = (sceneName: Scenes) => {
     currentScene.value = sceneName;
   };
 
-  const p1Pokemon = ref<GymPokemon>(new Myutu());
   const setP1Pokemon = (gymLeaderKey: GymKeys) => {
     const pokemon = StageAssets[gymLeaderKey];
     p1Pokemon.value = new GymPokemon(
@@ -29,15 +38,12 @@ export const useGlobalEvent = defineStore("globalEvent", () => {
     );
   };
 
-  const useSupportBoostEnergy = ref<boolean>(false);
-
   const setSupportUsage = (supportKey: SupportKeys) => {
     if (supportKey === "01") {
       useSupportBoostEnergy.value = true;
     }
   };
 
-  const p2Pokemon = ref<Player>(new Player());
   const setP2Pokemon = (playerKey: PlayerKeys) => {
     const pokemon = PlayerOptions[playerKey];
     const newPlayer = new Player(
@@ -63,5 +69,6 @@ export const useGlobalEvent = defineStore("globalEvent", () => {
     setP2Pokemon,
     setSupportUsage,
     useSupportBoostEnergy: computed(() => useSupportBoostEnergy.value),
+    $reset,
   };
 });
