@@ -40,7 +40,7 @@ export const PlayerOptions = {
     name: "ミロカロス",
     hp: 700,
     type: PokemonType.Hono,
-    rank: 1,
+    rank: 3,
     atkNames: ["atk01", "atk02", "atk03"] as Player["atkNames"],
   },
   "02": {
@@ -48,7 +48,7 @@ export const PlayerOptions = {
     name: "シャリタツ",
     hp: 700,
     type: PokemonType.Doragon,
-    rank: 1,
+    rank: 8,
     atkNames: ["atk01", "atk02", "atk03"] as Player["atkNames"],
   },
   "03": {
@@ -56,7 +56,7 @@ export const PlayerOptions = {
     name: "マニューラ",
     hp: 700,
     type: PokemonType.Aku,
-    rank: 1,
+    rank: 4,
     atkNames: ["atk01", "atk02", "atk03"] as Player["atkNames"],
   },
   "04": {
@@ -72,7 +72,7 @@ export const PlayerOptions = {
     name: "ルガルガン",
     hp: 700,
     type: PokemonType.Iwa,
-    rank: 1,
+    rank: 2,
     atkNames: ["atk01", "atk02", "atk03"] as Player["atkNames"],
   },
   "06": {
@@ -80,7 +80,7 @@ export const PlayerOptions = {
     name: "イワーク",
     hp: 700,
     type: PokemonType.Iwa,
-    rank: 1,
+    rank: 6,
     atkNames: ["atk01", "atk02", "atk03"] as Player["atkNames"],
   },
   "07": {
@@ -88,7 +88,7 @@ export const PlayerOptions = {
     name: "リーフィア",
     hp: 700,
     type: PokemonType.Kusa,
-    rank: 1,
+    rank: 5,
     atkNames: ["atk01", "atk02", "atk03"] as Player["atkNames"],
   },
   "08": {
@@ -96,7 +96,7 @@ export const PlayerOptions = {
     name: "デデンネ",
     hp: 700,
     type: PokemonType.Denki,
-    rank: 1,
+    rank: 7,
     atkNames: ["atk01", "atk02", "atk03"] as Player["atkNames"],
   },
 };
