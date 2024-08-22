@@ -39,7 +39,7 @@ export const PlayerOptions = {
     src: Player01CardAsset,
     name: "ミロカロス",
     hp: 700,
-    type: PokemonType.Hono,
+    type: PokemonType.Kusa,
     rank: 3,
     atkNames: ["atk01", "atk02", "atk03"] as Player["atkNames"],
   },
