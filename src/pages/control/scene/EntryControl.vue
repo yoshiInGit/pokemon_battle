@@ -28,7 +28,7 @@ const startBattle = () => {
   });
 };
 
-const showAttackSelection = ref<boolean>(true);
+const showAttackSelection = ref<boolean>(false);
 const attackSelections = ref<[string, string, string]>(["", "", ""]);
 const onSelect = (index: 0 | 1 | 2) => {
   postMessage("attack", index);
