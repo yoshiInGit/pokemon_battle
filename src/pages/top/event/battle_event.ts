@@ -51,10 +51,10 @@ export const useBattleEvent = defineStore("battleEvent", () => {
 
   const p1Hp = ref(0);
   const p2Hp = ref(0);
-  const p1HpStr = computed(() => (isBattling.value ? `${p1Hp.value}/${p1Pokemon.hp}` : "--/--"));
-  const p2HpStr = computed(() => (isBattling.value ? `${p2Hp.value}/${p2Pokemon.hp}` : "--/--"));
-  const p1HpRate = computed(() => p1Hp.value / p1Pokemon.hp);
-  const p2HpRate = computed(() => p2Hp.value / p2Pokemon.hp);
+  const p1HpStr = computed(() => (isBattling.value ? `${p1Hp.value}/${p1Pokemon.value.hp}` : "--/--"));
+  const p2HpStr = computed(() => (isBattling.value ? `${p2Hp.value}/${p2Pokemon.value.hp}` : "--/--"));
+  const p1HpRate = computed(() => p1Hp.value / p1Pokemon.value.hp);
+  const p2HpRate = computed(() => p2Hp.value / p2Pokemon.value.hp);
 
   const $reset = () => {
     messageText.value = "";
@@ -98,8 +98,8 @@ export const useBattleEvent = defineStore("battleEvent", () => {
     });
     await sleep_ms(300);
 
-    p1CardImgUrl.value = p1Pokemon.cardImgUrl;
-    p2CardImgUrl.value = p2Pokemon.cardImgUrl;
+    p1CardImgUrl.value = p1Pokemon.value.cardImgUrl;
+    p2CardImgUrl.value = p2Pokemon.value.cardImgUrl;
 
     anime({
       targets: "#player1Card,#player2Card",
@@ -117,8 +117,8 @@ export const useBattleEvent = defineStore("battleEvent", () => {
 
     await sleep_ms(300);
 
-    p1Name.value = p1Pokemon.name;
-    p2Name.value = p2Pokemon.name;
+    p1Name.value = p1Pokemon.value.name;
+    p2Name.value = p2Pokemon.value.name;
 
     isBattling.value = true;
 
@@ -127,8 +127,8 @@ export const useBattleEvent = defineStore("battleEvent", () => {
     const hps_tmp = { p1: 0, p2: 0 };
     anime({
       targets: hps_tmp,
-      p1: p1Pokemon.hp,
-      p2: p2Pokemon.hp,
+      p1: p1Pokemon.value.hp,
+      p2: p2Pokemon.value.hp,
       round: 1,
       easing: "easeOutCirc",
       duration: 1500,
@@ -146,7 +146,7 @@ export const useBattleEvent = defineStore("battleEvent", () => {
   const _preBattle = async () => {
     await sleep_ms(500);
 
-    const { necessaryTurn, p2AttackPower } = _calculateAttackScenario(p1Pokemon, p2Pokemon);
+    const { necessaryTurn, p2AttackPower } = _calculateAttackScenario(p1Pokemon.value, p2Pokemon.value);
 
     console.log("ターン数、味方攻撃力");
     console.log({ necessaryTurn, p2AttackPower });
@@ -218,14 +218,14 @@ export const useBattleEvent = defineStore("battleEvent", () => {
     }
 
     await _openMessageBox();
-    await _typeMessage(p2Pokemon.name + "　ピンチ！！");
+    await _typeMessage(p2Pokemon.value.name + "　ピンチ！！");
     await sleep_ms(700);
 
     isShowAtcMenu.value = true;
     postMessage("show-attack-selections", {
-      0: p2Pokemon.atkNames[0],
-      1: p2Pokemon.atkNames[1],
-      2: p2Pokemon.atkNames[2],
+      0: p2Pokemon.value.atkNames[0],
+      1: p2Pokemon.value.atkNames[1],
+      2: p2Pokemon.value.atkNames[2],
     });
   };
 
@@ -242,11 +242,11 @@ export const useBattleEvent = defineStore("battleEvent", () => {
     }
     if (atkNo == 1) {
       attackSuccessRate = Config.normalAttackSuccessRate;
-      p2CutinImgUrl.value = p2Pokemon.cutinImgUrl[0];
+      p2CutinImgUrl.value = p2Pokemon.value.cutinImgUrl[0];
     }
     if (atkNo == 2) {
       attackSuccessRate = Config.weakAttackSuccessRate;
-      p2CutinImgUrl.value = p2Pokemon.cutinImgUrl[1];
+      p2CutinImgUrl.value = p2Pokemon.value.cutinImgUrl[1];
     }
 
     console.log("攻撃成功率: " + attackSuccessRate);
@@ -261,12 +261,12 @@ export const useBattleEvent = defineStore("battleEvent", () => {
 
     //攻撃メッセージ
     await _openMessageBox();
-    await _typeMessage(p2Pokemon.name + " は、\n" + p2Pokemon.atkNames[atkNo] + "　を　はなった！");
+    await _typeMessage(p2Pokemon.value.name + " は、\n" + p2Pokemon.value.atkNames[atkNo] + "　を　はなった！");
     await sleep_ms(1000);
     await _closeMessageBog();
 
     if (atkNo !== 0) {
-      await _showCutInImg(p2Pokemon.cutinImgUrl[atkNo === 1 ? 0 : 1]);
+      await _showCutInImg(p2Pokemon.value.cutinImgUrl[atkNo === 1 ? 0 : 1]);
     }
 
     if (isAttackSuccess) {
@@ -376,13 +376,13 @@ export const useBattleEvent = defineStore("battleEvent", () => {
 
     // 敵の攻撃！
     await _openMessageBox();
-    await _typeMessage(p1Pokemon.name + " は、\n" + p1Pokemon.atkName + "　を　はなった！");
+    await _typeMessage(p1Pokemon.value.name + " は、\n" + p1Pokemon.value.atkName + "　を　はなった！");
     await sleep_ms(1000);
     await _closeMessageBog();
 
     await sleep_ms(300);
 
-    await _showCutInImg(p1Pokemon.cutinImgUrl[1]);
+    await _showCutInImg(p1Pokemon.value.cutinImgUrl[1]);
 
     anime({
       targets: "#player1Card",
@@ -449,7 +449,7 @@ export const useBattleEvent = defineStore("battleEvent", () => {
     await sleep_ms(800);
 
     await _openMessageBox();
-    await _typeMessage(p2Pokemon.name + "　は　ショウリ　した！");
+    await _typeMessage(p2Pokemon.value.name + "　は　ショウリ　した！");
     await sleep_ms(1000);
 
     _onGameEnded("win");
@@ -466,7 +466,7 @@ export const useBattleEvent = defineStore("battleEvent", () => {
     await sleep_ms(800);
 
     await _openMessageBox();
-    await _typeMessage(p2Pokemon.name + "　は　ハイボク　した．．．");
+    await _typeMessage(p2Pokemon.value.name + "　は　ハイボク　した．．．");
     await sleep_ms(1000);
 
     _onGameEnded("lose");
@@ -693,7 +693,7 @@ export const useBattleEvent = defineStore("battleEvent", () => {
     p2HpStr,
     p1HpRate,
     p2HpRate,
-    p2CutinVideoSrc: computed(() => globalEventStore.p2Pokemon.cutinVideoUrl),
+    p2CutinVideoSrc: computed(() => globalEventStore.p2Pokemon.value.cutinVideoUrl),
     isShowAtcMenu,
     isShowCutin,
     showCutinVideo: computed(() => showCutinVideo.value),

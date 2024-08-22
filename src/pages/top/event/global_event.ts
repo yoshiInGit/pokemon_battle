@@ -63,9 +63,9 @@ export const useGlobalEvent = defineStore("globalEvent", () => {
   return {
     currentScene,
     changeScene,
-    p1Pokemon,
+    p1Pokemon: computed(() => p1Pokemon),
     setP1Pokemon,
-    p2Pokemon,
+    p2Pokemon: computed(() => p2Pokemon),
     setP2Pokemon,
     setSupportUsage,
     useSupportBoostEnergy: computed(() => useSupportBoostEnergy.value),
