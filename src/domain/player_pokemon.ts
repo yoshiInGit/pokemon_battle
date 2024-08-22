@@ -6,7 +6,6 @@ import Player05CardAsset from "@/assets/img/card/player-05.png";
 import Player06CardAsset from "@/assets/img/card/player-06.png";
 import Player07CardAsset from "@/assets/img/card/player-07.png";
 import Player08CardAsset from "@/assets/img/card/player-08.png";
-import Player08CutinVideoAsset from "@/assets/cutin-video/08.mp4";
 import Player01Cutin01Asset from "@/assets/img/cutin/ミロカロス/みずてっぽう.png";
 import Player01Cutin02Asset from "@/assets/img/cutin/ミロカロス/なみのり.png";
 import Player02Cutin01Asset from "@/assets/img/cutin/シャリタツ/ドラゴンテール.png";
@@ -23,6 +22,14 @@ import Player07Cutin01Asset from "@/assets/img/cutin/リーフィア/はっぱ�
 import Player07Cutin02Asset from "@/assets/img/cutin/リーフィア/マジカルリーフ.png";
 import Player08Cutin01Asset from "@/assets/img/cutin/デデンネ/ほっぺすりすり.png";
 import Player08Cutin02Asset from "@/assets/img/cutin/デデンネ/でんきショック.png";
+import Player01CutinVideoAsset from "@/assets/cutin-video/01.mp4";
+import Player02CutinVideoAsset from "@/assets/cutin-video/02.mp4";
+import Player03CutinVideoAsset from "@/assets/cutin-video/03.mp4";
+import Player04CutinVideoAsset from "@/assets/cutin-video/04.mp4";
+import Player05CutinVideoAsset from "@/assets/cutin-video/05.mp4";
+import Player06CutinVideoAsset from "@/assets/cutin-video/06.mp4";
+import Player07CutinVideoAsset from "@/assets/cutin-video/07.mp4";
+import Player08CutinVideoAsset from "@/assets/cutin-video/08.mp4";
 
 import { PokemonType } from "./pokemonType";
 import type { Player } from "./pokemons/player";
@@ -35,7 +42,6 @@ export const PlayerOptions = {
     type: PokemonType.Hono,
     rank: 1,
     atkNames: ["atk01", "atk02", "atk03"] as Player["atkNames"],
-    cutinVideoAsset: Player08CutinVideoAsset,
   },
   "02": {
     src: Player02CardAsset,
@@ -44,7 +50,6 @@ export const PlayerOptions = {
     type: PokemonType.Hono,
     rank: 1,
     atkNames: ["atk01", "atk02", "atk03"] as Player["atkNames"],
-    cutinVideoAsset: Player08CutinVideoAsset,
   },
   "03": {
     src: Player03CardAsset,
@@ -53,7 +58,6 @@ export const PlayerOptions = {
     type: PokemonType.Hono,
     rank: 1,
     atkNames: ["atk01", "atk02", "atk03"] as Player["atkNames"],
-    cutinVideoAsset: Player08CutinVideoAsset,
   },
   "04": {
     src: Player04CardAsset,
@@ -62,7 +66,6 @@ export const PlayerOptions = {
     type: PokemonType.Hono,
     rank: 1,
     atkNames: ["atk01", "atk02", "atk03"] as Player["atkNames"],
-    cutinVideoAsset: Player08CutinVideoAsset,
   },
   "05": {
     src: Player05CardAsset,
@@ -71,7 +74,6 @@ export const PlayerOptions = {
     type: PokemonType.Hono,
     rank: 1,
     atkNames: ["atk01", "atk02", "atk03"] as Player["atkNames"],
-    cutinVideoAsset: Player08CutinVideoAsset,
   },
   "06": {
     src: Player06CardAsset,
@@ -80,7 +82,6 @@ export const PlayerOptions = {
     type: PokemonType.Hono,
     rank: 1,
     atkNames: ["atk01", "atk02", "atk03"] as Player["atkNames"],
-    cutinVideoAsset: Player08CutinVideoAsset,
   },
   "07": {
     src: Player07CardAsset,
@@ -89,7 +90,6 @@ export const PlayerOptions = {
     type: PokemonType.Hono,
     rank: 1,
     atkNames: ["atk01", "atk02", "atk03"] as Player["atkNames"],
-    cutinVideoAsset: Player08CutinVideoAsset,
   },
   "08": {
     src: Player08CardAsset,
@@ -98,7 +98,6 @@ export const PlayerOptions = {
     type: PokemonType.Hono,
     rank: 1,
     atkNames: ["atk01", "atk02", "atk03"] as Player["atkNames"],
-    cutinVideoAsset: Player08CutinVideoAsset,
   },
 };
 
@@ -113,4 +112,15 @@ export const CutinImgAssets: Record<PlayerKeys, Player["cutinImgUrl"]> = {
   "06": [Player06Cutin01Asset, Player06Cutin02Asset],
   "07": [Player07Cutin01Asset, Player07Cutin02Asset],
   "08": [Player08Cutin01Asset, Player08Cutin02Asset],
+};
+
+export const PlayerCutinVideoAssets: Record<PlayerKeys, Player["cutinVideoUrl"]> = {
+  "01": Player01CutinVideoAsset,
+  "02": Player02CutinVideoAsset,
+  "03": Player03CutinVideoAsset,
+  "04": Player04CutinVideoAsset,
+  "05": Player05CutinVideoAsset,
+  "06": Player06CutinVideoAsset,
+  "07": Player07CutinVideoAsset,
+  "08": Player08CutinVideoAsset,
 };

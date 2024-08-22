@@ -1,5 +1,5 @@
 import { StageAssets, type GymKeys } from "@/domain/gym_pokemon";
-import { CutinImgAssets, PlayerOptions, type PlayerKeys } from "@/domain/player_pokemon";
+import { CutinImgAssets, PlayerCutinVideoAssets, PlayerOptions, type PlayerKeys } from "@/domain/player_pokemon";
 import { GymPokemon } from "@/domain/pokemons/gym";
 import { Myutu } from "@/domain/pokemons/myutu";
 import { Player } from "@/domain/pokemons/player";
@@ -48,7 +48,7 @@ export const useGlobalEvent = defineStore("globalEvent", () => {
       pokemon.atkNames,
       CutinImgAssets[playerKey],
       pokemon.src,
-      pokemon.cutinVideoAsset,
+      PlayerCutinVideoAssets[playerKey],
     );
 
     p2Pokemon.value = newPlayer;
