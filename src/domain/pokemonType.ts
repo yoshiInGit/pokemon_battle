@@ -47,7 +47,7 @@ export const getPokemonCompatibility = (p1Pokemon: Pokemon, p2Pokemon: Pokemon) 
 
   if (goodAgainst[p2Pokemon.key]?.includes(p1Pokemon.key)) {
     return TypeCompatibility.Good;
-  } else if (badAgainst[p2Pokemon.key]?.includes(p2Pokemon.key)) {
+  } else if (badAgainst[p1Pokemon.key]?.includes(p2Pokemon.key)) {
     return TypeCompatibility.Bad;
   } else {
     return TypeCompatibility.Normal;
