@@ -352,8 +352,6 @@ export const useBattleEvent = defineStore("battleEvent", () => {
       });
       await sleep_ms(400);
 
-      await sleep_ms(1200);
-
       await _openMessageBox();
       await _typeMessage("こうげき　は　しっぱい　した．．．");
       await sleep_ms(1000);
