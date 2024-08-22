@@ -7,7 +7,6 @@ import Player1Inf from "./module/Player1Inf.vue";
 import Player2Inf from "./module/Player2Inf.vue";
 import MessageBox from "./module/MessageBox.vue";
 import BattleBackgroundAsset from "@/assets/img/battle/background.png";
-import CutinAsset from "@/assets/img/cutin/cutin.png";
 import LoseAsset from "@/assets/img/battle/lose.png";
 import WinAsset from "@/assets/img/battle/win.png";
 import { receiveMessage } from "@/service/message_listener";
@@ -27,6 +26,8 @@ const isShowAtcMenu = computed(() => battleEventStore.isShowAtcMenu);
 
 const p1CardImgUrl = computed(() => battleEventStore.p1CardImgUrl);
 const p2CardImgUrl = computed(() => battleEventStore.p2CardImgUrl);
+
+const p2CutinImgUrl = computed(() => battleEventStore.p2CutinImgUrl);
 
 const isShowCutin = computed(() => battleEventStore.isShowCutin);
 
@@ -58,7 +59,7 @@ const showCutinVideo = computed(() => battleEventStore.showCutinVideo);
   />
 
   <img
-    :src="CutinAsset"
+    :src="p2CutinImgUrl"
     alt=""
     class="cutIn"
     id="cutIn"

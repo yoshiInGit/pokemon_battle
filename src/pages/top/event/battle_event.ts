@@ -42,6 +42,8 @@ export const useBattleEvent = defineStore("battleEvent", () => {
   const p1CardImgUrl = ref(p1CardImgAsset);
   const p2CardImgUrl = ref(p2CardImgAsset);
 
+  const p2CutinImgUrl = ref<string>("");
+
   const cutinImg = ref("");
 
   const p1Name = ref("---");
@@ -226,9 +228,11 @@ export const useBattleEvent = defineStore("battleEvent", () => {
     }
     if (atkNo == 1) {
       attackSuccessRate = Config.normalAttackSuccessRate;
+      p2CutinImgUrl.value = p2Pokemon.cutinImgUrl[0];
     }
     if (atkNo == 2) {
       attackSuccessRate = Config.weakAttackSuccessRate;
+      p2CutinImgUrl.value = p2Pokemon.cutinImgUrl[1];
     }
 
     console.log("攻撃成功率: " + attackSuccessRate);
@@ -670,6 +674,7 @@ export const useBattleEvent = defineStore("battleEvent", () => {
     messageText,
     p1CardImgUrl,
     p2CardImgUrl,
+    p2CutinImgUrl,
     p1Name,
     p2Name,
     p1HpStr,

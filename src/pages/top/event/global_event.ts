@@ -1,5 +1,5 @@
 import { StageAssets, type GymKeys } from "@/domain/gym_pokemon";
-import { PlayerOptions, type PlayerKeys } from "@/domain/player_pokemon";
+import { CutinImgAssets, PlayerOptions, type PlayerKeys } from "@/domain/player_pokemon";
 import { GymPokemon } from "@/domain/pokemons/gym";
 import { Myutu } from "@/domain/pokemons/myutu";
 import { Player } from "@/domain/pokemons/player";
@@ -46,7 +46,7 @@ export const useGlobalEvent = defineStore("globalEvent", () => {
       pokemon.type,
       pokemon.rank,
       pokemon.atkNames,
-      pokemon.cutinImgUrl,
+      CutinImgAssets[playerKey],
       pokemon.src,
       pokemon.cutinVideoAsset,
     );
