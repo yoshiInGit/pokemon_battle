@@ -277,13 +277,13 @@ export const useBattleEvent = defineStore("battleEvent", () => {
       //HPアニメーション
       const targetHp = { value: p1Hp.value };
       let damage = 0;
-      if (atkNo == 0) {
+
+      if (atkNo == 0 || globalEventStore.useSupportBoostEnergy) {
+        // 強技 or サポート(ブーストエナジー)使用時
         damage = Config.strongAttackPower;
-      }
-      if (atkNo == 1) {
+      } else if (atkNo == 1) {
         damage = Config.normalAttackPower;
-      }
-      if (atkNo == 2) {
+      } else if (atkNo == 2) {
         damage = Config.weakAttackPower;
       }
       anime({
@@ -314,12 +314,14 @@ export const useBattleEvent = defineStore("battleEvent", () => {
 
       await sleep_ms(500);
 
-      await _openMessageBox();
-      await _typeMessage("こうか　は　ばつぐん　だ！！！");
-      await sleep_ms(1000);
-      await _closeMessageBog();
+      if (damage === Config.strongAttackPower) {
+        await _openMessageBox();
+        await _typeMessage("こうか　は　ばつぐん　だ！！！");
+        await sleep_ms(1000);
+        await _closeMessageBog();
 
-      await sleep_ms(1000);
+        await sleep_ms(1000);
+      }
 
       damageAnime.pause();
       anime({

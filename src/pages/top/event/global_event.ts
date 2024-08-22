@@ -5,7 +5,7 @@ import { Myutu } from "@/domain/pokemons/myutu";
 import { Player } from "@/domain/pokemons/player";
 import type { SupportKeys } from "@/domain/support_card";
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 
 export const useGlobalEvent = defineStore("globalEvent", () => {
   type Scenes = "entry" | "battle";
@@ -29,11 +29,11 @@ export const useGlobalEvent = defineStore("globalEvent", () => {
     );
   };
 
-  const useSupportXXX = ref<boolean>(false);
+  const useSupportBoostEnergy = ref<boolean>(false);
 
   const setSupportUsage = (supportKey: SupportKeys) => {
     if (supportKey === "01") {
-      useSupportXXX.value = true;
+      useSupportBoostEnergy.value = true;
     }
   };
 
@@ -62,6 +62,6 @@ export const useGlobalEvent = defineStore("globalEvent", () => {
     p2Pokemon,
     setP2Pokemon,
     setSupportUsage,
-    useSupportXXX,
+    useSupportBoostEnergy: computed(() => useSupportBoostEnergy.value),
   };
 });
