@@ -2,10 +2,11 @@
 import EntryScene from "./scene/EntryScene.vue";
 import BattleScene from "./scene/BattleScene.vue";
 import { useGlobalEvent } from "./event/global_event";
-import { ref } from "vue";
+import { onBeforeUnmount, ref } from "vue";
 import { receiveMessage } from "@/service/message_listener";
 import { useBattleEvent } from "./event/battle_event";
 import { useEntryEvent } from "./event/entry_event";
+import { sendScreen } from "@/service/screen_capture";
 
 const globalEventStore = useGlobalEvent();
 const battleEventStore = useBattleEvent();
@@ -23,10 +24,24 @@ const listenReset = () => {
   });
 };
 listenReset();
+
+const containerElement = ref<HTMLElement>();
+const intervalId = setInterval(() => {
+  if (containerElement.value !== undefined) {
+    sendScreen(containerElement.value);
+  }
+}, 0.5 * 1000);
+
+onBeforeUnmount(() => {
+  clearInterval(intervalId);
+});
 </script>
 
 <template>
-  <div class="wrapper">
+  <div
+    class="wrapper"
+    ref="containerElement"
+  >
     <div
       class="scene"
       id="scene"
