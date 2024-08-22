@@ -1,7 +1,7 @@
-import type { GymKeys } from "@/domain/gym_pokemon";
+import type { GymKeysType } from "@/domain/gym_pokemon";
 
 interface Props {
-  "gym-selection": GymKeys;
+  "gym-selection": GymKeysType;
 }
 
 export const setLocalStorageItem = <Key extends keyof Props, Value extends Props[Key]>(key: Key, value: Value) => {

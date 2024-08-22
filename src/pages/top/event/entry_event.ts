@@ -7,8 +7,8 @@ import pironUrl from "@/assets/sound/effect/piron.mp3";
 import shiiinUrl from "@/assets/sound/effect/shiiin.mp3";
 import { useGlobalEvent } from "./global_event";
 import { ref } from "vue";
-import type { PlayerKeys } from "@/domain/player_pokemon";
-import type { GymKeys } from "@/domain/gym_pokemon";
+import type { PlayerKeysType } from "@/domain/player_pokemon";
+import type { GymKeysType } from "@/domain/gym_pokemon";
 import type { SupportKeys } from "@/domain/support_card";
 // import { useBattleEvent } from './battle_event';
 
@@ -17,13 +17,13 @@ const snd_piron = new Howl({ src: pironUrl });
 const snd_shiiin = new Howl({ src: shiiinUrl });
 
 export const useEntryEvent = defineStore("entryEvent", () => {
-  const playerKey = ref<PlayerKeys | null>(null);
+  const playerKey = ref<PlayerKeysType | null>(null);
 
   const $reset = () => {
     playerKey.value = null;
   };
 
-  const setPlayerKey = (key: PlayerKeys) => {
+  const setPlayerKey = (key: PlayerKeysType) => {
     playerKey.value = key;
   };
 
@@ -47,8 +47,8 @@ export const useEntryEvent = defineStore("entryEvent", () => {
     playerKey,
     supportCards,
   }: {
-    gymLeaderKey: GymKeys;
-    playerKey: PlayerKeys;
+    gymLeaderKey: GymKeysType;
+    playerKey: PlayerKeysType;
     supportCards: Array<SupportKeys>;
   }) => {
     const globalStore = useGlobalEvent();

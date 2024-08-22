@@ -85,8 +85,8 @@ export const StageAssets = {
   },
 } as const;
 
-export type GymKeys = keyof typeof StageAssets;
+export type GymKeysType = keyof typeof StageAssets;
 
-export const isGym = (data: unknown): data is GymKeys => {
+export const isGym = (data: unknown): data is GymKeysType => {
   return typeof data === "string" && Object.prototype.hasOwnProperty.call(StageAssets, data);
 };

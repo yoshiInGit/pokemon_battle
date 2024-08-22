@@ -2,15 +2,15 @@
 import { postMessage, receiveMessage } from "@/service/message_listener";
 import { StageAssets } from "@/domain/gym_pokemon";
 import { useGymSelection } from "../service/gym_selection";
-import { PlayerOptions, type PlayerKeys } from "@/domain/player_pokemon";
+import { PlayerOptions, type PlayerKeysType } from "@/domain/player_pokemon";
 import { ref } from "vue";
 import AttackSelectionModal from "@/pages/control/scene/module/AttackSelectionModal.vue";
 import { supportCards, type SupportKeys } from "@/domain/support_card";
 
 const { selection: gymSelection, setSelection: setGymSelection } = useGymSelection();
 
-const playerSelection = ref<PlayerKeys | null>(null);
-const setPokemon = async (key: PlayerKeys) => {
+const playerSelection = ref<PlayerKeysType | null>(null);
+const setPokemon = async (key: PlayerKeysType) => {
   await postMessage("pokemon-set", key);
   playerSelection.value = key;
 };

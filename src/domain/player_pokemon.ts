@@ -101,9 +101,9 @@ export const PlayerOptions = {
   },
 };
 
-export type PlayerKeys = keyof typeof PlayerOptions;
+export type PlayerKeysType = keyof typeof PlayerOptions;
 
-export const CutinImgAssets: Record<PlayerKeys, Player["cutinImgUrl"]> = {
+export const CutinImgAssets: Record<PlayerKeysType, Player["cutinImgUrl"]> = {
   "01": [Player01Cutin01Asset, Player01Cutin02Asset],
   "02": [Player02Cutin01Asset, Player02Cutin02Asset],
   "03": [Player03Cutin01Asset, Player03Cutin02Asset],
@@ -114,7 +114,7 @@ export const CutinImgAssets: Record<PlayerKeys, Player["cutinImgUrl"]> = {
   "08": [Player08Cutin01Asset, Player08Cutin02Asset],
 };
 
-export const PlayerCutinVideoAssets: Record<PlayerKeys, Player["cutinVideoUrl"]> = {
+export const PlayerCutinVideoAssets: Record<PlayerKeysType, Player["cutinVideoUrl"]> = {
   "01": Player01CutinVideoAsset,
   "02": Player02CutinVideoAsset,
   "03": Player03CutinVideoAsset,

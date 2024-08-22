@@ -1,4 +1,4 @@
-import type { Pokemon } from "./pokemon";
+import { GymKeys, PlayerKeys, type Pokemon } from "./pokemon";
 
 export enum PokemonType {
   Hono,
@@ -21,39 +21,33 @@ export enum TypeCompatibility {
   Bad,
 }
 
-export const getTypeCompatibility = (p1Pokemon: Pokemon, p2Pokemon: Pokemon) => {
-  const goodAgainst: { [key in PokemonType]?: PokemonType[] } = {
-    [PokemonType.Hono]: [PokemonType.Hagane, PokemonType.Kusa],
-    [PokemonType.Mizu]: [PokemonType.Hono, PokemonType.Iwa],
-    [PokemonType.Kusa]: [PokemonType.Mizu, PokemonType.Iwa],
-    [PokemonType.Espa]: [PokemonType.Kakuto],
-    [PokemonType.Denki]: [PokemonType.Mizu, PokemonType.Hiko],
-    [PokemonType.Doragon]: [PokemonType.Doragon],
-    [PokemonType.Hagane]: [PokemonType.Iwa],
-    [PokemonType.Aku]: [PokemonType.Espa],
-    [PokemonType.Iwa]: [PokemonType.Hono, PokemonType.Hiko],
-    [PokemonType.Kakuto]: [PokemonType.Normal, PokemonType.Iwa, PokemonType.Aku, PokemonType.Hagane],
-    [PokemonType.Hiko]: [PokemonType.Kusa, PokemonType.Kakuto],
-  };
+export const getPokemonCompatibility = (p1Pokemon: Pokemon, p2Pokemon: Pokemon) => {
+  const goodAgainst: {
+    [index in (typeof PlayerKeys)[keyof typeof PlayerKeys]]: Array<(typeof GymKeys)[keyof typeof GymKeys]>;
+  } = {
+    [PlayerKeys.Milokaross]: [GymKeys.Reshiram],
+    [PlayerKeys.Syaritatsu]: [GymKeys.Gaburias],
+    [PlayerKeys.Manyula]: [GymKeys.Deoxys],
+    [PlayerKeys.Ononokus]: [GymKeys.Gaburias],
+    [PlayerKeys.Lugarugan]: [GymKeys.KapuKokeko, GymKeys.Reshiram],
+    [PlayerKeys.Iwark]: [GymKeys.KapuKokeko, GymKeys.Reshiram],
+    [PlayerKeys.Leafia]: [GymKeys.Gekkouga],
+    [PlayerKeys.Dedenne]: [GymKeys.Gekkouga],
+  } as const;
 
-  const badAgainst: { [key in PokemonType]?: PokemonType[] } = {
-    [PokemonType.Hono]: [PokemonType.Mizu, PokemonType.Iwa, PokemonType.Doragon],
-    [PokemonType.Mizu]: [PokemonType.Kusa, PokemonType.Doragon],
-    [PokemonType.Kusa]: [PokemonType.Hono, PokemonType.Hiko, PokemonType.Doragon, PokemonType.Hagane],
-    [PokemonType.Espa]: [PokemonType.Hagane],
-    [PokemonType.Denki]: [PokemonType.Kusa, PokemonType.Doragon],
-    [PokemonType.Doragon]: [PokemonType.Hagane],
-    [PokemonType.Hagane]: [PokemonType.Hono, PokemonType.Mizu, PokemonType.Denki],
-    [PokemonType.Aku]: [PokemonType.Kakuto],
-    [PokemonType.Iwa]: [PokemonType.Kakuto, PokemonType.Hagane],
-    [PokemonType.Kakuto]: [PokemonType.Hiko, PokemonType.Espa],
-    [PokemonType.Hiko]: [PokemonType.Denki, PokemonType.Iwa, PokemonType.Hagane],
-    [PokemonType.Normal]: [PokemonType.Iwa, PokemonType.Hagane],
-  };
+  const badAgainst: {
+    [index in (typeof GymKeys)[keyof typeof GymKeys]]: Array<(typeof PlayerKeys)[keyof typeof PlayerKeys]>;
+  } = {
+    [GymKeys.KapuKokeko]: [PlayerKeys.Manyula, PlayerKeys.Milokaross],
+    [GymKeys.Reshiram]: [PlayerKeys.Leafia],
+    [GymKeys.Gekkouga]: [PlayerKeys.Lugarugan, PlayerKeys.Iwark],
+    [GymKeys.Deoxys]: [PlayerKeys.Ononokus, PlayerKeys.Syaritatsu],
+    [GymKeys.Gaburias]: [PlayerKeys.Milokaross, PlayerKeys.Leafia, PlayerKeys.Dedenne],
+  } as const;
 
-  if (goodAgainst[p2Pokemon.typeName]?.includes(p1Pokemon.typeName)) {
+  if (goodAgainst[p2Pokemon.key]?.includes(p1Pokemon.key)) {
     return TypeCompatibility.Good;
-  } else if (badAgainst[p2Pokemon.typeName]?.includes(p2Pokemon.typeName)) {
+  } else if (badAgainst[p2Pokemon.key]?.includes(p2Pokemon.key)) {
     return TypeCompatibility.Bad;
   } else {
     return TypeCompatibility.Normal;

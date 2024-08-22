@@ -5,12 +5,12 @@ import WaitingBgWaveAsset from "@/assets/img/entry/wave.png";
 // import PikaAsset from "@/assets/img/card/pika.png";
 
 import { receiveMessage } from "@/service/message_listener";
-import { StageAssets, type GymKeys } from "@/domain/gym_pokemon";
+import { StageAssets, type GymKeysType } from "@/domain/gym_pokemon";
 import { getLocalStorageItem } from "@/service/localstorage_repository";
 import { PlayerOptions } from "@/domain/player_pokemon";
 import type { SupportKeys } from "@/domain/support_card";
 
-const gymSelection = ref<GymKeys>(getLocalStorageItem("gym-selection") ?? "01");
+const gymSelection = ref<GymKeysType>(getLocalStorageItem("gym-selection") ?? "01");
 
 const store = useEntryEvent();
 

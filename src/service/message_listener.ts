@@ -1,13 +1,13 @@
 import type { AttackOptionsType } from "@/domain/attack";
-import type { GymKeys } from "@/domain/gym_pokemon";
-import type { PlayerKeys } from "@/domain/player_pokemon";
+import type { GymKeysType } from "@/domain/gym_pokemon";
+import type { PlayerKeysType } from "@/domain/player_pokemon";
 import type { SupportKeys } from "@/domain/support_card";
 
 interface Props {
   attack: AttackOptionsType;
-  "pokemon-set": PlayerKeys;
-  "start-battle": { gymLeaderKey: GymKeys; playerKey: PlayerKeys; supportCards: Record<SupportKeys, boolean> };
-  "gym-selection": { key: GymKeys };
+  "pokemon-set": PlayerKeysType;
+  "start-battle": { gymLeaderKey: GymKeysType; playerKey: PlayerKeysType; supportCards: Record<SupportKeys, boolean> };
+  "gym-selection": { key: GymKeysType };
   "show-attack-selections": { 0: string; 1: string; 2: string };
   "select-attack": 0 | 1 | 2;
   "reset-battle": unknown;

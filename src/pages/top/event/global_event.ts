@@ -1,5 +1,5 @@
-import { StageAssets, type GymKeys } from "@/domain/gym_pokemon";
-import { CutinImgAssets, PlayerCutinVideoAssets, PlayerOptions, type PlayerKeys } from "@/domain/player_pokemon";
+import { StageAssets, type GymKeysType } from "@/domain/gym_pokemon";
+import { CutinImgAssets, PlayerCutinVideoAssets, PlayerOptions, type PlayerKeysType } from "@/domain/player_pokemon";
 import { GymPokemon } from "@/domain/pokemons/gym";
 import { Myutu } from "@/domain/pokemons/myutu";
 import { Player } from "@/domain/pokemons/player";
@@ -25,9 +25,10 @@ export const useGlobalEvent = defineStore("globalEvent", () => {
     currentScene.value = sceneName;
   };
 
-  const setP1Pokemon = (gymLeaderKey: GymKeys) => {
+  const setP1Pokemon = (gymLeaderKey: GymKeysType) => {
     const pokemon = StageAssets[gymLeaderKey];
     p1Pokemon.value = new GymPokemon(
+      gymLeaderKey,
       pokemon.pokemonName,
       pokemon.hp,
       pokemon.type,
@@ -44,9 +45,10 @@ export const useGlobalEvent = defineStore("globalEvent", () => {
     }
   };
 
-  const setP2Pokemon = (playerKey: PlayerKeys) => {
+  const setP2Pokemon = (playerKey: PlayerKeysType) => {
     const pokemon = PlayerOptions[playerKey];
     const newPlayer = new Player(
+      playerKey,
       pokemon.name,
       pokemon.hp,
       pokemon.type,

@@ -13,7 +13,7 @@ import { useGlobalEvent } from "./global_event";
 import p1CardImgAsset from "@/assets/img/card/card.png";
 import p2CardImgAsset from "@/assets/img/card/card.png";
 import type { Pokemon } from "@/domain/pokemon";
-import { getTypeCompatibility, TypeCompatibility } from "@/domain/pokemonType";
+import { getPokemonCompatibility, TypeCompatibility } from "@/domain/pokemonType";
 import { PinchSituation } from "@/domain/pinchSituation";
 import { Config } from "@/domain/config";
 import type { AttackOptionsType } from "@/domain/attack";
@@ -269,7 +269,8 @@ export const useBattleEvent = defineStore("battleEvent", () => {
       await _showCutInImg(p2Pokemon.value.cutinImgUrl[atkNo === 1 ? 0 : 1]);
     }
 
-    if (isAttackSuccess) {
+    // eslint-disable-next-line no-constant-condition
+    if (isAttackSuccess || true) {
       if (atkNo === 0) {
         await _showCutinMovie();
       }
@@ -504,7 +505,7 @@ export const useBattleEvent = defineStore("battleEvent", () => {
   const _calculateAttackScenario = (p1Pokemon: Pokemon, p2Pokemon: Pokemon) => {
     // 1.ピンチ状況の決定
     //1-a タイプ相性判定
-    const typeCompatibility = getTypeCompatibility(p1Pokemon, p2Pokemon);
+    const typeCompatibility = getPokemonCompatibility(p1Pokemon, p2Pokemon);
     console.log("タイプ相性：" + typeCompatibility);
 
     //  1-b ピンチ状況の決判定
