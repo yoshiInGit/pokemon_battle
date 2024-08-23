@@ -27,7 +27,7 @@ const isShowAtcMenu = computed(() => battleEventStore.isShowAtcMenu);
 const p1CardImgUrl = computed(() => battleEventStore.p1CardImgUrl);
 const p2CardImgUrl = computed(() => battleEventStore.p2CardImgUrl);
 
-const p2CutinImgUrl = computed(() => battleEventStore.p2CutinImgUrl);
+const cutinImg = computed(() => battleEventStore.cutinImg);
 
 const isShowCutin = computed(() => battleEventStore.isShowCutin);
 
@@ -59,7 +59,7 @@ const showCutinVideo = computed(() => battleEventStore.showCutinVideo);
   />
 
   <img
-    :src="p2CutinImgUrl"
+    :src="cutinImg"
     alt=""
     class="cutIn"
     id="cutIn"

@@ -14,6 +14,12 @@ import DeoxysCardAsset from "@/assets/img/card/gym-03.png";
 import GabrielusCardAsset from "@/assets/img/card/gym-04.png";
 import GreninjakoCardAsset from "@/assets/img/card/gym-05.png";
 import CutinImgAsset from "@/assets/img/cutin/cutin.png";
+import Gym01CutinAsset from "@/assets/img/cutin/gym/レシラム.png";
+import Gym02CutinAsset from "@/assets/img/cutin/gym/カプコケコ.png";
+import Gym03CutinAsset from "@/assets/img/cutin/gym/デオキシス.png";
+import Gym04CutinAsset from "@/assets/img/cutin/gym/ガブリアス.png";
+import Gym05CutinAsset from "@/assets/img/cutin/gym/ゲッコウガ.png";
+
 import { PokemonType } from "./pokemonType";
 import type { GymPokemon } from "./pokemons/gym";
 
@@ -27,7 +33,7 @@ export const StageAssets = {
     hp: 300,
     type: PokemonType.Hono,
     rank: 1,
-    atkName: "" as GymPokemon["atkName"],
+    atkName: "あおいほのお",
     cardSrc: ReshiramCardAsset,
     cutinImgSrc: CutinImgAsset,
   },
@@ -40,7 +46,7 @@ export const StageAssets = {
     hp: 300,
     type: PokemonType.Denki,
     rank: 1,
-    atkName: "" as GymPokemon["atkName"],
+    atkName: "ワイルドボルト",
     cardSrc: KapuKokekoCardAsset,
     cutinImgSrc: CutinImgAsset,
   },
@@ -53,7 +59,7 @@ export const StageAssets = {
     hp: 300,
     type: PokemonType.Espa,
     rank: 1,
-    atkName: "" as GymPokemon["atkName"],
+    atkName: "サイコブースト",
     cardSrc: DeoxysCardAsset,
     cutinImgSrc: CutinImgAsset,
   },
@@ -66,7 +72,7 @@ export const StageAssets = {
     hp: 300,
     type: PokemonType.Doragon,
     rank: 1,
-    atkName: "" as GymPokemon["atkName"],
+    atkName: "げきりん",
     cardSrc: GabrielusCardAsset,
     cutinImgSrc: CutinImgAsset,
   },
@@ -79,7 +85,7 @@ export const StageAssets = {
     hp: 300,
     type: PokemonType.Mizu,
     rank: 1,
-    atkName: "" as GymPokemon["atkName"],
+    atkName: "ハイドロポンプ",
     cardSrc: GreninjakoCardAsset,
     cutinImgSrc: CutinImgAsset,
   },
@@ -89,4 +95,12 @@ export type GymKeysType = keyof typeof StageAssets;
 
 export const isGym = (data: unknown): data is GymKeysType => {
   return typeof data === "string" && Object.prototype.hasOwnProperty.call(StageAssets, data);
+};
+
+export const GymCutinImgAssets: Record<GymKeysType, GymPokemon["cutinImgUrl"]> = {
+  "01": Gym01CutinAsset,
+  "02": Gym02CutinAsset,
+  "03": Gym03CutinAsset,
+  "04": Gym04CutinAsset,
+  "05": Gym05CutinAsset,
 };

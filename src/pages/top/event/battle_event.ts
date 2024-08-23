@@ -382,7 +382,7 @@ export const useBattleEvent = defineStore("battleEvent", () => {
 
     await sleep_ms(300);
 
-    await _showCutInImg(p1Pokemon.value.cutinImgUrl[1]);
+    await _showCutInImg(p1Pokemon.value.cutinImgUrl);
 
     anime({
       targets: "#player1Card",
@@ -684,6 +684,7 @@ export const useBattleEvent = defineStore("battleEvent", () => {
 
   return {
     messageText,
+    cutinImg: computed(() => cutinImg.value),
     p1CardImgUrl,
     p2CardImgUrl,
     p2CutinImgUrl,
