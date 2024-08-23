@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { PropType } from "vue";
+import AttackFrameAssets from "@/assets/img/battle/attack-frame.png";
 
 defineProps({
   attackNames: {
@@ -17,18 +18,69 @@ defineProps({
     <div
       class="atkMenu-list"
       id="atkMenu_list"
-      v-text="attackNames[0]"
-    ></div>
+    >
+      <img
+        class="attackFrameImg"
+        :src="AttackFrameAssets"
+        alt=""
+      />
+      <span
+        class="attackNameText"
+        v-text="attackNames[0]"
+      ></span>
+      <span class="attackPercentageStroke">20%</span>
+      <span class="attackPercentage">20%</span>
+
+      <div class="attackAbility">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
     <div
       class="atkMenu-list"
       id="atkMenu_list"
-      v-text="attackNames[1]"
-    ></div>
+    >
+      <img
+        class="attackFrameImg"
+        :src="AttackFrameAssets"
+        alt=""
+      />
+      <span
+        class="attackNameText"
+        v-text="attackNames[1]"
+      ></span>
+      <span class="attackPercentageStroke">50%</span>
+      <span class="attackPercentage">50%</span>
+
+      <div class="attackAbility">
+        <span></span>
+        <span></span>
+        <span style="opacity: 0"></span>
+      </div>
+    </div>
     <div
       class="atkMenu-list"
       id="atkMenu_list"
-      v-text="attackNames[2]"
-    ></div>
+    >
+      <img
+        class="attackFrameImg"
+        :src="AttackFrameAssets"
+        alt=""
+      />
+      <span
+        class="attackNameText"
+        v-text="attackNames[2]"
+      ></span>
+      <span class="attackPercentageStroke">90%</span>
+      <span class="attackPercentage">90%</span>
+
+      <div class="attackAbility">
+        <span></span>
+        <span style="opacity: 0"></span>
+        <span style="opacity: 0"></span>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -47,8 +99,9 @@ defineProps({
 }
 
 .atkMenu-list {
-  width: 60%;
-  height: 15%;
+  position: relative;
+  width: 15em;
+  height: 3em;
 
   display: flex;
   justify-content: center;
@@ -56,11 +109,56 @@ defineProps({
 
   font-size: 270%;
   font-weight: bolder;
+}
 
-  clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+.attackFrameImg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
 
-  background-color: white;
+.attackNameText {
+  display: block;
+  position: absolute;
+  line-height: 1;
+  height: 1em;
+  top: 0;
+  bottom: 0;
+  left: 0.8em;
+  margin: auto;
+}
 
-  cursor: pointer;
+.attackPercentage,
+.attackPercentageStroke {
+  position: absolute;
+  top: 0.8em;
+  right: 3em;
+  font-size: 0.6em;
+  filter: drop-shadow(0 0 2px black);
+  color: white;
+}
+.attackPercentageStroke {
+  font-weight: bold;
+  color: black;
+}
+
+.attackAbility {
+  position: absolute;
+  right: 2em;
+  bottom: 0.875em;
+  display: flex;
+  gap: 3px;
+  justify-self: flex-start;
+}
+
+.attackAbility span {
+  background-color: orange;
+  display: block;
+  height: 0.3em;
+  width: 0.75em;
+}
+
+.attackAbility span:nth-of-type(3) {
+  border-radius: 0 100vh 100vh 0;
 }
 </style>
