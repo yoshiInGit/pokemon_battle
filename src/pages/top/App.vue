@@ -3,7 +3,7 @@ import EntryScene from "./scene/EntryScene.vue";
 import BattleScene from "./scene/BattleScene.vue";
 import BgmIconAsset from "@/assets/img/entry/mute-icon.webp";
 import { useGlobalEvent } from "./event/global_event";
-import { onBeforeUnmount, ref } from "vue";
+import { onBeforeUnmount, onMounted, ref } from "vue";
 import { receiveMessage } from "@/service/message_listener";
 import { useBattleEvent } from "./event/battle_event";
 import { useEntryEvent } from "./event/entry_event";
@@ -38,6 +38,10 @@ const onClickBgmBtn = () => {
   showBgmBtn.value = false;
   entryEventStore.onStartTapped();
 };
+
+onMounted(() => {
+  entryEventStore.onStartTapped();
+});
 
 onBeforeUnmount(() => {
   clearInterval(intervalId);

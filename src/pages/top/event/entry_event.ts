@@ -16,10 +16,17 @@ const snd_bgm = new Howl({ src: startBgmUrl });
 const snd_piron = new Howl({ src: pironUrl });
 const snd_shiiin = new Howl({ src: shiiinUrl });
 
+const fadeoutAll = () => {
+  snd_bgm.fade(100, 0, 500);
+  snd_piron.fade(100, 0, 500);
+  snd_shiiin.fade(100, 0, 500);
+};
+
 export const useEntryEvent = defineStore("entryEvent", () => {
   const playerKey = ref<PlayerKeysType | null>(null);
 
   const $reset = () => {
+    fadeoutAll();
     playerKey.value = null;
   };
 

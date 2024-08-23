@@ -24,6 +24,14 @@ const sndSunn = new Howl({ src: sndSunnUrl });
 const sndZutinn = new Howl({ src: sndZutiinUrl });
 const sndStuidam = new Howl({ src: sndStudiamUrl });
 const sndKya = new Howl({ src: sndKyaUrl });
+
+const fadeAll = () => {
+  sndBgm.fade(100, 0, 500);
+  sndSunn.fade(100, 0, 500);
+  sndZutinn.fade(100, 0, 500);
+  sndStuidam.fade(100, 0, 500);
+  sndKya.fade(100, 0, 500);
+};
 // const sndPiron = new Howl({ src: pironUrl });
 
 export const useBattleEvent = defineStore("battleEvent", () => {
@@ -59,6 +67,7 @@ export const useBattleEvent = defineStore("battleEvent", () => {
   const battleReset = ref<boolean>(false);
 
   const $reset = () => {
+    fadeAll();
     messageText.value = "";
     isBattling.value = false;
     isShowAtcMenu.value = false;
