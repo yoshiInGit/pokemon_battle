@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import anime from "animejs";
-import { fadein, hide, show, sleep_ms } from "@/helper";
+import { fadein, show, sleep_ms } from "@/helper";
 import { Howl } from "howler";
 import startBgmUrl from "@/assets/sound/bgm/start_music.mp3";
 import pironUrl from "@/assets/sound/effect/piron.mp3";
@@ -29,7 +29,6 @@ export const useEntryEvent = defineStore("entryEvent", () => {
 
   const onStartTapped = () => {
     snd_bgm.play();
-    hide({ id: "press_start" });
   };
 
   const onBattle = async ({
