@@ -1,5 +1,4 @@
 import { defineStore } from "pinia";
-import anime from "animejs";
 import { fadein, show, sleep_ms } from "@/helper";
 import { Howl } from "howler";
 import startBgmUrl from "@/assets/sound/bgm/start_music.mp3";
@@ -59,14 +58,6 @@ export const useEntryEvent = defineStore("entryEvent", () => {
 
     await sleep_ms(400);
 
-    anime({
-      targets: "#pokemon",
-      translateX: ["-50%", "-50%"],
-      translateY: ["-50%", "-1000%"],
-      duration: 1000,
-      easing: "easeInBack",
-    });
-    await sleep_ms(500);
     snd_shiiin.play();
     await sleep_ms(700);
 
