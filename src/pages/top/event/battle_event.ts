@@ -269,8 +269,7 @@ export const useBattleEvent = defineStore("battleEvent", () => {
       await _showCutInImg(p2Pokemon.value.cutinImgUrl[atkNo === 1 ? 0 : 1]);
     }
 
-    // eslint-disable-next-line no-constant-condition
-    if (isAttackSuccess || true) {
+    if (isAttackSuccess) {
       if (atkNo === 0) {
         await _showCutinMovie();
       }
