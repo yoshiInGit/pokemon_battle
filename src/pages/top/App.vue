@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import EntryScene from "./scene/EntryScene.vue";
 import BattleScene from "./scene/BattleScene.vue";
+import BgmIconAsset from "@/assets/img/entry/mute-icon.webp";
 import { useGlobalEvent } from "./event/global_event";
 import { onBeforeUnmount, ref } from "vue";
 import { receiveMessage } from "@/service/message_listener";
@@ -32,6 +33,12 @@ const intervalId = setInterval(() => {
   }
 }, 0.5 * 1000);
 
+const showBgmBtn = ref<boolean>(true);
+const onClickBgmBtn = () => {
+  showBgmBtn.value = false;
+  entryEventStore.onStartTapped();
+};
+
 onBeforeUnmount(() => {
   clearInterval(intervalId);
 });
@@ -54,6 +61,16 @@ onBeforeUnmount(() => {
         :key="`battle_${key}`"
         v-if="globalEventStore.currentScene === 'battle'"
       />
+      <button
+        v-if="showBgmBtn"
+        class="bgmBtn"
+        @click="onClickBgmBtn"
+      >
+        <img
+          class="bgmBtnIcon"
+          :src="BgmIconAsset"
+        />
+      </button>
     </div>
   </div>
 </template>
@@ -78,5 +95,24 @@ onBeforeUnmount(() => {
   aspect-ratio: 2 / 1;
   position: absolute;
   overflow: hidden;
+}
+
+.bgmBtn {
+  position: absolute;
+  top: 0;
+  right: 1em;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: 0.5em;
+  padding: 0.5em;
+}
+.bgmBtn:hover {
+  background-color: #aeaeae;
+}
+
+.bgmBtnIcon {
+  width: 6em;
+  height: auto;
 }
 </style>

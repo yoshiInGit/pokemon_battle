@@ -28,17 +28,7 @@ export const useEntryEvent = defineStore("entryEvent", () => {
   };
 
   const onStartTapped = () => {
-    // anime({
-    //     targets: ".ball",
-    //     rotateY: 90,
-    //     duration: 1000,
-    //     direction: "alternate",
-    //     loop: true,
-    //     easing: "easeInOutSine",
-    // });
-
     snd_bgm.play();
-
     hide({ id: "press_start" });
   };
 
