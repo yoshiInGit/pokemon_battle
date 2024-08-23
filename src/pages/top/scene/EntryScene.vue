@@ -167,6 +167,8 @@ onMounted(() => {
   margin: auto;
   bottom: 5%;
   left: 10%;
+  width: 29em;
+  height: auto;
 }
 
 .veil {
