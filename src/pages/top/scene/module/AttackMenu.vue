@@ -1,7 +1,12 @@
 <script setup lang="ts">
-// import {useBattleEvent} from '../../event/battle_event'
+import type { PropType } from "vue";
 
-// const battleEventStore = useBattleEvent();
+defineProps({
+  attackNames: {
+    type: Array as PropType<Array<string>>,
+    required: true,
+  },
+});
 </script>
 
 <template>
@@ -12,21 +17,18 @@
     <div
       class="atkMenu-list"
       id="atkMenu_list"
-    >
-      10万ボルト
-    </div>
+      v-text="attackNames[0]"
+    ></div>
     <div
       class="atkMenu-list"
       id="atkMenu_list"
-    >
-      10万ボルト
-    </div>
+      v-text="attackNames[1]"
+    ></div>
     <div
       class="atkMenu-list"
       id="atkMenu_list"
-    >
-      10万ボルト
-    </div>
+      v-text="attackNames[2]"
+    ></div>
   </div>
 </template>
 

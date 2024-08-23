@@ -32,6 +32,8 @@ const cutinImg = computed(() => battleEventStore.cutinImg);
 const isShowCutin = computed(() => battleEventStore.isShowCutin);
 
 const showCutinVideo = computed(() => battleEventStore.showCutinVideo);
+
+const p2AttackNames = computed(() => battleEventStore.p2AttackNames);
 </script>
 
 <template>
@@ -84,7 +86,10 @@ const showCutinVideo = computed(() => battleEventStore.showCutinVideo);
     id="veil"
   ></div>
 
-  <AttackMenu v-show="isShowAtcMenu" />
+  <AttackMenu
+    v-show="isShowAtcMenu"
+    :attack-names="p2AttackNames"
+  />
 
   <div
     class="winLoseWrapper"

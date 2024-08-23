@@ -695,6 +695,7 @@ export const useBattleEvent = defineStore("battleEvent", () => {
     p1HpRate,
     p2HpRate,
     p2CutinVideoSrc: computed(() => globalEventStore.p2Pokemon.value.cutinVideoUrl),
+    p2AttackNames: computed(() => globalEventStore.p2Pokemon.value.atkNames),
     isShowAtcMenu,
     isShowCutin,
     showCutinVideo: computed(() => showCutinVideo.value),

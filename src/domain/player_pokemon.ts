@@ -41,7 +41,7 @@ export const PlayerOptions = {
     hp: 700,
     type: PokemonType.Kusa,
     rank: 3,
-    atkNames: ["atk01", "atk02", "atk03"] as Player["atkNames"],
+    atkNames: ["ハイドロポンプ", "なみのり", "みずでっぽう"] as Player["atkNames"],
   },
   "02": {
     src: Player02CardAsset,
@@ -49,7 +49,7 @@ export const PlayerOptions = {
     hp: 700,
     type: PokemonType.Doragon,
     rank: 8,
-    atkNames: ["atk01", "atk02", "atk03"] as Player["atkNames"],
+    atkNames: ["りゅうせいぐん", "りゅうのはどう", "ドラゴンテール"] as Player["atkNames"],
   },
   "03": {
     src: Player03CardAsset,
@@ -57,7 +57,7 @@ export const PlayerOptions = {
     hp: 700,
     type: PokemonType.Aku,
     rank: 4,
-    atkNames: ["atk01", "atk02", "atk03"] as Player["atkNames"],
+    atkNames: ["じごくづき", "つじぎり", "ダメおし"] as Player["atkNames"],
   },
   "04": {
     src: Player04CardAsset,
@@ -65,7 +65,7 @@ export const PlayerOptions = {
     hp: 700,
     type: PokemonType.Doragon,
     rank: 1,
-    atkNames: ["atk01", "atk02", "atk03"] as Player["atkNames"],
+    atkNames: ["げきりん", "りゅうのはどう", "ドラゴンテール"] as Player["atkNames"],
   },
   "05": {
     src: Player05CardAsset,
@@ -73,7 +73,7 @@ export const PlayerOptions = {
     hp: 700,
     type: PokemonType.Iwa,
     rank: 2,
-    atkNames: ["atk01", "atk02", "atk03"] as Player["atkNames"],
+    atkNames: ["ドリルライナー", "いわなだれ", "アクセルロック"] as Player["atkNames"],
   },
   "06": {
     src: Player06CardAsset,
@@ -81,7 +81,7 @@ export const PlayerOptions = {
     hp: 700,
     type: PokemonType.Iwa,
     rank: 6,
-    atkNames: ["atk01", "atk02", "atk03"] as Player["atkNames"],
+    atkNames: ["がんせきふうじ", "いわおとし", "いわなだれ"] as Player["atkNames"],
   },
   "07": {
     src: Player07CardAsset,
@@ -89,7 +89,7 @@ export const PlayerOptions = {
     hp: 700,
     type: PokemonType.Kusa,
     rank: 5,
-    atkNames: ["atk01", "atk02", "atk03"] as Player["atkNames"],
+    atkNames: ["リーフブレード", "マジカルリーフ", "はっぱカッター"] as Player["atkNames"],
   },
   "08": {
     src: Player08CardAsset,
@@ -97,7 +97,7 @@ export const PlayerOptions = {
     hp: 700,
     type: PokemonType.Denki,
     rank: 7,
-    atkNames: ["atk01", "atk02", "atk03"] as Player["atkNames"],
+    atkNames: ["ボルトチェンジ", "でんきショック", "ほっぺすりすり"] as Player["atkNames"],
   },
 };
 
