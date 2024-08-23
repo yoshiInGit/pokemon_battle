@@ -56,22 +56,28 @@ export const useBattleEvent = defineStore("battleEvent", () => {
   const p1HpRate = computed(() => p1Hp.value / p1Pokemon.value.hp);
   const p2HpRate = computed(() => p2Hp.value / p2Pokemon.value.hp);
 
+  const battleReset = ref<boolean>(false);
+
   const $reset = () => {
     messageText.value = "";
     isBattling.value = false;
     isShowAtcMenu.value = false;
     isShowCutin.value = false;
     showCutinVideo.value = false;
+    p1CardImgUrl.value = p1CardImgAsset;
+    p2CardImgUrl.value = p2CardImgAsset;
     p2CutinImgUrl.value = "";
     cutinImg.value = "";
     p1Name.value = "---";
     p2Name.value = "---";
     p1Hp.value = 0;
     p2Hp.value = 0;
+    battleReset.value = true;
   };
 
   // 初期演出
   const startBattle = async () => {
+    battleReset.value = false;
     const p1Pokemon = globalEventStore.p1Pokemon;
     const p2Pokemon = globalEventStore.p2Pokemon;
 
@@ -80,15 +86,19 @@ export const useBattleEvent = defineStore("battleEvent", () => {
     sndBgm.fade(0, 0.2, 2000);
 
     await fadeout({ targets: "#veil", time_ms: 2000, easing: "easeInCirc" });
+    if (battleReset.value) return;
 
     hide({ id: "veil" });
 
     await sleep_ms(800);
+    if (battleReset.value) return;
 
     sndSunn.play();
     await fadein({ targets: "#player1Card,#player2Card", time_ms: 500 });
+    if (battleReset.value) return;
 
     await sleep_ms(300);
+    if (battleReset.value) return;
 
     anime({
       targets: "#player1Card,#player2Card",
@@ -97,6 +107,7 @@ export const useBattleEvent = defineStore("battleEvent", () => {
       easing: "easeOutQuad",
     });
     await sleep_ms(300);
+    if (battleReset.value) return;
 
     p1CardImgUrl.value = p1Pokemon.value.cardImgUrl;
     p2CardImgUrl.value = p2Pokemon.value.cardImgUrl;
@@ -108,14 +119,17 @@ export const useBattleEvent = defineStore("battleEvent", () => {
       easing: "easeInQuad",
     });
     await sleep_ms(300);
+    if (battleReset.value) return;
     sndZutinn.play();
 
     await sleep_ms(400);
+    if (battleReset.value) return;
 
     sndStuidam.play();
     sndKya.play();
 
     await sleep_ms(300);
+    if (battleReset.value) return;
 
     p1Name.value = p1Pokemon.value.name;
     p2Name.value = p2Pokemon.value.name;
@@ -138,6 +152,7 @@ export const useBattleEvent = defineStore("battleEvent", () => {
       },
     });
     await sleep_ms(1500);
+    if (battleReset.value) return;
 
     _preBattle();
   };
@@ -152,6 +167,7 @@ export const useBattleEvent = defineStore("battleEvent", () => {
     console.log({ necessaryTurn, p2AttackPower });
 
     for (let turnCnt = 0; turnCnt < necessaryTurn * 2; turnCnt++) {
+      if (battleReset.value) return;
       const isP2Turn = turnCnt % 2 == 0;
 
       // const attackingPokemon = isP2Turn ? p2Pokemon : p1Pokemon;
@@ -168,6 +184,7 @@ export const useBattleEvent = defineStore("battleEvent", () => {
         easing: "easeInBack",
       });
       await sleep_ms(250);
+      if (battleReset.value) return;
 
       //点滅アニメーション
       const damageAnime = anime({
@@ -195,6 +212,7 @@ export const useBattleEvent = defineStore("battleEvent", () => {
           }
         },
       });
+      if (battleReset.value) return;
 
       _shakeStage(200);
 
@@ -205,8 +223,10 @@ export const useBattleEvent = defineStore("battleEvent", () => {
         easing: "easeOutExpo",
       });
       await sleep_ms(100);
+      if (battleReset.value) return;
 
       await sleep_ms(500);
+      if (battleReset.value) return;
 
       damageAnime.pause();
       anime({
@@ -215,11 +235,14 @@ export const useBattleEvent = defineStore("battleEvent", () => {
         opacity: 1,
       });
       await sleep_ms(300);
+      if (battleReset.value) return;
     }
+    if (battleReset.value) return;
 
     await _openMessageBox();
     await _typeMessage(p2Pokemon.value.name + "　ピンチ！！");
     await sleep_ms(700);
+    if (battleReset.value) return;
 
     isShowAtcMenu.value = true;
     postMessage("show-attack-selections", {
@@ -248,29 +271,37 @@ export const useBattleEvent = defineStore("battleEvent", () => {
       attackSuccessRate = Config.weakAttackSuccessRate;
       p2CutinImgUrl.value = p2Pokemon.value.cutinImgUrl[1];
     }
+    if (battleReset.value) return;
 
     console.log("攻撃成功率: " + attackSuccessRate);
 
     const isAttackSuccess = _getRandomBinary(attackSuccessRate);
+    if (battleReset.value) return;
 
     //演出開始
     isShowAtcMenu.value = false;
     await _closeMessageBog();
+    if (battleReset.value) return;
 
     await sleep_ms(300);
+    if (battleReset.value) return;
 
     //攻撃メッセージ
     await _openMessageBox();
     await _typeMessage(p2Pokemon.value.name + " は、\n" + p2Pokemon.value.atkNames[atkNo] + "　を　はなった！");
+    if (battleReset.value) return;
     await sleep_ms(1000);
     await _closeMessageBog();
+    if (battleReset.value) return;
 
     if (atkNo !== 0) {
       await _showCutInImg(p2Pokemon.value.cutinImgUrl[atkNo === 1 ? 0 : 1]);
     }
 
+    if (battleReset.value) return;
     if (isAttackSuccess) {
       if (atkNo === 0) {
+        if (battleReset.value) return;
         await _showCutinMovie();
       }
 
@@ -282,6 +313,7 @@ export const useBattleEvent = defineStore("battleEvent", () => {
         easing: "easeInBack",
       });
       await sleep_ms(250);
+      if (battleReset.value) return;
 
       const damageAnime = anime({
         targets: "#player1Card",
@@ -291,6 +323,7 @@ export const useBattleEvent = defineStore("battleEvent", () => {
         easing: "steps(3)", // イージング関数
         iterations: Infinity, // 繰り返し回数（無限回）
       });
+      if (battleReset.value) return;
 
       //HPアニメーション
       const targetHp = { value: p1Hp.value };
@@ -304,6 +337,7 @@ export const useBattleEvent = defineStore("battleEvent", () => {
       } else if (atkNo == 2) {
         damage = Config.weakAttackPower;
       }
+      if (battleReset.value) return;
       anime({
         targets: targetHp,
         value: p1Hp.value - damage,
@@ -318,6 +352,7 @@ export const useBattleEvent = defineStore("battleEvent", () => {
           p1Hp.value = targetHp.value;
         },
       });
+      if (battleReset.value) return;
 
       _shakeStage(400);
 
@@ -329,14 +364,18 @@ export const useBattleEvent = defineStore("battleEvent", () => {
         easing: "easeOutExpo",
       });
       await sleep_ms(100);
+      if (battleReset.value) return;
 
       await sleep_ms(500);
+      if (battleReset.value) return;
 
       if (damage === Config.strongAttackPower) {
         await _openMessageBox();
         await _typeMessage("こうか　は　ばつぐん　だ！！！");
+        if (battleReset.value) return;
         await sleep_ms(1000);
         await _closeMessageBog();
+        if (battleReset.value) return;
 
         await sleep_ms(1000);
       }
@@ -347,6 +386,7 @@ export const useBattleEvent = defineStore("battleEvent", () => {
         duration: 0,
         opacity: 1,
       });
+      if (battleReset.value) return;
 
       await sleep_ms(400);
 
@@ -356,6 +396,7 @@ export const useBattleEvent = defineStore("battleEvent", () => {
       }
     } else {
       await sleep_ms(400);
+      if (battleReset.value) return;
 
       // 味方の攻撃！（失敗する）
       anime({
@@ -365,11 +406,14 @@ export const useBattleEvent = defineStore("battleEvent", () => {
         easing: "easeOutExpo",
       });
       await sleep_ms(400);
+      if (battleReset.value) return;
 
       await _openMessageBox();
       await _typeMessage("こうげき　は　しっぱい　した．．．");
+      if (battleReset.value) return;
       await sleep_ms(1000);
       await _closeMessageBog();
+      if (battleReset.value) return;
 
       await sleep_ms(500);
     }
@@ -377,12 +421,15 @@ export const useBattleEvent = defineStore("battleEvent", () => {
     // 敵の攻撃！
     await _openMessageBox();
     await _typeMessage(p1Pokemon.value.name + " は、\n" + p1Pokemon.value.atkName + "　を　はなった！");
+    if (battleReset.value) return;
     await sleep_ms(1000);
     await _closeMessageBog();
+    if (battleReset.value) return;
 
     await sleep_ms(300);
 
     await _showCutInImg(p1Pokemon.value.cutinImgUrl);
+    if (battleReset.value) return;
 
     anime({
       targets: "#player1Card",
@@ -391,6 +438,7 @@ export const useBattleEvent = defineStore("battleEvent", () => {
       easing: "easeInBack",
     });
     await sleep_ms(250);
+    if (battleReset.value) return;
 
     const damageAnime = anime({
       targets: "#player2Card",
@@ -400,6 +448,7 @@ export const useBattleEvent = defineStore("battleEvent", () => {
       easing: "steps(3)", // イージング関数
       iterations: Infinity, // 繰り返し回数（無限回）
     });
+    if (battleReset.value) return;
 
     //HPアニメーション
     const targetHp = { value: p2Hp.value };
@@ -413,8 +462,10 @@ export const useBattleEvent = defineStore("battleEvent", () => {
         p2Hp.value = targetHp.value;
       },
     });
+    if (battleReset.value) return;
 
     _shakeStage(600);
+    if (battleReset.value) return;
 
     anime({
       targets: "#player1Card",
@@ -423,8 +474,10 @@ export const useBattleEvent = defineStore("battleEvent", () => {
       easing: "easeOutExpo",
     });
     await sleep_ms(100);
+    if (battleReset.value) return;
 
     await sleep_ms(2000);
+    if (battleReset.value) return;
 
     damageAnime.pause();
     anime({
@@ -434,6 +487,7 @@ export const useBattleEvent = defineStore("battleEvent", () => {
     });
 
     await sleep_ms(400);
+    if (battleReset.value) return;
 
     _onLose();
   };
@@ -446,10 +500,12 @@ export const useBattleEvent = defineStore("battleEvent", () => {
       duration: 800, // 点滅にかかる時間（ミリ秒）
       easing: "easeInCubic", // イージング関数
     });
+    if (battleReset.value) return;
     await sleep_ms(800);
 
     await _openMessageBox();
     await _typeMessage(p2Pokemon.value.name + "　は　ショウリ　した！");
+    if (battleReset.value) return;
     await sleep_ms(1000);
 
     _onGameEnded("win");
@@ -464,9 +520,11 @@ export const useBattleEvent = defineStore("battleEvent", () => {
       easing: "easeInCubic", // イージング関数
     });
     await sleep_ms(800);
+    if (battleReset.value) return;
 
     await _openMessageBox();
     await _typeMessage(p2Pokemon.value.name + "　は　ハイボク　した．．．");
+    if (battleReset.value) return;
     await sleep_ms(1000);
 
     _onGameEnded("lose");
@@ -474,6 +532,7 @@ export const useBattleEvent = defineStore("battleEvent", () => {
 
   const _onGameEnded = async (result: "win" | "lose") => {
     await sleep_ms(800);
+    if (battleReset.value) return;
 
     anime({
       targets: "#winLoseWrapper",
@@ -482,6 +541,7 @@ export const useBattleEvent = defineStore("battleEvent", () => {
       easing: "linear", // イージング関数
     });
     await sleep_ms(1300);
+    if (battleReset.value) return;
 
     if (result == "win") {
       anime({
@@ -490,6 +550,7 @@ export const useBattleEvent = defineStore("battleEvent", () => {
         duration: 1400,
         easing: "easeOutBounce",
       });
+      if (battleReset.value) return;
     } else {
       anime({
         targets: "#lose",
@@ -497,6 +558,7 @@ export const useBattleEvent = defineStore("battleEvent", () => {
         duration: 1400,
         easing: "easeOutBounce",
       });
+      if (battleReset.value) return;
     }
   };
 
