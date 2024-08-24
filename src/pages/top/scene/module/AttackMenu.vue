@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { PropType } from "vue";
 import AttackFrameAssets from "@/assets/img/battle/attack-frame.png";
+import { useGlobalEvent } from "../../event/global_event";
+const globalEventStore = useGlobalEvent();
 
 defineProps({
   attackNames: {
@@ -56,7 +58,7 @@ defineProps({
       <div class="attackAbility">
         <span></span>
         <span></span>
-        <span style="opacity: 0"></span>
+        <span :style="{ opacity: globalEventStore.useSupportBoostEnergy ? 1 : 0 }"></span>
       </div>
     </div>
     <div
@@ -77,8 +79,8 @@ defineProps({
 
       <div class="attackAbility">
         <span></span>
-        <span style="opacity: 0"></span>
-        <span style="opacity: 0"></span>
+        <span :style="{ opacity: globalEventStore.useSupportBoostEnergy ? 1 : 0 }"></span>
+        <span :style="{ opacity: globalEventStore.useSupportBoostEnergy ? 1 : 0 }"></span>
       </div>
     </div>
   </div>
