@@ -379,11 +379,21 @@ export const useBattleEvent = defineStore("battleEvent", () => {
       if (battleReset.value) return;
 
       if (damage === Config.strongAttackPower) {
-        await _openMessageBox();
-        await _typeMessage("こうか　は　ばつぐん　だ！！！");
-        if (battleReset.value) return;
-        await sleep_ms(1000);
-        await _closeMessageBog();
+        const typeCompatibility = getPokemonCompatibility(p1Pokemon.value, p2Pokemon.value);
+        if (typeCompatibility === TypeCompatibility.Good || globalEventStore.useSupportBoostEnergy) {
+          await _openMessageBox();
+          await _typeMessage("こうか　は　ばつぐん　だ！！！");
+          if (battleReset.value) return;
+          await sleep_ms(1000);
+          await _closeMessageBog();
+        } else if (typeCompatibility === TypeCompatibility.Bad) {
+          await _openMessageBox();
+          await _typeMessage("こうか　は　いまひとつ…");
+          if (battleReset.value) return;
+          await sleep_ms(1000);
+          await _closeMessageBog();
+        }
+
         if (battleReset.value) return;
 
         await sleep_ms(1000);
