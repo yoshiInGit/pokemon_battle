@@ -40,7 +40,9 @@ export const useGlobalEvent = defineStore("globalEvent", () => {
   };
 
   const setSupportUsage = (supportKey: SupportKeys) => {
-    if (supportKey === "01") {
+    const params = new URL(location.href).searchParams;
+
+    if (supportKey === "01" || params.get("bst") === "1") {
       useSupportBoostEnergy.value = true;
     }
   };
