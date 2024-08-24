@@ -72,6 +72,7 @@ const p2AttackNames = computed(() => battleEventStore.p2AttackNames);
     class="cutinVideo"
     id="cutin-video"
     :src="battleEventStore.p2CutinVideoSrc"
+    muted
   ></video>
 
   <MessageBox />
