@@ -34,7 +34,9 @@ onMounted(() => {
 
   receiveMessage("start-battle").then((battleInfo) => {
     const supportCards: Array<SupportKeys> = [];
-    Object.keys(battleInfo.supportCards).forEach((key) => supportCards.push(key as SupportKeys));
+    Object.keys(battleInfo.supportCards).forEach(
+      (key) => battleInfo.supportCards[key as SupportKeys] && supportCards.push(key as SupportKeys),
+    );
     store.onBattle({
       gymLeaderKey: battleInfo.gymLeaderKey,
       playerKey: battleInfo.playerKey,
