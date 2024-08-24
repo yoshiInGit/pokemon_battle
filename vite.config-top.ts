@@ -15,7 +15,7 @@ export default defineConfig({
     },
   },
   build: {
-    outDir: "./game",
+    outDir: "./docs",
     emptyOutDir: false,
     rollupOptions: {
       input: {
