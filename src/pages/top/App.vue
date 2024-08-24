@@ -7,7 +7,7 @@ import { onBeforeUnmount, onMounted, ref } from "vue";
 import { receiveMessage } from "@/service/message_listener";
 import { useBattleEvent } from "./event/battle_event";
 import { useEntryEvent } from "./event/entry_event";
-import { sendScreen } from "@/service/screen_capture";
+// import { sendScreen } from "@/service/screen_capture";
 
 const globalEventStore = useGlobalEvent();
 const battleEventStore = useBattleEvent();
@@ -27,11 +27,11 @@ const listenReset = () => {
 listenReset();
 
 const containerElement = ref<HTMLElement>();
-const intervalId = setInterval(() => {
-  if (containerElement.value !== undefined) {
-    sendScreen(containerElement.value);
-  }
-}, 0.5 * 1000);
+// const intervalId = setInterval(() => {
+//   if (containerElement.value !== undefined) {
+//     sendScreen(containerElement.value);
+//   }
+// }, 2 * 1000);
 
 const showBgmBtn = ref<boolean>(true);
 const onClickBgmBtn = () => {
@@ -44,7 +44,7 @@ onMounted(() => {
 });
 
 onBeforeUnmount(() => {
-  clearInterval(intervalId);
+  // clearInterval(intervalId);
 });
 </script>
 
