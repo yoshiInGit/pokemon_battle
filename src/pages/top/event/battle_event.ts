@@ -360,7 +360,7 @@ export const useBattleEvent = defineStore("battleEvent", () => {
           }
           p1Hp.value = targetHp.value;
         },
-      });
+      }).finished;
       if (battleReset.value) return;
 
       _shakeStage(400);
