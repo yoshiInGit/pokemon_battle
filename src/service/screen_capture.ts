@@ -3,7 +3,7 @@ import html2canvas from "html2canvas";
 const channel = new BroadcastChannel("screen-capture");
 export const sendScreen = (element: HTMLElement) => {
   html2canvas(element, {
-    scale: 0.25,
+    scale: 0.1,
   }).then((canvas) => {
     channel.postMessage({ base64: canvas.toDataURL() });
   });
