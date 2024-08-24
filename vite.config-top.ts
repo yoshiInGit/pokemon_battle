@@ -1,31 +1,29 @@
-import { fileURLToPath } from 'node:url'
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import { viteSingleFile } from 'vite-plugin-singlefile'
-import path from 'node:path';
+import { fileURLToPath } from "node:url";
+import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
+import { viteSingleFile } from "vite-plugin-singlefile";
+import path from "node:path";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    vue(),
-    viteSingleFile(),
-  ],
+  plugins: [vue(), viteSingleFile()],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'src'),
-    }
+      "@": path.resolve(__dirname, "src"),
+    },
   },
   build: {
+    outDir: "./game",
     emptyOutDir: false,
     rollupOptions: {
       input: {
         main: "index.html",
       },
-    }
+    },
   },
   server: {
-    open: "index.html"
-  }
+    open: "index.html",
+  },
 });
