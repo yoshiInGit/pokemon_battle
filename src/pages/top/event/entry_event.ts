@@ -11,7 +11,7 @@ import type { GymKeysType } from "@/domain/gym_pokemon";
 import type { SupportKeys } from "@/domain/support_card";
 // import { useBattleEvent } from './battle_event';
 
-const snd_bgm = new Howl({ src: startBgmUrl });
+const snd_bgm = new Howl({ src: startBgmUrl, loop: true });
 const snd_piron = new Howl({ src: pironUrl });
 const snd_shiiin = new Howl({ src: shiiinUrl });
 

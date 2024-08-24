@@ -19,7 +19,7 @@ import { Config } from "@/domain/config";
 import type { AttackOptionsType } from "@/domain/attack";
 import { postMessage } from "@/service/message_listener";
 
-const sndBgm = new Howl({ src: boltBgmUrl, volume: 0 });
+const sndBgm = new Howl({ src: boltBgmUrl, volume: 0, loop: true });
 const sndSunn = new Howl({ src: sndSunnUrl });
 const sndZutinn = new Howl({ src: sndZutiinUrl });
 const sndStuidam = new Howl({ src: sndStudiamUrl });
