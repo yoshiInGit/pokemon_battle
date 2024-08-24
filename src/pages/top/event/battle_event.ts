@@ -347,7 +347,7 @@ export const useBattleEvent = defineStore("battleEvent", () => {
         damage = Config.weakAttackPower;
       }
       if (battleReset.value) return;
-      anime({
+      const hpDamageAnim = anime({
         targets: targetHp,
         value: p1Hp.value - damage,
         duration: 2600,
@@ -409,6 +409,7 @@ export const useBattleEvent = defineStore("battleEvent", () => {
 
       await sleep_ms(400);
 
+      await hpDamageAnim;
       if (p1Hp.value <= 0) {
         _onWin();
         return;
