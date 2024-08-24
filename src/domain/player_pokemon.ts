@@ -16,8 +16,8 @@ import Player04Cutin01Asset from "@/assets/img/cutin/オノノクス/りゅの�
 import Player04Cutin02Asset from "@/assets/img/cutin/オノノクス/ドラゴンテール.png";
 import Player05Cutin01Asset from "@/assets/img/cutin/ルガルガン/いわなだれ.png";
 import Player05Cutin02Asset from "@/assets/img/cutin/ルガルガン/アクセルロック.png";
-import Player06Cutin01Asset from "@/assets/img/cutin/イワーク/いわなだれ.png";
-import Player06Cutin02Asset from "@/assets/img/cutin/イワーク/いわおとし.png";
+import Player06Cutin01Asset from "@/assets/img/cutin/イワーク/いわおとし.png";
+import Player06Cutin02Asset from "@/assets/img/cutin/イワーク/いわなだれ.png";
 import Player07Cutin01Asset from "@/assets/img/cutin/リーフィア/マジカルリーフ.png";
 import Player07Cutin02Asset from "@/assets/img/cutin/リーフィア/はっぱカッター.png";
 import Player08Cutin01Asset from "@/assets/img/cutin/デデンネ/でんきショック.png";
