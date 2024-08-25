@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite -c vite.config-dev.ts",
-    "build": "run-p type-check \"build-only {@}\" --",
+    "build": "run-p type-check \"build-local {@}\" --",
+    "build-vercel": "vite build -c vite.config-vercel.ts",
     "preview": "vite preview",
-    "build-only": "vite build -c vite.config-top.ts && vite build -c vite.config-control.ts",
+    "build-local": "vite build -c vite.config-top.ts && vite build -c vite.config-control.ts",
     "type-check": "vue-tsc --build --force",
     "lint": "eslint --fix",
     "format": "prettier --write ./src",
